@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity", "EulersIdentity\EulersIdentity.csproj", "{988B567D-546B-AFC8-73FB-D0BDA1FBF78D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity.ConsoleApp", "EulersIdentity.ConsoleApp\EulersIdentity.ConsoleApp.csproj", "{B8100AF1-B7B3-D067-9C5E-B7F8F5F2BC82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity.Test", "EulersIdentity.Test\EulersIdentity.Test.csproj", "{C4B6201B-FA04-82C8-EA74-D44F51753C9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\copilot-instructions.md = .github\copilot-instructions.md
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{631637A9-7BDD-43C2-AFE2-81955EBE7AE5}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\allow-pr-only-from-epic-branches.yml = .github\workflows\allow-pr-only-from-epic-branches.yml
+		.github\workflows\BuildAndTest.yml = .github\workflows\BuildAndTest.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\FailIfInsufficientCodeCoverage.ps1 = .github\workflows\FailIfInsufficientCodeCoverage.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{67E4324D-585D-460C-8972-0D0231919E4A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{988B567D-546B-AFC8-73FB-D0BDA1FBF78D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{988B567D-546B-AFC8-73FB-D0BDA1FBF78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{988B567D-546B-AFC8-73FB-D0BDA1FBF78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{988B567D-546B-AFC8-73FB-D0BDA1FBF78D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8100AF1-B7B3-D067-9C5E-B7F8F5F2BC82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8100AF1-B7B3-D067-9C5E-B7F8F5F2BC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8100AF1-B7B3-D067-9C5E-B7F8F5F2BC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8100AF1-B7B3-D067-9C5E-B7F8F5F2BC82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4B6201B-FA04-82C8-EA74-D44F51753C9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4B6201B-FA04-82C8-EA74-D44F51753C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4B6201B-FA04-82C8-EA74-D44F51753C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4B6201B-FA04-82C8-EA74-D44F51753C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{631637A9-7BDD-43C2-AFE2-81955EBE7AE5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{67E4324D-585D-460C-8972-0D0231919E4A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E401840C-F193-4A2A-830F-D0DE9625356F}
+	EndGlobalSection
+EndGlobal
