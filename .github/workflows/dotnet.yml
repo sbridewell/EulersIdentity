@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  build_and_test_consolegems:
+  build_and_test_eulersidentity:
     uses: ./.github/workflows/BuildAndTest.yml
     with:
       FOLDER_UNDER_TEST: "EulersIdentity"
