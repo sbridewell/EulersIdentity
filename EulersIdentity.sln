@@ -17,7 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{631637A9-7BDD-43C2-AFE2-81955EBE7AE5}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\allow-pr-only-from-epic-branches.yml = .github\workflows\allow-pr-only-from-epic-branches.yml
 		.github\workflows\BuildAndTest.yml = .github\workflows\BuildAndTest.yml
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 		.github\workflows\FailIfInsufficientCodeCoverage.ps1 = .github\workflows\FailIfInsufficientCodeCoverage.ps1

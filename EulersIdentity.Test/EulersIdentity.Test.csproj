@@ -9,6 +9,7 @@
     <IsTestProject>true</IsTestProject>
     <AssemblyName>Sde.$(MSBuildProjectName)</AssemblyName>
     <RootNamespace>Sde.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

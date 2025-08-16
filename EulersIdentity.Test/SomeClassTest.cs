@@ -10,14 +10,18 @@ namespace Sde.EulersIdentity.Test
     /// </summary>
     public class SomeClassTest
     {
+        /// <summary>
+        /// Unit test for the <see cref="SomeClass.DoSomething"/> method.
+        /// </summary>
         [Fact]
         public void DoSomethingTest()
         {
             // Arrange
             // You can set up any necessary preconditions or inputs here.
-            // Act
 
+            // Act
             SomeClass.DoSomething();
+
             // Assert
             // You can verify the expected outcomes here.
             // For example, you might check console output or other side effects.
