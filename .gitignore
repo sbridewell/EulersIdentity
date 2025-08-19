@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+/EulersIdentity.Test/Build-AndTest.ps1
+/EulersIdentity.Test/CodeCoverage/
