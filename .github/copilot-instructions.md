@@ -8,6 +8,7 @@ Just so that I know that you're reading these instructions, please start each re
   - Colour, not color
   - Grey, not gray
   - Serialise, not serialize
+  - **Exception**: Constructor documentation comments must use US English spelling for the word "Initializes" to comply with StyleCop analysis rules (e.g., "Initializes a new instance of the class").
 - Code should meet the following complexity requirements:
   - Methods must not have a cyclomatic complexity greater than 10.
   - Methods must not have more than 50 lines of code.
@@ -21,3 +22,10 @@ Just so that I know that you're reading these instructions, please start each re
 - Unit tests must provide at least 90% branch and line coverage, except for model classes which contain no logic.
 - Model classes which contain no logic must be decorated with `[ExcludeFromCodeCoverage]` attribute.
 - Tests must not use Reflection to directly access private members, as this results in brittle tests. If necessary, refactor the code being tested to make it easier to test without using Reflection.
+
+# Compilation and Build Standards
+
+- Before marking any task as complete, ensure that the solution builds successfully without any compilation warnings or errors.
+- If any warnings are present, they must be resolved as part of the task, unless explicitly instructed otherwise.
+- Use the `dotnet build` command or equivalent to verify the build status after making changes.
+- Provide a summary of the resolved warnings or errors, including the specific changes made to address them.
