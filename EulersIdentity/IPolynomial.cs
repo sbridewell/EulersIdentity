@@ -14,7 +14,7 @@ namespace Sde.EulersIdentity
         /// <summary>
         /// Gets the terms which make up the polynomial.
         /// </summary>
-        List<IPolynomialTerm> Terms { get; }
+        IReadOnlyList<IPolynomialTerm> Terms { get; }
 
         /// <summary>
         /// Adds the supplied term to the polynomial.
