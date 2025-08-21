@@ -68,6 +68,10 @@ namespace Sde.EulersIdentity
         /// <param name="term">The term to divide by.</param>
         public void Divide(IPolynomialTerm term)
         {
+            if (term.Coefficient == 0)
+            {
+                throw new DivideByZeroException("Cannot divide by a term with a zero coefficient.");
+            }
             for (int i = 0; i < this.terms.Count; i++)
             {
                 var current = this.terms[i];
