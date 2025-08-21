@@ -40,7 +40,7 @@ namespace Sde.EulersIdentity
         /// Gets a string representation of the term.
         /// </summary>
         /// <returns>
-        /// A string representation of the term, in the format cx^e,, where
+        /// A string representation of the term, in the format cx^e, where
         /// c is the coefficient and e is the exponent.
         /// </returns>
         string ToString();
