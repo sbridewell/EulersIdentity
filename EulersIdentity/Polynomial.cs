@@ -7,6 +7,7 @@ namespace Sde.EulersIdentity
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
@@ -27,6 +28,7 @@ namespace Sde.EulersIdentity
         /// <summary>
         /// Gets the terms of the polynomial.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public List<IPolynomialTerm> Terms => this.terms;
 
         /// <summary>
