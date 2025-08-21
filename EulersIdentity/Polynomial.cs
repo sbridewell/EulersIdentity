@@ -91,7 +91,40 @@ namespace Sde.EulersIdentity
         /// <returns>A string representation of each of the terms in the polynomial.</returns>
         public override string ToString()
         {
-            return string.Join(" + ", this.terms);
+            if (this.terms.Count == 0)
+            {
+                return "0";
+            }
+
+            var result = "";
+            for (int i = 0; i < this.terms.Count; i++)
+            {
+                var term = this.terms[i];
+                string termStr = term.ToString();
+                double coeff = term.Coefficient;
+
+                if (i == 0)
+                {
+                    result += termStr;
+                }
+                else
+                {
+                    if (coeff < 0)
+                    {
+                        // Remove leading minus from termStr if present, since we add " - "
+                        if (termStr.StartsWith("-"))
+                        {
+                            termStr = termStr.Substring(1);
+                        }
+                        result += " - " + termStr;
+                    }
+                    else
+                    {
+                        result += " + " + termStr;
+                    }
+                }
+            }
+            return result;
         }
     }
 }
