@@ -11,7 +11,7 @@ namespace Sde.EulersIdentity.Test
     public class SomeClassTest
     {
         /// <summary>
-        /// Tests the SetsSomeProperty method.
+        /// Tests that the DoSomething method sets the SomeProperty property as expected.
         /// </summary>
         [Fact]
         public void DoSomething_SetsSomeProperty()
