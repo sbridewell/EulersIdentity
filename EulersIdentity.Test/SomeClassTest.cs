@@ -6,27 +6,25 @@
 namespace Sde.EulersIdentity.Test
 {
     /// <summary>
-    /// Unit tests for the <see cref="SomeClass"/> class.
+    /// Unit tests for <see cref="SomeClass"/>.
     /// </summary>
     public class SomeClassTest
     {
         /// <summary>
-        /// Unit test for the <see cref="SomeClass.DoSomething"/> method.
+        /// Tests that the DoSomething method sets the SomeProperty property as expected.
         /// </summary>
         [Fact]
-        public void DoSomethingTest()
+        public void DoSomething_SetsSomeProperty()
         {
             // Arrange
-            // You can set up any necessary preconditions or inputs here.
+            var someClass = new SomeClass();
+            int expectedValue = 42;
 
             // Act
-            SomeClass.DoSomething();
+            someClass.DoSomething(expectedValue);
 
             // Assert
-            // You can verify the expected outcomes here.
-            // For example, you might check console output or other side effects.
-            // In this case, we are just checking that the method runs without throwing an exception.
-            Assert.True(true); // Placeholder assertion; replace with actual checks as needed.
+            Assert.Equal(expectedValue, someClass.SomeProperty);
         }
     }
 }

@@ -6,18 +6,22 @@
 namespace Sde.EulersIdentity
 {
     /// <summary>
-    /// A temporary class so that we've got something to unit test.
+    /// A dummy class so that we have something to test.
     /// </summary>
-    public static class SomeClass
+    public class SomeClass
     {
         /// <summary>
-        /// Does something.
+        /// Gets a property.
         /// </summary>
-        public static void DoSomething()
+        public int SomeProperty { get; private set; }
+
+        /// <summary>
+        /// A method which sets the property.
+        /// </summary>
+        /// <param name="someParameter">The parameter to set the property to.</param>
+        public void DoSomething(int someParameter)
         {
-            // This method does something.
-            // You can implement your logic here.
-            System.Console.WriteLine("Doing something in SomeClass.");
+            this.SomeProperty = someParameter;
         }
     }
 }
