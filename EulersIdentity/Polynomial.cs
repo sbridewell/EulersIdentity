@@ -122,7 +122,43 @@ namespace Sde.EulersIdentity
         /// </returns>
         public override string ToString()
         {
-            return string.Join(" + ", this.terms.Select(term => term.ToString()));
+            if (this.terms.Count == 0)
+            {
+                return "0";
+            }
+
+            var result = new System.Text.StringBuilder();
+            for (int i = 0; i < this.terms.Count; i++)
+            {
+                var term = this.terms[i];
+                string termStr = term.ToString();
+                double coeff = term.Coefficient;
+
+                if (i == 0)
+                {
+                    // First term: just print as is
+                    result.Append(termStr);
+                }
+                else
+                {
+                    if (coeff < 0)
+                    {
+                        // Remove leading '-' from termStr if present
+                        if (termStr.StartsWith("-"))
+                        {
+                            termStr = termStr.Substring(1).TrimStart();
+                        }
+                        result.Append(" - ");
+                        result.Append(termStr);
+                    }
+                    else
+                    {
+                        result.Append(" + ");
+                        result.Append(termStr);
+                    }
+                }
+            }
+            return result.ToString();
         }
     }
 }
