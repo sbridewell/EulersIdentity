@@ -48,6 +48,21 @@ namespace Sde.EulersIdentity
         double Evaluate(double x);
 
         /// <summary>
+        /// Gets the term with the specified exponent, or null if no such term exists.
+        /// </summary>
+        /// <remarks>
+        /// In order to avoid using the `==` operator to compare floating point numbers,
+        /// this method will look for a term where the difference between the term's
+        /// exponent and the supplied exponent is less than a given tolerance.
+        /// </remarks>
+        /// <param name="exponent">The exponent of the term to get.</param>
+        /// <param name="tolerance">
+        /// The maximum difference between the two exponents for them to be considered equal.
+        /// </param>
+        /// <returns>The term with the specified exponent, or null.</returns>
+        PolynomialTerm? GetTermByExponent(double exponent, double tolerance = 0.0001);
+
+        /// <summary>
         /// Returns a string representation of the polynomial.
         /// </summary>
         /// <returns>
