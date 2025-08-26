@@ -4,6 +4,8 @@ Just so that I know that you're reading these instructions, please start each re
 
 - Use the C# coding conventions as defined in the [Microsoft documentation](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions).
 - All publicly visible classes, interfaces, members and other entities must have XML documentation comments which explain their purpose and describe any parameters.
+- Prefer primary constructor syntax over property initializers for immutable properties.
+- Using directives must be placed inside the namespace declaration.
 - Names of classes, interfaces, members and other entities must use British English spelling, for example
   - Colour, not color
   - Grey, not gray
