@@ -74,6 +74,96 @@ namespace Sde.EulersIdentity.Test
         }
 
         /// <summary>
+        /// Tests that ToString returns "0" for an empty polynomial.
+        /// </summary>
+        [Fact]
+        public void ToString_ReturnsZeroForEmptyPolynomial()
+        {
+            // Arrange
+            var polynomial = new Polynomial();
+
+            // Act
+            string result = polynomial.ToString();
+
+            // Assert
+            result.Should().Be("0");
+        }
+
+        /// <summary>
+        /// Tests that ToString returns the correct representation for a single term.
+        /// </summary>
+        [Fact]
+        public void ToString_ReturnsCorrectRepresentationForSingleTerm()
+        {
+            // Arrange
+            var polynomial = new Polynomial();
+            polynomial.Add(new PolynomialTerm(5, 3));
+
+            // Act
+            string result = polynomial.ToString();
+
+            // Assert
+            result.Should().Be("5x^3");
+        }
+
+        /// <summary>
+        /// Tests that ToString returns the correct representation for multiple terms with positive coefficients.
+        /// </summary>
+        [Fact]
+        public void ToString_ReturnsCorrectRepresentationForPositiveCoefficients()
+        {
+            // Arrange
+            var polynomial = new Polynomial();
+            polynomial.Add(new PolynomialTerm(3, 2));
+            polynomial.Add(new PolynomialTerm(2, 1));
+            polynomial.Add(new PolynomialTerm(1, 0));
+
+            // Act
+            string result = polynomial.ToString();
+
+            // Assert
+            result.Should().Be("3x^2 + 2x^1 + 1x^0");
+        }
+
+        /// <summary>
+        /// Tests that ToString returns the correct representation for multiple terms with mixed coefficients.
+        /// </summary>
+        [Fact]
+        public void ToString_ReturnsCorrectRepresentationForMixedCoefficients()
+        {
+            // Arrange
+            var polynomial = new Polynomial();
+            polynomial.Add(new PolynomialTerm(3, 2));
+            polynomial.Add(new PolynomialTerm(-2, 1));
+            polynomial.Add(new PolynomialTerm(1, 0));
+
+            // Act
+            string result = polynomial.ToString();
+
+            // Assert
+            result.Should().Be("3x^2 - 2x^1 + 1x^0");
+        }
+
+        /// <summary>
+        /// Tests that ToString excludes terms with zero coefficients.
+        /// </summary>
+        [Fact]
+        public void ToString_ExcludesZeroCoefficientTerms()
+        {
+            // Arrange
+            var polynomial = new Polynomial();
+            polynomial.Add(new PolynomialTerm(3, 2));
+            polynomial.Add(new PolynomialTerm(0, 1));
+            polynomial.Add(new PolynomialTerm(1, 0));
+
+            // Act
+            string result = polynomial.ToString();
+
+            // Assert
+            result.Should().Be("3x^2 + 1x^0");
+        }
+
+        /// <summary>
         /// Tests that the Subtract method adds a negated term to the polynomial.
         /// </summary>
         [Fact]

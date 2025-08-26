@@ -131,10 +131,17 @@ namespace Sde.EulersIdentity
             for (int i = 0; i < this.terms.Count; i++)
             {
                 var term = this.terms[i];
+
+                // Skip terms with zero coefficients
+                if (Math.Abs(term.Coefficient) < 0.0001)
+                {
+                    continue;
+                }
+
                 string termStr = term.ToString();
                 double coeff = term.Coefficient;
 
-                if (i == 0)
+                if (result.Length == 0)
                 {
                     // First term: just print as is
                     result.Append(termStr);
@@ -144,10 +151,11 @@ namespace Sde.EulersIdentity
                     if (coeff < 0)
                     {
                         // Remove leading '-' from termStr if present
-                        if (termStr.StartsWith("-"))
+                        if (termStr.StartsWith('-'))
                         {
                             termStr = termStr.Substring(1).TrimStart();
                         }
+
                         result.Append(" - ");
                         result.Append(termStr);
                     }
@@ -158,7 +166,9 @@ namespace Sde.EulersIdentity
                     }
                 }
             }
-            return result.ToString();
+
+            // If all terms were skipped, return "0"
+            return result.Length > 0 ? result.ToString() : "0";
         }
     }
 }
