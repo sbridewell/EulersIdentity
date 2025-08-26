@@ -60,7 +60,7 @@ namespace Sde.EulersIdentity
         /// The maximum difference between the two exponents for them to be considered equal.
         /// </param>
         /// <returns>The term with the specified exponent, or null.</returns>
-        PolynomialTerm? GetTermByExponent(double exponent, double tolerance = 0.0001);
+        IPolynomialTerm? GetTermByExponent(double exponent, double tolerance = 0.0001);
 
         /// <summary>
         /// Returns a string representation of the polynomial.
