@@ -5,8 +5,6 @@
 
 namespace Sde.EulersIdentity
 {
-    using System.IO;
-
     /// <summary>
     /// Represents a polynomial, which is a mathematical expression consisting
     /// of variables and coefficients.
