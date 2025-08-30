@@ -16,3 +16,11 @@ jobs:
       MODULE_UNDER_TEST: "Sde.EulersIdentity"
       TEST_FOLDER: "EulersIdentity.Test"
       TEST_PROJECT: "EulersIdentity.Test.csproj"
+
+  build_and_test_eulersidentity_wpf:
+    uses: ./.github/workflows/BuildAndTest.yml
+    with:
+      FOLDER_UNDER_TEST: "EulersIdentity.WPF"
+      MODULE_UNDER_TEST: "Sde.EulersIdentity.WPF"
+      TEST_FOLDER: "EulersIdentity.WPF.Test"
+      TEST_PROJECT: "EulersIdentity.WPF.Test.csproj"
