@@ -3,25 +3,25 @@
 // Released under the MIT license - see LICENSE.txt in the repository root.
 // </copyright>
 
-namespace Sde.EulersIdentity
+namespace Sde.EulersIdentity.WPF
 {
     /// <summary>
-    /// A dummy class so that we have something to test.
+    /// Dumy class to be removed once we add real code to the project.
     /// </summary>
     public class SomeClass
     {
         /// <summary>
-        /// Gets a property.
+        /// Gets some property.
         /// </summary>
         public int SomeProperty { get; private set; }
 
         /// <summary>
-        /// A method which sets the property.
+        /// Sets some property.
         /// </summary>
-        /// <param name="someParameter">The parameter to set the property to.</param>
-        public void DoSomething(int someParameter)
+        /// <param name="val">The value to set the property to.</param>
+        public void SetProperty(int val)
         {
-            this.SomeProperty = someParameter;
+            this.SomeProperty = val;
         }
     }
 }

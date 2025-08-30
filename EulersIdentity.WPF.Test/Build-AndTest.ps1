@@ -1,3 +1,2 @@
-﻿dotnet restore
-dotnet build -v:m -t:Rebuild > TestResults/build_warnings.txt
+﻿dotnet build -v:m -t:Rebuild > TestResults/build_warnings.txt
 dotnet test --no-build --verbosity normal --logger "console;verbosity=normal" --logger "trx;LogFileName=DotNetTestLog.trx" --results-directory "TestResults"
