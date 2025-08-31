@@ -33,7 +33,12 @@ namespace Sde.EulersIdentity.WPF.Views
             }
         }
 
-        private void OnEvaluateClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handles the Evaluate button click event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        public void OnEvaluateClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -61,7 +66,12 @@ namespace Sde.EulersIdentity.WPF.Views
             }
         }
 
-        private void OnInputChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// Handles the input changed event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        public void OnInputChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -89,12 +99,27 @@ namespace Sde.EulersIdentity.WPF.Views
             }
         }
 
-        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        /// <summary>
+        /// Handles the preview text input event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        internal void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e), "Event arguments cannot be null.");
+            }
+
             e.Handled = !NumericRegex.IsMatch(e.Text);
         }
 
-        private void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handles the text box got focus event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        public void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox)
             {
