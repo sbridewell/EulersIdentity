@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Test.Views
 {
+    using System.Threading;
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.Views;
     using Xunit;
@@ -21,7 +22,16 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void TestPolynomialTermControlInitialization()
         {
             // Arrange
-            var control = new PolynomialTermControl();
+            PolynomialTermControl control = null;
+
+            var thread = new Thread(() =>
+            {
+                control = new PolynomialTermControl();
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
 
             // Act
             // No action needed for initialization test.

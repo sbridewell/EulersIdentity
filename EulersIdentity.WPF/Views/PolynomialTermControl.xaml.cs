@@ -21,8 +21,11 @@ namespace Sde.EulersIdentity.WPF.Views
         {
             this.InitializeComponent();
 
-            // Ensure the DataContext is inherited from the parent.
-            this.DataContext = Application.Current.MainWindow?.DataContext;
+            // Ensure the DataContext is inherited from the parent, if available.
+            if (Application.Current?.MainWindow != null)
+            {
+                this.DataContext = Application.Current.MainWindow.DataContext;
+            }
         }
 
         private void OnEvaluateClick(object sender, RoutedEventArgs e)
