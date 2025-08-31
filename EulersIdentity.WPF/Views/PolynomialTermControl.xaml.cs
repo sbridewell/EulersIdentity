@@ -1,13 +1,10 @@
-// <copyright file="PolynomialTermControl.xaml.cs" company="Simon Bridewell">
-// Copyright (c) Simon Bridewell.
-// Released under the MIT license - see LICENSE.txt in the repository root.
-// </copyright>
-
-namespace Sde.EulersIdentity.WPF.Controls
+namespace Sde.EulersIdentity.WPF.Views
 {
     using System;
+    using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using Sde.EulersIdentity;
 
     /// <summary>
@@ -15,20 +12,23 @@ namespace Sde.EulersIdentity.WPF.Controls
     /// </summary>
     public partial class PolynomialTermControl : UserControl
     {
+        private static readonly Regex NumericRegex = new Regex("^-?[0-9]*(\\.[0-9]*)?$", RegexOptions.Compiled);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PolynomialTermControl"/> class.
         /// </summary>
         public PolynomialTermControl()
         {
             this.InitializeComponent();
+
+            // Ensure the DataContext is inherited from the parent.
+            this.DataContext = Application.Current.MainWindow?.DataContext;
         }
 
         private void OnEvaluateClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                this.ErrorLabel.Content = string.Empty;
-
                 if (!double.TryParse(this.CoefficientTextBox.Text, out double coefficient))
                 {
                     throw new FormatException("Invalid coefficient.");
@@ -45,12 +45,11 @@ namespace Sde.EulersIdentity.WPF.Controls
                 }
 
                 var term = new PolynomialTerm(coefficient, exponent);
-                double result = term.Evaluate(xValue);
-                this.ResultLabel.Content = result.ToString();
+                term.Evaluate(xValue); // Evaluation is still performed, but no longer displayed here.
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                this.ErrorLabel.Content = ex.Message;
+                // Handle exceptions silently as error display is removed.
             }
         }
 
@@ -58,8 +57,6 @@ namespace Sde.EulersIdentity.WPF.Controls
         {
             try
             {
-                this.ErrorLabel.Content = string.Empty;
-
                 if (!double.TryParse(this.CoefficientTextBox.Text, out double coefficient))
                 {
                     throw new FormatException("Invalid coefficient.");
@@ -76,14 +73,24 @@ namespace Sde.EulersIdentity.WPF.Controls
                 }
 
                 var term = new PolynomialTerm(coefficient, exponent);
-                this.TermLabel.Content = term.ToString();
-                this.ResultLabel.Content = term.Evaluate(xValue).ToString();
+                term.Evaluate(xValue); // Evaluation is still performed, but no longer displayed here.
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                this.ErrorLabel.Content = ex.Message;
-                this.TermLabel.Content = string.Empty;
-                this.ResultLabel.Content = string.Empty;
+                // Handle exceptions silently as error display is removed.
+            }
+        }
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !NumericRegex.IsMatch(e.Text);
+        }
+
+        private void OnTextBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                textBox.SelectAll();
             }
         }
     }

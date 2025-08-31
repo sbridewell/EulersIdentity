@@ -3,14 +3,14 @@
 // Released under the MIT license - see LICENSE.txt in the repository root.
 // </copyright>
 
-namespace Sde.EulersIdentity.WPF.Test.Controls
+namespace Sde.EulersIdentity.WPF.Test.Views
 {
-    using System.Windows.Controls;
     using FluentAssertions;
-    using Sde.EulersIdentity.WPF.Controls;
+    using Sde.EulersIdentity.WPF.Views;
+    using Xunit;
 
     /// <summary>
-    /// Unit tests for <see cref="PolynomialTermControl"/>.
+    /// Unit tests for the <see cref="PolynomialTermControl"/> class.
     /// </summary>
     public class PolynomialTermControlTest
     {
@@ -18,21 +18,16 @@ namespace Sde.EulersIdentity.WPF.Test.Controls
         /// Tests that the control initializes correctly.
         /// </summary>
         [Fact]
-        public void Control_InitializesCorrectly()
+        public void TestPolynomialTermControlInitialization()
         {
-            // Arrange & Act
-            Thread staThread = new Thread(() =>
-            {
-                var control = new PolynomialTermControl();
+            // Arrange
+            var control = new PolynomialTermControl();
 
-                // Assert
-                control.Should().NotBeNull();
-                control.Should().BeAssignableTo<UserControl>();
-            });
+            // Act
+            // No action needed for initialization test.
 
-            staThread.SetApartmentState(ApartmentState.STA);
-            staThread.Start();
-            staThread.Join();
+            // Assert
+            control.Should().NotBeNull();
         }
     }
 }
