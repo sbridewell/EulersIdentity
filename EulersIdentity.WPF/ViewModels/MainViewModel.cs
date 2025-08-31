@@ -120,7 +120,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.coefficient;
             set
             {
-                if (this.coefficient != value)
+                if (Math.Abs(this.coefficient - value) > 0.0001)
                 {
                     this.coefficient = value;
                     this.UpdatePolynomialTermState();
@@ -138,7 +138,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.exponent;
             set
             {
-                if (this.exponent != value)
+                if (Math.Abs(this.exponent - value) > 0.0001)
                 {
                     this.exponent = value;
                     this.UpdatePolynomialTermState();
@@ -156,7 +156,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.xValue;
             set
             {
-                if (this.xValue != value)
+                if (Math.Abs(this.xValue - value) > 0.0001)
                 {
                     this.xValue = value;
                     this.UpdatePolynomialTermState();
