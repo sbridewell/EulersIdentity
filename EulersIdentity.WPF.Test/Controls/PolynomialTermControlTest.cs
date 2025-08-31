@@ -6,11 +6,10 @@
 namespace Sde.EulersIdentity.WPF.Test.Views
 {
     using System.Threading;
+    using System.Windows.Input;
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.Views;
     using Xunit;
-    using System.Windows.Input;
-    using System.Windows;
 
     /// <summary>
     /// Unit tests for the <see cref="PolynomialTermControl"/> class.
@@ -99,7 +98,7 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void OnPreviewTextInput_ShouldExecuteWithoutErrors()
         {
             // Arrange
-            Exception exception = null;
+            Exception? exception = null;
 
             var thread = new Thread(() =>
             {
@@ -107,9 +106,14 @@ namespace Sde.EulersIdentity.WPF.Test.Views
                 {
                     var control = new PolynomialTermControl();
 
-                    var textCompositionEventArgs = new TextCompositionEventArgs(InputManager.Current.PrimaryKeyboardDevice, new TextComposition(InputManager.Current, null, "1"))
+                    var textCompositionEventArgs = new TextCompositionEventArgs(
+                        InputManager.Current.PrimaryKeyboardDevice,
+                        new TextComposition(
+                            InputManager.Current,
+                            null,
+                            "1"))
                     {
-                        RoutedEvent = TextCompositionManager.PreviewTextInputEvent
+                        RoutedEvent = TextCompositionManager.PreviewTextInputEvent,
                     };
 
                     // Act

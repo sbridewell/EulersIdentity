@@ -104,7 +104,7 @@ namespace Sde.EulersIdentity.WPF.Views
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The event arguments.</param>
-        internal void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        public void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (e == null)
             {
