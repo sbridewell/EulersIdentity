@@ -1,9 +1,13 @@
-using System;
-using System.Globalization;
-using System.Windows.Data;
+// <copyright file="StringToDoubleConverter.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
 
 namespace Sde.EulersIdentity.WPF.Converters
 {
+    using System.Globalization;
+    using System.Windows.Data;
+
     /// <summary>
     /// Converts between string and double values for data binding.
     /// </summary>

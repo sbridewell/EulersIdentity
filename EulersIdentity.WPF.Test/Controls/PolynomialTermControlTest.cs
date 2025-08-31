@@ -22,7 +22,7 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void TestPolynomialTermControlInitialization()
         {
             // Arrange
-            PolynomialTermControl control = null;
+            PolynomialTermControl? control = null;
 
             var thread = new Thread(() =>
             {
