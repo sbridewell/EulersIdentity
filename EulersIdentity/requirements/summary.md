@@ -51,8 +51,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Testing**:
   - Unit tests provide over 90% branch and line coverage.
   - Tests follow the Arrange-Act-Assert pattern.
-  - All tests pass successfully.
-- **Build**: The solution builds successfully without any warnings or errors.
+  - Some tests are currently failing due to threading issues in WPF components. These are being addressed by implementing STA (Single Threaded Apartment) test frameworks.
+- **Build**: The solution builds successfully, but some warnings are present and need to be resolved.
 - **Debugging**:
   - Debug messages are logged in the `MainViewModel` and displayed in the `MainWindow` when enabled.
   - Debugging can be toggled on or off using the `DebugEnabled` property.
@@ -62,8 +62,10 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - Introduced `DebugMessages` and `DebugEnabled` properties in the `MainViewModel`.
 - Enhanced the `PolynomialTermControl` to bind directly to `MainViewModel` properties.
 - Implemented data persistence across tabs in the WPF application.
+- Began addressing STA threading issues in WPF tests by implementing a custom STA test framework.
 
 ## Future Work
+- Resolve all failing tests and ensure full compatibility with STA threading requirements.
 - Extend the console application to demonstrate more advanced polynomial and equation operations.
 - Add support for parsing polynomials and equations from strings.
 - Improve performance for large polynomials.

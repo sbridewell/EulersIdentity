@@ -5,157 +5,197 @@
 
 namespace Sde.EulersIdentity.WPF.Test.Views
 {
-    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.Views;
     using Xunit;
+    using Xunit.Sdk; // Required for WpfFact
 
     /// <summary>
     /// Unit tests for the <see cref="PolynomialTermControl"/> class.
     /// </summary>
     public class PolynomialTermControlTest
     {
+        private readonly PolynomialTermControl control = new();
+
         /// <summary>
-        /// Tests that the control initializes correctly.
+        /// Initializes a new instance of the <see cref="PolynomialTermControlTest"/> class.
+        /// Ensures the control is initialized on an STA thread.
         /// </summary>
-        [Fact]
-        public void TestPolynomialTermControlInitialization()
+        public PolynomialTermControlTest()
         {
-            // Arrange
-            PolynomialTermControl? control = null;
-
-            var thread = new Thread(() =>
-            {
-                control = new PolynomialTermControl();
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
-
-            // Act
-            // No action needed for initialization test.
-
-            // Assert
-            control.Should().NotBeNull();
+            // No need for manual STA thread setup as WpfFact handles it.
         }
 
         /// <summary>
-        /// Tests that the OnEvaluateClick event handler executes without errors.
+        /// Tests the constructor to ensure it initializes the DataContext correctly.
         /// </summary>
-        [Fact]
-        public void OnEvaluateClick_ShouldExecuteWithoutErrors()
+        [WpfFact]
+        public void Constructor_ShouldInitializeDataContext()
+        {
+            // Act
+            var dataContext = this.control.DataContext;
+
+            // Assert
+            dataContext.Should().Be(Application.Current?.MainWindow?.DataContext);
+        }
+
+        /// <summary>
+        /// Helper method to access private fields in the control.
+        /// </summary>
+        private TextBox GetTextBox(string fieldName)
+        {
+            var field = typeof(PolynomialTermControl).GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            return (TextBox)field?.GetValue(this.control);
+        }
+
+        /// <summary>
+        /// Tests the OnEvaluateClick method with valid inputs.
+        /// </summary>
+        [WpfFact]
+        public void OnEvaluateClick_ShouldHandleValidInputs()
         {
             // Arrange
-            PolynomialTermControl? control = null;
+            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
+            var exponentTextBox = this.GetTextBox("ExponentTextBox");
+            var xValueTextBox = this.GetTextBox("XValueTextBox");
 
-            var thread = new Thread(() =>
-            {
-                control = new PolynomialTermControl();
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
+            coefficientTextBox.Text = "2.5";
+            exponentTextBox.Text = "3";
+            xValueTextBox.Text = "1.5";
+            var eventArgs = new RoutedEventArgs();
 
             // Act
-            var exception = Record.Exception(() => control?.OnEvaluateClick(null, null));
+            var exception = Record.Exception(() => this.control.OnEvaluateClick(this.control, eventArgs));
 
             // Assert
             exception.Should().BeNull();
         }
 
         /// <summary>
-        /// Tests that the OnInputChanged event handler executes without errors.
+        /// Tests the OnEvaluateClick method with invalid inputs.
         /// </summary>
-        [Fact]
-        public void OnInputChanged_ShouldExecuteWithoutErrors()
+        [WpfFact]
+        public void OnEvaluateClick_ShouldHandleInvalidInputs()
         {
             // Arrange
-            PolynomialTermControl? control = null;
+            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
+            var exponentTextBox = this.GetTextBox("ExponentTextBox");
+            var xValueTextBox = this.GetTextBox("XValueTextBox");
 
-            var thread = new Thread(() =>
-            {
-                control = new PolynomialTermControl();
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
+            coefficientTextBox.Text = "invalid";
+            exponentTextBox.Text = "3";
+            xValueTextBox.Text = "1.5";
+            var eventArgs = new RoutedEventArgs();
 
             // Act
-            var exception = Record.Exception(() => control?.OnInputChanged(null, null));
+            var exception = Record.Exception(() => this.control.OnEvaluateClick(this.control, eventArgs));
 
             // Assert
             exception.Should().BeNull();
         }
 
         /// <summary>
-        /// Tests that the OnPreviewTextInput event handler executes without errors.
+        /// Tests the OnInputChanged method with valid inputs.
         /// </summary>
-        [Fact]
-        public void OnPreviewTextInput_ShouldExecuteWithoutErrors()
+        [WpfFact]
+        public void OnInputChanged_ShouldHandleValidInputs()
         {
             // Arrange
-            Exception? exception = null;
+            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
+            var exponentTextBox = this.GetTextBox("ExponentTextBox");
+            var xValueTextBox = this.GetTextBox("XValueTextBox");
 
-            var thread = new Thread(() =>
-            {
-                try
-                {
-                    var control = new PolynomialTermControl();
+            coefficientTextBox.Text = "2.5";
+            exponentTextBox.Text = "3";
+            xValueTextBox.Text = "1.5";
+            var eventArgs = new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None);
 
-                    var textCompositionEventArgs = new TextCompositionEventArgs(
-                        InputManager.Current.PrimaryKeyboardDevice,
-                        new TextComposition(
-                            InputManager.Current,
-                            null,
-                            "1"))
-                    {
-                        RoutedEvent = TextCompositionManager.PreviewTextInputEvent,
-                    };
-
-                    // Act
-                    exception = Record.Exception(() => control.RaiseEvent(textCompositionEventArgs));
-                }
-                catch (Exception ex)
-                {
-                    exception = ex;
-                }
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
+            // Act
+            var exception = Record.Exception(() => this.control.OnInputChanged(this.control, eventArgs));
 
             // Assert
             exception.Should().BeNull();
         }
 
         /// <summary>
-        /// Tests that the OnTextBoxGotFocus event handler executes without errors.
+        /// Tests the OnInputChanged method with invalid inputs.
         /// </summary>
-        [Fact]
-        public void OnTextBoxGotFocus_ShouldExecuteWithoutErrors()
+        [WpfFact]
+        public void OnInputChanged_ShouldHandleInvalidInputs()
         {
             // Arrange
-            PolynomialTermControl? control = null;
+            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
+            var exponentTextBox = this.GetTextBox("ExponentTextBox");
+            var xValueTextBox = this.GetTextBox("XValueTextBox");
 
-            var thread = new Thread(() =>
-            {
-                control = new PolynomialTermControl();
-            });
-
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();
+            coefficientTextBox.Text = "invalid";
+            exponentTextBox.Text = "3";
+            xValueTextBox.Text = "1.5";
+            var eventArgs = new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None);
 
             // Act
-            var exception = Record.Exception(() => control?.OnTextBoxGotFocus(null, null));
+            var exception = Record.Exception(() => this.control.OnInputChanged(this.control, eventArgs));
 
             // Assert
             exception.Should().BeNull();
+        }
+
+        /// <summary>
+        /// Tests the OnPreviewTextInput method with valid numeric input.
+        /// </summary>
+        [WpfFact]
+        public void OnPreviewTextInput_ShouldAllowValidNumericInput()
+        {
+            // Arrange
+            var eventArgs = new TextCompositionEventArgs(InputManager.Current.PrimaryKeyboardDevice, new TextComposition(InputManager.Current, this.control, "123"))
+            {
+                RoutedEvent = UIElement.PreviewTextInputEvent
+            };
+
+            // Act
+            this.control.OnPreviewTextInput(this.control, eventArgs);
+
+            // Assert
+            eventArgs.Handled.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Tests the OnPreviewTextInput method with invalid input.
+        /// </summary>
+        [WpfFact]
+        public void OnPreviewTextInput_ShouldBlockInvalidInput()
+        {
+            // Arrange
+            var eventArgs = new TextCompositionEventArgs(InputManager.Current.PrimaryKeyboardDevice, new TextComposition(InputManager.Current, this.control, "abc"))
+            {
+                RoutedEvent = UIElement.PreviewTextInputEvent
+            };
+
+            // Act
+            this.control.OnPreviewTextInput(this.control, eventArgs);
+
+            // Assert
+            eventArgs.Handled.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Tests the OnTextBoxGotFocus method to ensure it selects all text.
+        /// </summary>
+        [WpfFact]
+        public void OnTextBoxGotFocus_ShouldSelectAllText()
+        {
+            // Arrange
+            var textBox = new TextBox { Text = "Sample Text" };
+            var eventArgs = new RoutedEventArgs();
+
+            // Act
+            this.control.OnTextBoxGotFocus(textBox, eventArgs);
+
+            // Assert
+            textBox.SelectionLength.Should().Be(textBox.Text.Length);
         }
     }
 }

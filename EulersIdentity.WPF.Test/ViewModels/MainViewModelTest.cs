@@ -193,5 +193,41 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             // Assert
             viewModel.DebugMessages.Should().Contain("Coefficient set to 5");
         }
+
+        /// <summary>
+        /// Tests that PolynomialState updates correctly and raises PropertyChanged.
+        /// </summary>
+        [Fact]
+        public void PolynomialState_ShouldUpdateAndRaisePropertyChanged()
+        {
+            // Arrange
+            var viewModel = new MainViewModel();
+            using var monitoredViewModel = viewModel.Monitor();
+
+            // Act
+            viewModel.PolynomialState = "Updated State";
+
+            // Assert
+            viewModel.PolynomialState.Should().Be("Updated State");
+            monitoredViewModel.Should().RaisePropertyChangeFor(vm => vm.PolynomialState);
+        }
+
+        /// <summary>
+        /// Tests that EquationState updates correctly and raises PropertyChanged.
+        /// </summary>
+        [Fact]
+        public void EquationState_ShouldUpdateAndRaisePropertyChanged()
+        {
+            // Arrange
+            var viewModel = new MainViewModel();
+            using var monitoredViewModel = viewModel.Monitor();
+
+            // Act
+            viewModel.EquationState = "Updated Equation";
+
+            // Assert
+            viewModel.EquationState.Should().Be("Updated Equation");
+            monitoredViewModel.Should().RaisePropertyChangeFor(vm => vm.EquationState);
+        }
     }
 }
