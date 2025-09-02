@@ -28,7 +28,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = true;
 
             // Act
-            var result = this.converter.Convert(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(value, typeof(Visibility), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(Visibility.Visible);
@@ -44,7 +44,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = false;
 
             // Act
-            var result = this.converter.Convert(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(value, typeof(Visibility), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(Visibility.Collapsed);
@@ -60,7 +60,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "invalid";
 
             // Act
-            var result = this.converter.Convert(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(value, typeof(Visibility), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(Visibility.Collapsed);
@@ -76,7 +76,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = Visibility.Visible;
 
             // Act
-            var act = () => this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var act = () => this.converter.ConvertBack(value, typeof(bool), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             act.Should().Throw<NotImplementedException>().WithMessage("ConvertBack is not implemented for BooleanToVisibilityConverter.");

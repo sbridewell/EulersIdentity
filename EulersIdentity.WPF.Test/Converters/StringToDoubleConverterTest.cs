@@ -27,7 +27,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = 123.45;
 
             // Act
-            var result = this.converter.Convert(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(value, typeof(string), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be("123.45");
@@ -43,7 +43,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "invalid";
 
             // Act
-            var result = this.converter.Convert(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(value, typeof(string), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(string.Empty);
@@ -59,7 +59,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "123.45";
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(123.45);
@@ -75,7 +75,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = string.Empty;
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(0.0);
@@ -91,7 +91,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "invalid";
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(0.0);

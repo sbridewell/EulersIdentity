@@ -43,24 +43,15 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         }
 
         /// <summary>
-        /// Helper method to access private fields in the control.
-        /// </summary>
-        private TextBox GetTextBox(string fieldName)
-        {
-            var field = typeof(PolynomialTermControl).GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            return (TextBox)field?.GetValue(this.control);
-        }
-
-        /// <summary>
         /// Tests the OnEvaluateClick method with valid inputs.
         /// </summary>
         [WpfFact]
         public void OnEvaluateClick_ShouldHandleValidInputs()
         {
             // Arrange
-            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
-            var exponentTextBox = this.GetTextBox("ExponentTextBox");
-            var xValueTextBox = this.GetTextBox("XValueTextBox");
+            var coefficientTextBox = this.control.TestCoefficientTextBox;
+            var exponentTextBox = this.control.TestExponentTextBox;
+            var xValueTextBox = this.control.TestXValueTextBox;
 
             coefficientTextBox.Text = "2.5";
             exponentTextBox.Text = "3";
@@ -81,9 +72,9 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void OnEvaluateClick_ShouldHandleInvalidInputs()
         {
             // Arrange
-            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
-            var exponentTextBox = this.GetTextBox("ExponentTextBox");
-            var xValueTextBox = this.GetTextBox("XValueTextBox");
+            var coefficientTextBox = this.control.TestCoefficientTextBox;
+            var exponentTextBox = this.control.TestExponentTextBox;
+            var xValueTextBox = this.control.TestXValueTextBox;
 
             coefficientTextBox.Text = "invalid";
             exponentTextBox.Text = "3";
@@ -104,9 +95,9 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void OnInputChanged_ShouldHandleValidInputs()
         {
             // Arrange
-            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
-            var exponentTextBox = this.GetTextBox("ExponentTextBox");
-            var xValueTextBox = this.GetTextBox("XValueTextBox");
+            var coefficientTextBox = this.control.TestCoefficientTextBox;
+            var exponentTextBox = this.control.TestExponentTextBox;
+            var xValueTextBox = this.control.TestXValueTextBox;
 
             coefficientTextBox.Text = "2.5";
             exponentTextBox.Text = "3";
@@ -127,9 +118,9 @@ namespace Sde.EulersIdentity.WPF.Test.Views
         public void OnInputChanged_ShouldHandleInvalidInputs()
         {
             // Arrange
-            var coefficientTextBox = this.GetTextBox("CoefficientTextBox");
-            var exponentTextBox = this.GetTextBox("ExponentTextBox");
-            var xValueTextBox = this.GetTextBox("XValueTextBox");
+            var coefficientTextBox = this.control.TestCoefficientTextBox;
+            var exponentTextBox = this.control.TestExponentTextBox;
+            var xValueTextBox = this.control.TestXValueTextBox;
 
             coefficientTextBox.Text = "invalid";
             exponentTextBox.Text = "3";
@@ -152,7 +143,7 @@ namespace Sde.EulersIdentity.WPF.Test.Views
             // Arrange
             var eventArgs = new TextCompositionEventArgs(InputManager.Current.PrimaryKeyboardDevice, new TextComposition(InputManager.Current, this.control, "123"))
             {
-                RoutedEvent = UIElement.PreviewTextInputEvent
+                RoutedEvent = UIElement.PreviewTextInputEvent,
             };
 
             // Act
@@ -171,7 +162,7 @@ namespace Sde.EulersIdentity.WPF.Test.Views
             // Arrange
             var eventArgs = new TextCompositionEventArgs(InputManager.Current.PrimaryKeyboardDevice, new TextComposition(InputManager.Current, this.control, "abc"))
             {
-                RoutedEvent = UIElement.PreviewTextInputEvent
+                RoutedEvent = UIElement.PreviewTextInputEvent,
             };
 
             // Act

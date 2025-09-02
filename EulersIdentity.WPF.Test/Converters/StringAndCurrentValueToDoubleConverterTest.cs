@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Test.Converters
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
     using FluentAssertions;
@@ -25,10 +26,12 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void Convert_ShouldReturnStringForCurrentValue()
         {
             // Arrange
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             object[] values = { 123.45, null };
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Act
-            var result = this.converter.Convert(values, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(values, typeof(string), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be("123.45");
@@ -41,10 +44,12 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void Convert_ShouldReturnEmptyStringForInvalidCurrentValue()
         {
             // Arrange
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             object[] values = { "invalid", null };
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Act
-            var result = this.converter.Convert(values, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.Convert(values, typeof(string), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().Be(string.Empty);
@@ -60,7 +65,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "123.45";
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.ConvertBack(value, new[] { typeof(double), typeof(object) }, string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().BeEquivalentTo(new object[] { 123.45, Binding.DoNothing });
@@ -76,7 +81,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             object value = "invalid";
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+            var result = this.converter.ConvertBack(value, new[] { typeof(double), typeof(object) }, string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
             result.Should().BeEquivalentTo(new object[] { Binding.DoNothing, Binding.DoNothing });
@@ -89,10 +94,14 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void ConvertBack_ShouldReturnBindingDoNothingForNullInput()
         {
             // Arrange
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             object value = null;
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
             // Act
-            var result = this.converter.ConvertBack(value, null, null, CultureInfo.InvariantCulture);
+#pragma warning disable CS8604 // Possible null reference argument.
+            var result = this.converter.ConvertBack(value, new[] { typeof(double), typeof(object) }, string.Empty, CultureInfo.InvariantCulture);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             // Assert
             result.Should().BeEquivalentTo(new object[] { Binding.DoNothing, Binding.DoNothing });

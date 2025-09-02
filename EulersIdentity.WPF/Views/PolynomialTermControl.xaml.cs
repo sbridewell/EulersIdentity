@@ -34,6 +34,21 @@ namespace Sde.EulersIdentity.WPF.Views
         }
 
         /// <summary>
+        /// Gets the Coefficient TextBox for testing purposes.
+        /// </summary>
+        public TextBox TestCoefficientTextBox => (TextBox)this.FindName("CoefficientTextBox")!;
+
+        /// <summary>
+        /// Gets the Exponent TextBox for testing purposes.
+        /// </summary>
+        public TextBox TestExponentTextBox => (TextBox)this.FindName("ExponentTextBox")!;
+
+        /// <summary>
+        /// Gets the XValue TextBox for testing purposes.
+        /// </summary>
+        public TextBox TestXValueTextBox => (TextBox)this.FindName("XValueTextBox")!;
+
+        /// <summary>
         /// Handles the Evaluate button click event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -42,17 +57,17 @@ namespace Sde.EulersIdentity.WPF.Views
         {
             try
             {
-                if (!double.TryParse(this.CoefficientTextBox.Text, out double coefficient))
+                if (!double.TryParse(this.TestCoefficientTextBox.Text, out double coefficient))
                 {
                     throw new FormatException("Invalid coefficient.");
                 }
 
-                if (!double.TryParse(this.ExponentTextBox.Text, out double exponent))
+                if (!double.TryParse(this.TestExponentTextBox.Text, out double exponent))
                 {
                     throw new FormatException("Invalid exponent.");
                 }
 
-                if (!double.TryParse(this.XValueTextBox.Text, out double xValue))
+                if (!double.TryParse(this.TestXValueTextBox.Text, out double xValue))
                 {
                     throw new FormatException("Invalid value for x.");
                 }
@@ -75,17 +90,17 @@ namespace Sde.EulersIdentity.WPF.Views
         {
             try
             {
-                if (!double.TryParse(this.CoefficientTextBox.Text, out double coefficient))
+                if (!double.TryParse(this.TestCoefficientTextBox.Text, out double coefficient))
                 {
                     throw new FormatException("Invalid coefficient.");
                 }
 
-                if (!double.TryParse(this.ExponentTextBox.Text, out double exponent))
+                if (!double.TryParse(this.TestExponentTextBox.Text, out double exponent))
                 {
                     throw new FormatException("Invalid exponent.");
                 }
 
-                if (!double.TryParse(this.XValueTextBox.Text, out double xValue))
+                if (!double.TryParse(this.TestXValueTextBox.Text, out double xValue))
                 {
                     throw new FormatException("Invalid value for x.");
                 }
