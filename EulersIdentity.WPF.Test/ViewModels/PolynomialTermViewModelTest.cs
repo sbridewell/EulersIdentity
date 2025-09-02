@@ -1,11 +1,8 @@
-using System;
-using System.Windows.Input;
-using FluentAssertions;
-using Sde.EulersIdentity.WPF.ViewModels;
-using Xunit;
-
 namespace Sde.EulersIdentity.WPF.Test.ViewModels
 {
+    using FluentAssertions;
+    using Sde.EulersIdentity.WPF.ViewModels;
+
     /// <summary>
     /// Unit tests for the <see cref="PolynomialTermViewModel"/> class.
     /// </summary>
@@ -22,7 +19,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             {
                 Coefficient = "2.5",
                 Exponent = "3",
-                XValue = "1.5"
+                XValue = "1.5",
             };
 
             // Act
