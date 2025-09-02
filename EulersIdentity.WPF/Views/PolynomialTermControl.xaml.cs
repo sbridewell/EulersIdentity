@@ -6,6 +6,7 @@
 namespace Sde.EulersIdentity.WPF.Views
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
@@ -14,6 +15,7 @@ namespace Sde.EulersIdentity.WPF.Views
     /// <summary>
     /// Interaction logic for PolynomialTermControl.xaml.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class PolynomialTermControl : UserControl
     {
         private static readonly Regex NumericRegex = new Regex("^-?[0-9]*(\\.[0-9]*)?$", RegexOptions.Compiled);
