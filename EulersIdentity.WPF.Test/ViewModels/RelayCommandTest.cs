@@ -68,10 +68,10 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
         }
 
         /// <summary>
-        /// Tests that the RaiseCanExecuteChanged method raises the CanExecuteChanged event.
+        /// Tests that the RaiseCanExecuteChanged method raises the CanExecuteChanged event when there are subscribers.
         /// </summary>
         [Fact]
-        public void RaiseCanExecuteChanged_ShouldRaiseCanExecuteChangedEvent()
+        public void RaiseCanExecuteChanged_ShouldRaiseEventWhenSubscribersExist()
         {
             // Arrange
             var command = new RelayCommand(() => { });
@@ -83,6 +83,22 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
 
             // Assert
             eventRaised.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Tests that the RaiseCanExecuteChanged method does not throw an exception when there are no subscribers.
+        /// </summary>
+        [Fact]
+        public void RaiseCanExecuteChanged_ShouldNotThrowWhenNoSubscribers()
+        {
+            // Arrange
+            var command = new RelayCommand(() => { });
+
+            // Act
+            var exception = Record.Exception(() => command.RaiseCanExecuteChanged());
+
+            // Assert
+            exception.Should().BeNull();
         }
 
         /// <summary>
