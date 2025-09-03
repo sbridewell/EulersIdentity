@@ -1,3 +1,8 @@
+// <copyright file="PolynomialTermViewModelTest.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
+
 namespace Sde.EulersIdentity.WPF.Test.ViewModels
 {
     using FluentAssertions;
@@ -40,7 +45,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             {
                 Coefficient = "invalid",
                 Exponent = "3",
-                XValue = "1.5"
+                XValue = "1.5",
             };
 
             // Act
@@ -61,7 +66,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             {
                 Coefficient = "2.5",
                 Exponent = "invalid",
-                XValue = "1.5"
+                XValue = "1.5",
             };
 
             // Act
@@ -82,7 +87,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             {
                 Coefficient = "2.5",
                 Exponent = "3",
-                XValue = "invalid"
+                XValue = "invalid",
             };
 
             // Act
@@ -103,7 +108,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             {
                 Coefficient = "2.5",
                 Exponent = "3",
-                XValue = "1.5"
+                XValue = "1.5",
             };
 
             // Act
@@ -122,9 +127,9 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             // Arrange
             var viewModel = new PolynomialTermViewModel
             {
-                Coefficient = "",
+                Coefficient = string.Empty,
                 Exponent = "3",
-                XValue = "1.5"
+                XValue = "1.5",
             };
 
             // Act

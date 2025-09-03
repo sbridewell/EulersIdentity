@@ -14,32 +14,32 @@ namespace Sde.EulersIdentity.WPF.ViewModels
     public class RelayCommand : ICommand
     {
         private readonly Action execute;
-        private readonly Func<bool> canExecute;
+        private readonly Func<bool>? canExecute;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelayCommand"/> class.
         /// </summary>
         /// <param name="execute">The action to execute.</param>
         /// <param name="canExecute">The function to determine if the command can execute.</param>
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
+        public RelayCommand(Action execute, Func<bool>? canExecute = null)
         {
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
         }
 
         /// <inheritdoc/>
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         /// <inheritdoc/>
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
-            return canExecute == null || canExecute();
+            return this.canExecute == null || this.canExecute();
         }
 
         /// <inheritdoc/>
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
-            execute();
+            this.execute();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

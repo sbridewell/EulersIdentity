@@ -1,10 +1,15 @@
-using System;
-using FluentAssertions;
-using Sde.EulersIdentity.WPF.ViewModels;
-using Xunit;
+// <copyright file="RelayCommandTest.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
 
 namespace Sde.EulersIdentity.WPF.Test.ViewModels
 {
+    using System;
+    using FluentAssertions;
+    using Sde.EulersIdentity.WPF.ViewModels;
+    using Xunit;
+
     /// <summary>
     /// Unit tests for the <see cref="RelayCommand"/> class.
     /// </summary>
@@ -108,7 +113,9 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
         public void Constructor_ShouldThrowArgumentNullExceptionWhenExecuteIsNull()
         {
             // Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             var exception = Record.Exception(() => new RelayCommand(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Assert
             exception.Should().BeOfType<ArgumentNullException>();

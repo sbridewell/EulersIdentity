@@ -1,32 +1,19 @@
-using System.ComponentModel;
-using FluentAssertions;
-using Sde.EulersIdentity.WPF.ViewModels;
-using Xunit;
+// <copyright file="ViewModelBaseTest.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
 
 namespace Sde.EulersIdentity.WPF.Test.ViewModels
 {
+    using FluentAssertions;
+    using Sde.EulersIdentity.WPF.ViewModels;
+    using Xunit;
+
     /// <summary>
     /// Unit tests for the <see cref="ViewModelBase"/> class.
     /// </summary>
     public class ViewModelBaseTest
     {
-        /// <summary>
-        /// A test implementation of <see cref="ViewModelBase"/> for testing purposes.
-        /// </summary>
-        private class TestViewModel : ViewModelBase
-        {
-            private string testProperty;
-
-            /// <summary>
-            /// Gets or sets the test property.
-            /// </summary>
-            public string TestProperty
-            {
-                get => testProperty;
-                set => SetProperty(ref testProperty, value);
-            }
-        }
-
         /// <summary>
         /// Tests that the PropertyChanged event is raised when a property value changes.
         /// </summary>
@@ -61,6 +48,39 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
 
             // Assert
             eventRaised.Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Tests that the getter returns the correct value after the property is set.
+        /// </summary>
+        [Fact]
+        public void TestProperty_GetterShouldReturnCorrectValue()
+        {
+            // Arrange
+            var viewModel = new TestViewModel();
+
+            // Act
+            viewModel.TestProperty = "Expected Value";
+
+            // Assert
+            viewModel.TestProperty.Should().Be("Expected Value");
+        }
+
+        /// <summary>
+        /// A test implementation of <see cref="ViewModelBase"/> for testing purposes.
+        /// </summary>
+        private class TestViewModel : ViewModelBase
+        {
+            private string testProperty = string.Empty;
+
+            /// <summary>
+            /// Gets or sets the test property.
+            /// </summary>
+            public string TestProperty
+            {
+                get => this.testProperty;
+                set => this.SetProperty(ref this.testProperty, value);
+            }
         }
     }
 }
