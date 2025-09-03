@@ -51,9 +51,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Testing**:
   - Unit tests provide over 90% branch and line coverage.
   - Tests follow the Arrange-Act-Assert pattern.
-  - Some tests are currently failing due to threading issues in WPF components. These are being addressed by implementing STA (Single Threaded Apartment) test frameworks.
-  - The `EulersIdentity.WPF.Test` project references both `xunit` and `Xunit.StaFact`, which is causing duplication of test methods in the test explorer. This issue needs to be resolved by consolidating the test framework references.
-- **Build**: The solution builds successfully, but some warnings are present and need to be resolved.
+- **Build**: The solution builds successfully
 - **Debugging**:
   - Debug messages are logged in the `MainViewModel` and displayed in the `MainWindow` when enabled.
   - Debugging can be toggled on or off using the `DebugEnabled` property.
@@ -63,12 +61,15 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - Introduced `DebugMessages` and `DebugEnabled` properties in the `MainViewModel`.
 - Enhanced the `PolynomialTermControl` to bind directly to `MainViewModel` properties.
 - Implemented data persistence across tabs in the WPF application.
-- Began addressing STA threading issues in WPF tests by implementing a custom STA test framework.
+- Resolved SA1101 warnings by prefixing local calls with `this`.
+- Expanded unit tests for `RelayCommand` and `ViewModelBase` to ensure full coverage.
+- Addressed CS8618 warnings by initializing non-nullable fields with default values.
+- Updated `RelayCommand` to use nullable `Func<bool>?` for `canExecute` to resolve CS8625 warnings.
+- Updated `SetProperty` in `ViewModelBase` to mark `propertyName` as nullable to resolve CS8625 warnings.
 
 ## Future Work
-- Resolve all failing tests and ensure full compatibility with STA threading requirements.
 - Consolidate test framework references in the `EulersIdentity.WPF.Test` project to eliminate duplicate test methods in the test explorer.
-- Extend the console application to demonstrate more advanced polynomial and equation operations.
+- Extend the application to demonstrate more advanced polynomial and equation operations.
 - Add support for parsing polynomials and equations from strings.
 - Improve performance for large polynomials.
 - Implement additional features in the `Polynomial` and `Equation` tabs.
