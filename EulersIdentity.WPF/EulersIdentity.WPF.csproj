@@ -40,4 +40,8 @@
     <ProjectReference Include="..\EulersIdentity\EulersIdentity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
 </Project>

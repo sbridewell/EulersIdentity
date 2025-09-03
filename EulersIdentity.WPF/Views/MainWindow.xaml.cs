@@ -1,9 +1,9 @@
-﻿// <copyright file="MainWindow.xaml.cs" company="Simon Bridewell">
+// <copyright file="MainWindow.xaml.cs" company="Simon Bridewell">
 // Copyright (c) Simon Bridewell.
 // Released under the MIT license - see LICENSE.txt in the repository root.
 // </copyright>
 
-namespace Sde.EulersIdentity.WPF
+namespace Sde.EulersIdentity.WPF.Views
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;

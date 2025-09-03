@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows7.0</TargetFramework>
@@ -10,6 +10,14 @@
     <AssemblyName>Sde.EulersIdentity.WPF.Test</AssemblyName>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <RootNamespace>Sde.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <UseWpf>true</UseWpf>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TestFramework>Sde.EulersIdentity.WPF.Test.StaTestFramework</TestFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +41,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="ReportGenerator" Version="5.4.12" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -56,6 +65,14 @@
 
   <ItemGroup>
     <Folder Include="TestResults\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="Xunit.TestFrameworkAttribute">
+      <_Parameter1>Sde.EulersIdentity.WPF.Test.StaTestFramework</_Parameter1>
+      <_Parameter2>Xunit.Sdk.TestFramework</_Parameter2>
+    </AssemblyAttribute>
   </ItemGroup>
 
 </Project>
