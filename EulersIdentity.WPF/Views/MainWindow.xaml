@@ -8,50 +8,38 @@
         mc:Ignorable="d"
         Title="Euler's Identity" Height="450" Width="800">
 
+    <!-- Resources for the window -->
     <Window.Resources>
+        <!-- Converts a boolean value to Visibility (used for showing/hiding elements) -->
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     </Window.Resources>
 
+    <!-- Set the DataContext for the window to the MainViewModel -->
     <Window.DataContext>
         <vm:MainViewModel />
     </Window.DataContext>
 
     <Grid>
+        <!-- Define the layout of the window with two rows -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" /> <!-- Row for the TabControl -->
+            <RowDefinition Height="*" /> <!-- Row for the debug messages -->
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="0" ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ContentControl>
-                        <ContentControl.Style>
-                            <Style TargetType="ContentControl">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding}" Value="PolynomialTerm">
-                                        <Setter Property="ContentTemplate">
-                                            <Setter.Value>
-                                                <DataTemplate>
-                                                    <local:PolynomialTermControl DataContext="{Binding}" />
-                                                </DataTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                    <!-- Add similar DataTriggers for Polynomial and Equation tabs if needed -->
-                                </Style.Triggers>
-                            </Style>
-                        </ContentControl.Style>
-                    </ContentControl>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
+        <!-- TabControl for switching between different views -->
+        <TabControl Grid.Row="0">
+            <!-- Tab for Polynomial Terms -->
+            <TabItem Header="Polynomial Term">
+                <local:PolynomialTermControl DataContext="{Binding PolynomialTermViewModel}" />
+            </TabItem>
+
+            <!-- Tab for Polynomials -->
+            <TabItem Header="Polynomial">
+                <!--<local:PolynomialControl DataContext="{Binding PolynomialViewModel}" />-->
+            </TabItem>
         </TabControl>
 
+        <!-- TextBox for displaying debug messages -->
         <TextBox 
             Grid.Row="1" 
             Text="{Binding DebugMessages}" 

@@ -24,5 +24,32 @@
     - When the user interacts with the PolynomialControl
     - Then the functionality implemented in the PolynomialTermControl user control to edit and validate polynomial terms will be reused in the PolynomialControl user control
       - The PolynomialControl user control will allow the user to add and remove PolynomialTermControl user controls to edit multiple polynomial terms
+      - Responsibilities of the PolynomialTermControl:
+        - Manages the value of a single PolynomialTerm (coefficient and exponent)
+        - Allows the user to edit the coefficient and exponent of the PolynomialTerm
+        - Not responsible for evaluating the PolynomialTerm for a given value of x
+      - Responsibilities of the PolynomialControl:
+        - Manages the value of a Polynomial (a collection of PolynomialTerms)
+        - Allows the user to add and remove PolynomialTermControl user controls to edit multiple polynomial terms
+        - Delegates the editing and validation of individual PolynomialTerms to the PolynomialTermControl user control
+        - Not responsible for evaluating the Polynomial for a given value of x
+      - Responsibilities of the tab in the main window which contains the PolynomialTermControl:
+        - Manages the overall state of the PolynomialControl user control
+        - Allows the user to enter a value of x to evaluate the Polynomial
+        - Displays the string representation of the Polynomial and the evaluation result
+        - Not responsible for managing individual PolynomialTerms or their editing and validation
+      - Responsibilities of the tab in the main window which contains the PolynomialControl:
+        - Manages the overall state of the PolynomialControl user control
+        - Allows the user to enter a value of x to evaluate the Polynomial
+        - Displays the string representation of the Polynomial and the evaluation result
+        - Not responsible for managing individual PolynomialTerms or their editing and validation
     - Then the state of the PolynomialTermControl will be preserved when switching between tabs
-
+  - 3
+    - Given the application contains multiple tabs and user controls
+    - When the application code is written
+    - Then the views and user controls will contain the bare minimum of code-behind logic
+    - Then any logic in the code-behind will be limited to UI-specific functionality such as handling button clicks and updating UI elements
+    - Then all non-UI-specific logic, including data manipulation, validation, and state management, will be implemented in the corresponding view models
+    - Then the view models will expose all necessary data and commands to the views via properties and ICommand implementations
+    - Then the views will bind to the view models using data binding to ensure a clear separation of concerns
+    - Then the application will follow the MVVM pattern to ensure testability, maintainability, and adherence to best practices

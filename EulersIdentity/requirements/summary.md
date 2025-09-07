@@ -46,15 +46,24 @@ Euler's Identity is a mathematical expression that combines several fundamental 
   - `MainViewModelTest`: Tests the `MainViewModel` class.
   - `PolynomialTermControlTest`: Tests the `PolynomialTermControl` user control.
 
+### 6. EulersIdentity.WPF.UI.Test
+- **Purpose**: Contains UI tests for the WPF application.
+- **Testing Frameworks**: LightBDD for behaviour-driven development and FluentAssertions for assertions.
+- **Key Test Classes**:
+  - `MainWindowTest`: Tests the `MainWindow` class.
+  - `PolynomialTermTabTest`: Tests the `PolynomialTerm` tab functionality.
+
 ## Current State
 - **Code Quality**: The solution adheres to Microsoft's C# coding conventions and includes XML documentation for all publicly visible entities.
 - **Testing**:
   - Unit tests provide over 90% branch and line coverage.
   - Tests follow the Arrange-Act-Assert pattern.
-- **Build**: The solution builds successfully
+- **Build**: The solution builds successfully without any warnings or errors.
 - **Debugging**:
   - Debug messages are logged in the `MainViewModel` and displayed in the `MainWindow` when enabled.
   - Debugging can be toggled on or off using the `DebugEnabled` property.
+- **Bugs**:
+  - There is an outstanding bug in the `PolynomialTermControl` where the `XValueTextBox` control is not correctly validating or displaying user input, causing related UI tests to fail.
 
 ## Recent Updates
 - Added a `TextBox` in the `MainWindow` to display debug messages.
@@ -73,6 +82,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - Add support for parsing polynomials and equations from strings.
 - Improve performance for large polynomials.
 - Implement additional features in the `Polynomial` and `Equation` tabs.
+- Fix the `XValueTextBox` validation and display issue in the `PolynomialTermControl`.
 
 ## Licensing
 This solution is released under the MIT license. See `LICENSE.txt` in the repository root for details.

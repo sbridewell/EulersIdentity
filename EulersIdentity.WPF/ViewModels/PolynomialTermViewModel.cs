@@ -18,6 +18,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         private string exponent = string.Empty;
         private string xValue = string.Empty;
         private string result = string.Empty;
+        private string polynomialTermState = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolynomialTermViewModel"/> class.
@@ -33,7 +34,13 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public string Coefficient
         {
             get => this.coefficient;
-            set => this.SetProperty(ref this.coefficient, value);
+            set
+            {
+                if (double.TryParse(value, out _) && this.SetProperty(ref this.coefficient, value))
+                {
+                    this.UpdatePolynomialTermState();
+                }
+            }
         }
 
         /// <summary>
@@ -42,7 +49,13 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public string Exponent
         {
             get => this.exponent;
-            set => this.SetProperty(ref this.exponent, value);
+            set
+            {
+                if (double.TryParse(value, out _) && this.SetProperty(ref this.exponent, value))
+                {
+                    this.UpdatePolynomialTermState();
+                }
+            }
         }
 
         /// <summary>
@@ -51,7 +64,13 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public string XValue
         {
             get => this.xValue;
-            set => this.SetProperty(ref this.xValue, value);
+            set
+            {
+                if (double.TryParse(value, out _) && this.SetProperty(ref this.xValue, value))
+                {
+                    this.UpdatePolynomialTermState();
+                }
+            }
         }
 
         /// <summary>
@@ -61,6 +80,15 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         {
             get => this.result;
             private set => this.SetProperty(ref this.result, value);
+        }
+
+        /// <summary>
+        /// Gets the string representation of the polynomial term.
+        /// </summary>
+        public string PolynomialTermState
+        {
+            get => this.polynomialTermState;
+            private set => this.SetProperty(ref this.polynomialTermState, value);
         }
 
         /// <summary>
@@ -100,6 +128,20 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             catch (Exception ex)
             {
                 this.Result = $"Error: {ex.Message}";
+            }
+        }
+
+        private void UpdatePolynomialTermState()
+        {
+            if (double.TryParse(this.Coefficient, out double coefficientValue) &&
+                double.TryParse(this.Exponent, out double exponentValue))
+            {
+                var term = new PolynomialTerm(coefficientValue, exponentValue);
+                this.PolynomialTermState = term.ToString();
+            }
+            else
+            {
+                this.PolynomialTermState = string.Empty;
             }
         }
     }

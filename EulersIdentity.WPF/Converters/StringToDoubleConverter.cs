@@ -16,31 +16,18 @@ namespace Sde.EulersIdentity.WPF.Converters
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double doubleValue)
-            {
-                return doubleValue.ToString(culture);
-            }
-
-            return string.Empty;
+            return value?.ToString();
         }
 
         /// <inheritdoc/>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string stringValue)
+            if (value is string input && double.TryParse(input, out var result))
             {
-                if (string.IsNullOrWhiteSpace(stringValue))
-                {
-                    return 0.0; // Treat empty strings as zero.
-                }
-
-                if (double.TryParse(stringValue, NumberStyles.Any, culture, out double result))
-                {
-                    return result;
-                }
+                return result;
             }
 
-            return 0.0; // Default to zero for invalid input.
+            return Binding.DoNothing;
         }
     }
 }

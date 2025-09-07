@@ -1,9 +1,12 @@
 ﻿<Application x:Class="Sde.EulersIdentity.WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Sde.EulersIdentity.WPF"
+             xmlns:viewModels="clr-namespace:Sde.EulersIdentity.WPF.ViewModels"
+             xmlns:views="clr-namespace:Sde.EulersIdentity.WPF.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewModels:PolynomialViewModel}">
+            <views:PolynomialControl />
+        </DataTemplate>
     </Application.Resources>
 </Application>

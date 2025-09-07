@@ -49,6 +49,16 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public ObservableCollection<string> Tabs { get; }
 
         /// <summary>
+        /// Gets the view model for the PolynomialTerm control.
+        /// </summary>
+        public PolynomialTermViewModel PolynomialTermViewModel { get; } = new PolynomialTermViewModel();
+
+        /// <summary>
+        /// Gets the view model for the Polynomial control.
+        /// </summary>
+        public PolynomialViewModel PolynomialViewModel { get; } = new PolynomialViewModel();
+
+        /// <summary>
         /// Gets or sets the selected tab.
         /// </summary>
         public string SelectedTab
