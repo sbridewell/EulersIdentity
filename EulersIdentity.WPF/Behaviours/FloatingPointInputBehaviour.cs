@@ -6,20 +6,17 @@
 namespace Sde.EulersIdentity.WPF.Behaviours
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using Microsoft.Xaml.Behaviors;
+    using Sde.EulersIdentity.WPF.Utilities;
 
     /// <summary>
     /// A behaviour to restrict TextBox input to valid floating-point numbers.
     /// </summary>
     public class FloatingPointInputBehaviour : Behavior<TextBox>
     {
-        // Updated regex to allow a single hyphen as valid input
-        private static readonly Regex NumericRegex = new(@"^-?$|^-?(?:[0-9]+(\.[0-9]*)?|\.[0-9]+)$");
-
         /// <summary>
         /// Validates whether the given input is a valid floating-point number.
         /// </summary>
@@ -27,7 +24,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
         /// <returns><c>true</c> if the input is valid; otherwise, <c>false</c>.</returns>
         public static bool IsValidFloatingPointInput(string input)
         {
-            return NumericRegex.IsMatch(input);
+            return InputValidationUtilities.IsValidFloatingPointInput(input);
         }
 
         /// <summary>

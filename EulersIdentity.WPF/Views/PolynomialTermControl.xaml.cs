@@ -7,9 +7,9 @@ namespace Sde.EulersIdentity.WPF.Views
 {
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
-    using System.Text.RegularExpressions;
     using System.Windows.Controls;
     using System.Windows.Input;
+    using Sde.EulersIdentity.WPF.Utilities;
 
     /// <summary>
     /// Interaction logic for PolynomialTermControl.xaml.
@@ -51,12 +51,10 @@ namespace Sde.EulersIdentity.WPF.Views
         /// <param name="e">The event arguments.</param>
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // Allow only numeric input, decimal points, and negative signs.
-            // Adjusted to ensure it handles valid input for all text boxes.
             string input = e.Text;
-            bool isValid = Regex.IsMatch(input, "^[0-9]*[.,]?[0-9]*$|^-$");
+            bool isValid = InputValidationUtilities.IsValidFloatingPointInput(input);
 
-            // Log the input and the result of the regular expression match.
+            // Log the input and the result of the validation.
             Debug.WriteLine($"TextBox_PreviewTextInput: Input='{input}', IsValid={isValid}");
 
             e.Handled = !isValid;
