@@ -41,10 +41,12 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void Convert_ShouldReturnNullForNullInput()
         {
             // Arrange
-            object value = null;
+            object? value = null;
 
             // Act
+#pragma warning disable CS8604 // Possible null reference argument.
             var result = this.converter.Convert(value, typeof(string), string.Empty, CultureInfo.InvariantCulture);
+#pragma warning restore CS8604 // Possible null reference argument.
 
             // Assert
             result.Should().BeNull();

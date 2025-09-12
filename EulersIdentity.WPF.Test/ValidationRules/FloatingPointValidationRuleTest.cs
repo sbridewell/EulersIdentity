@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Test.ValidationRules
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.ValidationRules;
@@ -30,6 +31,10 @@ namespace Sde.EulersIdentity.WPF.Test.ValidationRules
         [InlineData("abc", false)] // Invalid: non-numeric input
         [InlineData("", false)] // Invalid: empty string
         [InlineData(null, false)] // Invalid: null value
+        [SuppressMessage(
+            "Usage",
+            "xUnit1012:Null should only be used for nullable parameters",
+            Justification = "Intentional test for null argument scenario")]
         public void Validate_ShouldReturnExpectedResult(string input, bool expectedIsValid)
         {
             // Arrange

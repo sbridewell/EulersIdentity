@@ -120,7 +120,8 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// <param name="tabIndex">The index of the tab to search in.</param>
         /// <param name="automationId">The automation ID of the control.</param>
         /// <returns>The control element.</returns>
-        protected T FindControlInTab<T>(int tabIndex, string automationId) where T : AutomationElement
+        protected T FindControlInTab<T>(int tabIndex, string automationId)
+            where T : AutomationElement
         {
             this.SelectTab(tabIndex);
             var mainWindow = this.GetMainWindow();
