@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Behaviours
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -13,6 +14,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
     /// <summary>
     /// Provides an attached property to apply validation rules to a TextBox.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class ValidationBehaviour
     {
         /// <summary>
