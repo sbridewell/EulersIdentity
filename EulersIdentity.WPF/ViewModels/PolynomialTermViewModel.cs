@@ -8,6 +8,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
     using System;
     using System.Windows.Input;
     using Sde.EulersIdentity;
+    using Sde.EulersIdentity.WPF.Utilities;
 
     /// <summary>
     /// ViewModel for the PolynomialTerm control.
@@ -36,10 +37,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.coefficient;
             set
             {
-                if (double.TryParse(value, out _) && this.SetProperty(ref this.coefficient, value))
-                {
-                    this.UpdatePolynomialTermState();
-                }
+                var sanitised = InputValidationUtilities.CleanFloatingPointInput(value);
+                this.SetProperty(ref this.coefficient, sanitised);
             }
         }
 
@@ -51,10 +50,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.exponent;
             set
             {
-                if (double.TryParse(value, out _) && this.SetProperty(ref this.exponent, value))
-                {
-                    this.UpdatePolynomialTermState();
-                }
+                var sanitised = InputValidationUtilities.CleanFloatingPointInput(value);
+                this.SetProperty(ref this.exponent, sanitised);
             }
         }
 
@@ -66,10 +63,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.xValue;
             set
             {
-                if (double.TryParse(value, out _) && this.SetProperty(ref this.xValue, value))
-                {
-                    this.UpdatePolynomialTermState();
-                }
+                var sanitised = InputValidationUtilities.CleanFloatingPointInput(value);
+                this.SetProperty(ref this.xValue, sanitised);
             }
         }
 

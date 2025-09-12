@@ -7,93 +7,50 @@
              xmlns:local="clr-namespace:Sde.EulersIdentity.WPF"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:conv="clr-namespace:Sde.EulersIdentity.WPF.Converters"
-             xmlns:validation="clr-namespace:Sde.EulersIdentity.WPF.ValidationRules"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
         <!-- Converts between strings and floating point numbers -->
         <conv:StringToDoubleConverter x:Key="StringToDoubleConverter" />
         
+        <!-- Removes invalid characters from a string which should represent a floating point number -->
+        <conv:StringToSanitisedStringConverter x:Key="SanitisedStringConverter" />
+
         <!-- Reusable style for text boxes intended for entry of floating point numbers -->
-        <!-- Includes validation of the entered text -->
         <Style x:Key="FloatingPointTextBoxStyle" TargetType="TextBox">
             <Setter Property="Width" Value="100" />
             <Setter Property="Margin" Value="0,0,10,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border BorderBrush="Red" BorderThickness="1">
-                            <AdornedElementPlaceholder />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter 
-                Property="behaviours:ValidationBehaviour.EnableFloatingPointValidation" 
-                Value="True" 
-                />
         </Style>
     </UserControl.Resources>
 
     <Grid>
         <StackPanel Margin="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,10">
+                
+                <!-- Coefficient -->
                 <TextBlock Text="Coefficient:" VerticalAlignment="Center" Margin="0,0,5,0" />
-                <!--<TextBox 
-                    x:Name="CoefficientTextBox" 
-                    Width="100" 
-                    Margin="0,0,10,0" 
-                    GotFocus="TextBox_GotFocus"
-                    >
-                    <i:Interaction.Behaviors>
-                        <behaviours:FloatingPointInputBehaviour />
-                    </i:Interaction.Behaviors>
-                    <TextBox.Text>
-                        <Binding 
-                            Path="Coefficient" 
-                            UpdateSourceTrigger="PropertyChanged" 
-                            ValidatesOnDataErrors="True"
-                            >
-                            <Binding.ValidationRules>
-                                <validation:FloatingPointValidationRule />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>-->
                 <TextBox 
                     x:Name="CoefficientTextBox"
                     Style="{StaticResource FloatingPointTextBoxStyle}"
-                    Text="{Binding Coefficient, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToDoubleConverter}}"
+                    Text="{Binding Coefficient, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
                     />
-                <!--<TextBox x:Name="CoefficientTextBox">
-                    <TextBox.Text>
-                        <Binding Path="Coefficient" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <validation:FloatingPointValidationRule />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>-->
 
+                <!-- Exponent -->
                 <TextBlock Text="Exponent:" VerticalAlignment="Center" Margin="0,0,5,0" />
                 <TextBox 
-              x:Name="ExponentTextBox" 
-              Width="100" 
-              Margin="0,0,10,0" 
-              Text="{Binding Exponent, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToDoubleConverter}}"
-              GotFocus="TextBox_GotFocus"
-              PreviewTextInput="TextBox_PreviewTextInput"
-              />
+                    x:Name="ExponentTextBox"
+                    Style="{StaticResource FloatingPointTextBoxStyle}"
+                    Text="{Binding Exponent, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    />
 
+                <!-- Value of x -->
                 <TextBlock Text="Value of x:" VerticalAlignment="Center" Margin="0,0,5,0" />
                 <TextBox 
-              x:Name="XValueTextBox" 
-              Width="100" 
-              Text="{Binding XValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringToDoubleConverter}}"
-              GotFocus="TextBox_GotFocus"
-              PreviewTextInput="TextBox_PreviewTextInput"
-              />
+                    x:Name="XValueTextBox"
+                    Style="{StaticResource FloatingPointTextBoxStyle}"
+                    Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    />
 
                 <TextBlock
               x:Name="TermStringTextBlock"

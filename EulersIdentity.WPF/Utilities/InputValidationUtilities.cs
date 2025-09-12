@@ -1,7 +1,12 @@
+// <copyright file="InputValidationUtilities.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
+
 namespace Sde.EulersIdentity.WPF.Utilities
 {
-    using System.Text.RegularExpressions;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Provides utility methods for validating input.
