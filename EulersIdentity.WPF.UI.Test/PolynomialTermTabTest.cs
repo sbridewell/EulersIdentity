@@ -6,6 +6,7 @@
 namespace Sde.EulersIdentity.WPF.UI.Test
 {
     using LightBDD.Framework.Scenarios;
+    using LightBDD.XUnit2;
 
     /// <summary>
     /// UI tests for the polynomial term tab of the main window.
@@ -19,13 +20,15 @@ namespace Sde.EulersIdentity.WPF.UI.Test
             "XValueTextBox",
         };
 
-        private static readonly List<double> ValidValues = new()
+        private static readonly List<string> ValidValues = new()
         {
-            3.5,
-            2,
-            -1.25,
-            Math.PI,
-            0,
+            "3.5",
+            "2",
+            "-1.25",
+            Math.PI.ToString(),
+            "0",
+            "-",
+            ".",
         };
 
         private static readonly List<InvalidInput> InvalidValues = new()
@@ -60,9 +63,9 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// </summary>
         /// <param name="automationId">The automation ID of the text box being tested.</param>
         /// <param name="value">The value to enter into the text box.</param>
-        [Theory]
+        [Scenario]
         [MemberData(nameof(ValidValueCombinations))]
-        public void UserEntersValidValue_ValueIsDisplayed(string automationId, double value)
+        public void UserEntersValidValue_ValueIsDisplayed(string automationId, string value)
         {
             this.Runner.RunScenario(
                 given => this.TheApplicationHasStarted(),
@@ -77,7 +80,7 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// <param name="automationId">The automation ID of the text box being tested.</param>
         /// <param name="value">The invalid value entered into the text box.</param>
         /// <param name="expectedDisplay">The expected value displayed in the text box.</param>
-        [Theory]
+        [Scenario]
         [MemberData(nameof(InvalidValueCombinations))]
         public void UserEntersInvalidValue_ValueIsHandledGracefully(
             string automationId,
