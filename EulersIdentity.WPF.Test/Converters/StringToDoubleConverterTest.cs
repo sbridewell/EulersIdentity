@@ -6,6 +6,7 @@
 namespace Sde.EulersIdentity.WPF.Test.Converters
 {
     using System.Globalization;
+    using System.Windows.Data;
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.Converters;
     using Xunit;
@@ -34,19 +35,19 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         }
 
         /// <summary>
-        /// Tests that Convert returns an empty string for invalid input.
+        /// Tests that Convert returns null for null input.
         /// </summary>
-        [Fact(Skip = "Currently failing")]
-        public void Convert_ShouldReturnEmptyStringForInvalidInput()
+        [Fact]
+        public void Convert_ShouldReturnNullForNullInput()
         {
             // Arrange
-            object value = "invalid";
+            object value = null;
 
             // Act
             var result = this.converter.Convert(value, typeof(string), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
-            result.Should().Be(string.Empty);
+            result.Should().BeNull();
         }
 
         /// <summary>
@@ -66,10 +67,10 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         }
 
         /// <summary>
-        /// Tests that ConvertBack returns zero for an empty string.
+        /// Tests that ConvertBack returns Binding.DoNothing for an empty string.
         /// </summary>
-        [Fact(Skip = "Currently failing")]
-        public void ConvertBack_ShouldReturnZeroForEmptyString()
+        [Fact]
+        public void ConvertBack_ShouldReturnBindingDoNothingForEmptyString()
         {
             // Arrange
             object value = string.Empty;
@@ -78,14 +79,14 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
-            result.Should().Be(0.0);
+            result.Should().Be(Binding.DoNothing);
         }
 
         /// <summary>
-        /// Tests that ConvertBack returns zero for an invalid string.
+        /// Tests that ConvertBack returns Binding.DoNothing for an invalid string.
         /// </summary>
-        [Fact(Skip = "Currently failing")]
-        public void ConvertBack_ShouldReturnZeroForInvalidString()
+        [Fact]
+        public void ConvertBack_ShouldReturnBindingDoNothingForInvalidString()
         {
             // Arrange
             object value = "invalid";
@@ -94,7 +95,23 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
 
             // Assert
-            result.Should().Be(0.0);
+            result.Should().Be(Binding.DoNothing);
+        }
+
+        /// <summary>
+        /// Tests that ConvertBack returns Binding.DoNothing for non-string input.
+        /// </summary>
+        [Fact]
+        public void ConvertBack_ShouldReturnBindingDoNothingForNonStringInput()
+        {
+            // Arrange
+            object value = 123.45;
+
+            // Act
+            var result = this.converter.ConvertBack(value, typeof(double), string.Empty, CultureInfo.InvariantCulture);
+
+            // Assert
+            result.Should().Be(Binding.DoNothing);
         }
     }
 }

@@ -16,7 +16,9 @@ namespace Sde.EulersIdentity.WPF.Converters
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+#pragma warning disable CS8603 // Possible null reference return.
             return value?.ToString();
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <inheritdoc/>
