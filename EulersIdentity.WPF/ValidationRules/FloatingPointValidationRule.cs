@@ -7,6 +7,7 @@ namespace Sde.EulersIdentity.WPF.ValidationRules
 {
     using System.Globalization;
     using System.Windows.Controls;
+    using Sde.EulersIdentity.WPF.Utilities;
 
     /// <summary>
     /// Represents a validation rule that checks whether the input value is a valid floating-point number.
@@ -19,12 +20,17 @@ namespace Sde.EulersIdentity.WPF.ValidationRules
         /// <inheritdoc/>
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            if (value is string input && double.TryParse(input, out _))
-            {
-                return ValidationResult.ValidResult;
-            }
+            //if (value is string input)
+            //{
+            //    string cleanedInput = InputValidationUtilities.CleanFloatingPointInput(input);
+            //    if (double.TryParse(cleanedInput, out _))
+            //    {
+            //        return ValidationResult.ValidResult;
+            //    }
+            //}
 
-            return new ValidationResult(false, "Input must be a valid floating-point number.");
+            //return new ValidationResult(false, "Input must be a valid floating-point number.");
+            return ValidationResult.ValidResult;
         }
     }
 }

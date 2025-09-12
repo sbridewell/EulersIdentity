@@ -52,12 +52,12 @@ namespace Sde.EulersIdentity.WPF.Views
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string input = e.Text;
-            bool isValid = InputValidationUtilities.IsValidFloatingPointInput(input);
+            string cleanedInput = InputValidationUtilities.CleanFloatingPointInput(input);
 
-            // Log the input and the result of the validation.
-            Debug.WriteLine($"TextBox_PreviewTextInput: Input='{input}', IsValid={isValid}");
+            // Log the input and the cleaned result.
+            Debug.WriteLine($"TextBox_PreviewTextInput: Input='{input}', CleanedInput='{cleanedInput}'");
 
-            e.Handled = !isValid;
+            e.Handled = cleanedInput != input;
         }
     }
 }

@@ -42,5 +42,32 @@ namespace Sde.EulersIdentity.WPF.Test.Utilities
             // Assert
             result.Should().Be(expected);
         }
+
+        /// <summary>
+        /// Tests the <see cref="InputValidationUtilities.CleanFloatingPointInput"/> method
+        /// with various inputs.
+        /// </summary>
+        /// <param name="input">The input string to clean.</param>
+        /// <param name="expected">The expected cleaned string.</param>
+        [Theory]
+        [InlineData("1.23", "1.23")] // Valid input
+        [InlineData("-4.56", "-4.56")] // Valid negative input
+        [InlineData("1.2.3", "1.23")] // Invalid: multiple decimal points
+        [InlineData("--1.23", "-1.23")] // Invalid: multiple negative signs
+        [InlineData("abc", "")] // Invalid: non-numeric input
+        [InlineData("", "")] // Empty string
+        [InlineData(".", ".")] // Valid: single decimal point
+        [InlineData("-", "-")] // Valid: single hyphen
+        [InlineData("-1.", "-1.")] // Valid negative number with trailing decimal
+        [InlineData(".23", ".23")] // Valid number with leading decimal
+        [InlineData("1.", "1.")] // Valid number with trailing decimal
+        public void CleanFloatingPointInput_ShouldReturnExpectedResult(string input, string expected)
+        {
+            // Act
+            var result = InputValidationUtilities.CleanFloatingPointInput(input);
+
+            // Assert
+            result.Should().Be(expected);
+        }
     }
 }

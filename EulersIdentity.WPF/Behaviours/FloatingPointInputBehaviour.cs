@@ -77,7 +77,8 @@ namespace Sde.EulersIdentity.WPF.Behaviours
         {
             if (sender is TextBox textBox)
             {
-                e.Handled = !ValidatePreviewInput(textBox.Text, e.Text, textBox.SelectionStart);
+                string cleanedInput = InputValidationUtilities.CleanFloatingPointInput(textBox.Text + e.Text);
+                e.Handled = cleanedInput != textBox.Text + e.Text;
             }
         }
 
