@@ -26,7 +26,9 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             string expected = "12.34";
 
             // Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             var result = converter.Convert(input, null, null, CultureInfo.InvariantCulture);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Assert
             result.Should().Be(expected);
@@ -44,7 +46,9 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             string expected = "12.34";
 
             // Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             var result = converter.ConvertBack(input, null, null, CultureInfo.InvariantCulture);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
             // Assert
             result.Should().Be(expected);
