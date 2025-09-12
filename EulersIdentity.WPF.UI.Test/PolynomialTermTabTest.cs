@@ -29,6 +29,15 @@ namespace Sde.EulersIdentity.WPF.UI.Test
             "0",
             "-",
             ".",
+            ".0",
+            ".1",
+            "-1.",
+            "-0.5",
+            "-1.",
+            "4.",
+            "0.0",
+            "1234567890.1234567890",
+            "-1234567890.1234567890",
         };
 
         private static readonly List<InvalidInput> InvalidValues = new()
