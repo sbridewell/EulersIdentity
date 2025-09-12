@@ -54,6 +54,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         protected override void OnAttached()
         {
             base.OnAttached();
@@ -62,6 +63,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         protected override void OnDetaching()
         {
             base.OnDetaching();
@@ -73,6 +75,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
             "Minor Code Smell",
             "S2325:Methods and properties that don't access instance data should be static",
             Justification = "Event handlers should be instance methods")]
+        [ExcludeFromCodeCoverage]
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (sender is TextBox textBox)
@@ -85,6 +88,7 @@ namespace Sde.EulersIdentity.WPF.Behaviours
             "Minor Code Smell",
             "S2325:Methods and properties that don't access instance data should be static",
             Justification = "Event handlers should be instance methods")]
+        [ExcludeFromCodeCoverage]
         private void OnPaste(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(DataFormats.Text))
