@@ -30,6 +30,7 @@ namespace Sde.EulersIdentity.WPF.Test.Behaviours
         [InlineData("", true)] // Valid: empty string
         [InlineData(".", false)] // Invalid: only decimal point
         [InlineData("-", true)] // Valid: single hyphen
+        [InlineData("-1.", true)] // Valid negative number with trailing decimal
         public void IsValidFloatingPointInput_ShouldReturnExpectedResult(string input, bool expected)
         {
             // Act
@@ -52,6 +53,7 @@ namespace Sde.EulersIdentity.WPF.Test.Behaviours
         [InlineData("-1", ".", true)] // Negative number with decimal
         [InlineData("1.2", "3", true)] // Valid number
         [InlineData("1.2", "-", false)] // Invalid negative sign
+        [InlineData("-1.", "2", true)] // Valid negative number with trailing decimal and digit
         public void OnPreviewTextInput_ShouldValidateCombinedText(string currentText, string newInput, bool expected)
         {
             // Arrange
