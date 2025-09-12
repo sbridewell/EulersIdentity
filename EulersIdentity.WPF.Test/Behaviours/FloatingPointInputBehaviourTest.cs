@@ -39,6 +39,13 @@ namespace Sde.EulersIdentity.WPF.Test.Behaviours
             isValid.Should().Be(expected);
         }
 
+        /// <summary>
+        /// Tests that validation in the ValidatePreviewInput method works correctly.
+        /// </summary>
+        /// <param name="currentText">The text which is already in the text box.</param>
+        /// <param name="newInput">The text newly entered by the user.</param>
+        /// <param name="selectionStart">The cursor position within the text box before user input.</param>
+        /// <param name="expected">Whether or not the input should pass validation.</param>
         [Theory]
         [InlineData("1.2", ".", 3, false)] // Invalid: trailing decimal point
         [InlineData("1.2", ".", 2, false)] // Invalid: multiple decimal points
@@ -53,6 +60,11 @@ namespace Sde.EulersIdentity.WPF.Test.Behaviours
             result.Should().Be(expected);
         }
 
+        /// <summary>
+        /// Tests that validation in the ValidatePasteInput method works correctly.
+        /// </summary>
+        /// <param name="pastedText">The text pasted into the text box.</param>
+        /// <param name="expected">Whether or not the input should pass validation.</param>
         [Theory]
         [InlineData("1.23", true)] // Valid pasted text
         [InlineData("1.2.3", false)] // Invalid: multiple decimal points
