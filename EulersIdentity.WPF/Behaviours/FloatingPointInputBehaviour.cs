@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Behaviours
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Controls;
@@ -29,46 +30,6 @@ namespace Sde.EulersIdentity.WPF.Behaviours
             return NumericRegex.IsMatch(input);
         }
 
-        /// <inheritdoc/>
-        protected override void OnAttached()
-        {
-            base.OnAttached();
-            this.AssociatedObject.PreviewTextInput += OnPreviewTextInput;
-            DataObject.AddPastingHandler(this.AssociatedObject, OnPaste);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnDetaching()
-        {
-            base.OnDetaching();
-            this.AssociatedObject.PreviewTextInput -= OnPreviewTextInput;
-            DataObject.RemovePastingHandler(this.AssociatedObject, OnPaste);
-        }
-
-        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (sender is TextBox textBox)
-            {
-                e.Handled = !ValidatePreviewInput(textBox.Text, e.Text, textBox.SelectionStart);
-            }
-        }
-
-        private void OnPaste(object sender, DataObjectPastingEventArgs e)
-        {
-            if (e.DataObject.GetDataPresent(DataFormats.Text))
-            {
-                var pastedText = e.DataObject.GetData(DataFormats.Text) as string;
-                if (!ValidatePasteInput(pastedText))
-                {
-                    e.CancelCommand();
-                }
-            }
-            else
-            {
-                e.CancelCommand();
-            }
-        }
-
         /// <summary>
         /// Validates the combined text for the PreviewTextInput event.
         /// </summary>
@@ -90,6 +51,54 @@ namespace Sde.EulersIdentity.WPF.Behaviours
         public static bool ValidatePasteInput(string pastedText)
         {
             return IsValidFloatingPointInput(pastedText);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+            this.AssociatedObject.PreviewTextInput += this.OnPreviewTextInput;
+            DataObject.AddPastingHandler(this.AssociatedObject, this.OnPaste);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+            this.AssociatedObject.PreviewTextInput -= this.OnPreviewTextInput;
+            DataObject.RemovePastingHandler(this.AssociatedObject, this.OnPaste);
+        }
+
+        [SuppressMessage(
+            "Minor Code Smell",
+            "S2325:Methods and properties that don't access instance data should be static",
+            Justification = "Event handlers should be instance methods")]
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                e.Handled = !ValidatePreviewInput(textBox.Text, e.Text, textBox.SelectionStart);
+            }
+        }
+
+        [SuppressMessage(
+            "Minor Code Smell",
+            "S2325:Methods and properties that don't access instance data should be static",
+            Justification = "Event handlers should be instance methods")]
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(DataFormats.Text))
+            {
+                var pastedText = e.DataObject.GetData(DataFormats.Text) as string;
+                if (!ValidatePasteInput(pastedText!))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
     }
 }
