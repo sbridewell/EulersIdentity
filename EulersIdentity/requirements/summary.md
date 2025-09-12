@@ -38,6 +38,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Classes**:
   - `MainViewModel`: The main ViewModel for the application, managing tab states and debug messages.
   - `PolynomialTermControl`: A user control for creating and evaluating polynomial terms.
+  - `FloatingPointInputBehaviour`: Restricts `TextBox` input to valid floating-point numbers.
+  - `ValidationBehaviour`: Provides an attached property to apply validation rules to a `TextBox`.
 
 ### 5. EulersIdentity.WPF.Test
 - **Purpose**: Contains unit tests for the WPF application.
@@ -45,6 +47,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Test Classes**:
   - `MainViewModelTest`: Tests the `MainViewModel` class.
   - `PolynomialTermControlTest`: Tests the `PolynomialTermControl` user control.
+  - `FloatingPointInputBehaviourTest`: Tests the `FloatingPointInputBehaviour` class.
+  - `ValidationBehaviourTest`: Tests the `ValidationBehaviour` class.
 
 ### 6. EulersIdentity.WPF.UI.Test
 - **Purpose**: Contains UI tests for the WPF application.
@@ -75,6 +79,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - Addressed CS8618 warnings by initializing non-nullable fields with default values.
 - Updated `RelayCommand` to use nullable `Func<bool>?` for `canExecute` to resolve CS8625 warnings.
 - Updated `SetProperty` in `ViewModelBase` to mark `propertyName` as nullable to resolve CS8625 warnings.
+- Added `FloatingPointInputBehaviourTest` to test floating-point input restrictions.
+- Added `ValidationBehaviourTest` to test the `ValidationBehaviour` class.
 
 ## Future Work
 - Consolidate test framework references in the `EulersIdentity.WPF.Test` project to eliminate duplicate test methods in the test explorer.
