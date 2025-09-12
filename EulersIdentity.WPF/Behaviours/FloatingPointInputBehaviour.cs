@@ -16,7 +16,8 @@ namespace Sde.EulersIdentity.WPF.Behaviours
     /// </summary>
     public class FloatingPointInputBehaviour : Behavior<TextBox>
     {
-        private static readonly Regex NumericRegex = new(@"^-?(?:[0-9]+(\.[0-9]*)?|\.[0-9]+)$");
+        // Updated regex to allow a single hyphen as valid input
+        private static readonly Regex NumericRegex = new(@"^-?$|^-?(?:[0-9]+(\.[0-9]*)?|\.[0-9]+)$");
 
         /// <summary>
         /// Validates whether the given input is a valid floating-point number.
