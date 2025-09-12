@@ -14,26 +14,33 @@ namespace Sde.EulersIdentity.WPF.UI.Test
     /// </summary>
     public partial class PolynomialTermTabTest : UITestBase
     {
+        private const string CoefficientTextBoxName = "CoefficientTextBox";
+        private const string ExponentTextBoxName = "ExponentTextBox";
+        private const string XValueTextBoxName = "XValueTextBox";
+
         /// <summary>
         /// Verifies that when a user enters a valid value into a specified text box on the Polynomial Term tab,
         /// the value is correctly displayed in the text box.
         /// </summary>
         /// <param name="automationId">The automation ID of the text box being tested.</param>
         /// <param name="value">The value to enter into the text box.</param>
-        //[Scenario]
-        [Scenario(Skip = "still investigating the validation")]
-        [InlineData("CoefficientTextBox", 3.5)]
-        [InlineData("CoefficientTextBox", 2)]
-        [InlineData("CoefficientTextBox", -1.25)]
-        [InlineData("CoefficientTextBox", Math.PI)]
-        [InlineData("ExponentTextBox", 3.5)]
-        [InlineData("ExponentTextBox", 2)]
-        [InlineData("ExponentTextBox", -1.25)]
-        [InlineData("ExponentTextBox", Math.PI)]
-        [InlineData("XValueTextBox", 3.5)]
-        [InlineData("XValueTextBox", 2)]
-        [InlineData("XValueTextBox", -1.25)]
-        [InlineData("XValueTextBox", Math.PI)]
+        [Scenario]
+        //[Scenario(Skip = "still investigating the validation")]
+        [InlineData(CoefficientTextBoxName, 3.5)]
+        [InlineData(CoefficientTextBoxName, 2)]
+        [InlineData(CoefficientTextBoxName, -1.25)]
+        [InlineData(CoefficientTextBoxName, Math.PI)]
+        [InlineData(CoefficientTextBoxName, "-")]
+        [InlineData(ExponentTextBoxName, 3.5)]
+        [InlineData(ExponentTextBoxName, 2)]
+        [InlineData(ExponentTextBoxName, -1.25)]
+        [InlineData(ExponentTextBoxName, Math.PI)]
+        [InlineData(ExponentTextBoxName, "-")]
+        [InlineData(XValueTextBoxName, 3.5)]
+        [InlineData(XValueTextBoxName, 2)]
+        [InlineData(XValueTextBoxName, -1.25)]
+        [InlineData(XValueTextBoxName, Math.PI)]
+        [InlineData(XValueTextBoxName, "-")]
         public void UserEntersValidValue_ValueIsDisplayed(string automationId, double value)
         {
             this.Runner.RunScenario(
@@ -64,23 +71,26 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// The expected value displayed in the text box after the invalid input is processed.
         /// This may be a corrected numeric value or an empty string, depending on the input.
         /// </param>
-        [Scenario(Skip = "invalid input not handled gracefully yet")]
-        //[Scenario]
-        [InlineData("CoefficientTextBox", "1a2", "12")]
-        [InlineData("CoefficientTextBox", "abc", "")]
-        [InlineData("CoefficientTextBox", "", "")]
-        [InlineData("CoefficientTextBox", "!@#$%", "")]
-        [InlineData("CoefficientTextBox", "3.5.7", "3.57")]
-        [InlineData("ExponentTextBox", "1a2", "12")]
-        [InlineData("ExponentTextBox", "abc", "")]
-        [InlineData("ExponentTextBox", "", "")]
-        [InlineData("ExponentTextBox", "!@#$%", "")]
-        [InlineData("ExponentTextBox", "3.5.7", "3.57")]
-        [InlineData("XValueTextBox", "1a2", "12")]
-        [InlineData("XValueTextBox", "abc", "")]
-        [InlineData("XValueTextBox", "", "")]
-        [InlineData("XValueTextBox", "!@#$%", "")]
-        [InlineData("XValueTextBox", "3.5.7", "3.57")]
+        //[Scenario(Skip = "invalid input not handled gracefully yet")]
+        [Scenario]
+        [InlineData(CoefficientTextBoxName, "1a2", "12")]
+        [InlineData(CoefficientTextBoxName, "abc", "")]
+        [InlineData(CoefficientTextBoxName, "", "")]
+        [InlineData(CoefficientTextBoxName, "!@#$%", "")]
+        [InlineData(CoefficientTextBoxName, "3.5.7", "3.57")]
+        [InlineData(CoefficientTextBoxName, "1-2", "12")]
+        [InlineData(ExponentTextBoxName, "1a2", "12")]
+        [InlineData(ExponentTextBoxName, "abc", "")]
+        [InlineData(ExponentTextBoxName, "", "")]
+        [InlineData(ExponentTextBoxName, "!@#$%", "")]
+        [InlineData(ExponentTextBoxName, "3.5.7", "3.57")]
+        [InlineData(ExponentTextBoxName, "1-2", "12")]
+        [InlineData(XValueTextBoxName, "1a2", "12")]
+        [InlineData(XValueTextBoxName, "abc", "")]
+        [InlineData(XValueTextBoxName, "", "")]
+        [InlineData(XValueTextBoxName, "!@#$%", "")]
+        [InlineData(XValueTextBoxName, "3.5.7", "3.57")]
+        [InlineData(XValueTextBoxName, "1-2", "12")]
         public void UserEntersInvalidValue_ValueIsHandledGracefully(
             string automationId,
             string coefficient,
@@ -104,12 +114,13 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// The coefficient value entered by the user.
         /// This can be any valid double value, including positive, negative, or fractional numbers.
         /// </param>
-        [Scenario(Skip = "string representation not working yet")]
+        //[Scenario(Skip = "string representation not working yet")]
+        [Scenario]
         [InlineData(3.5)]
         [InlineData(2)]
         [InlineData(-1.25)]
         [InlineData(Math.PI)]
-        public void PolynomialTermTab_UserEntersValidCoefficient_CoefficientIsIncludedInStringRepresentationOfTerm(
+        public void UserEntersValidCoefficient_CoefficientIsIncludedInStringRepresentationOfTerm(
             double coefficient)
         {
             this.Runner.RunScenario(
@@ -131,12 +142,13 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         /// The exponent value entered by the user.
         /// This can be any valid double value, including positive, negative, or fractional numbers.
         /// </param>
-        [Scenario(Skip = "string representation not working yet")]
+        //[Scenario(Skip = "string representation not working yet")]
+        [Scenario]
         [InlineData(3.5)]
         [InlineData(2)]
         [InlineData(-1.25)]
         [InlineData(Math.PI)]
-        public void PolynomialTermTab_UserEntersValidExponent_ExponentIsIncludedInStringRepresentationOfTerm(
+        public void UserEntersValidExponent_ExponentIsIncludedInStringRepresentationOfTerm(
             double exponent)
         {
             this.Runner.RunScenario(
