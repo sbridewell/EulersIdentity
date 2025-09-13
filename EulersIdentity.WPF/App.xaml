@@ -5,8 +5,14 @@
              xmlns:views="clr-namespace:Sde.EulersIdentity.WPF.Views"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type viewModels:PolynomialViewModel}">
+        <!-- TODO: is this DataTemplate still needed? -->
+        <!--<DataTemplate DataType="{x:Type viewModels:PolynomialViewModel}">
             <views:PolynomialControl />
-        </DataTemplate>
+        </DataTemplate>-->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

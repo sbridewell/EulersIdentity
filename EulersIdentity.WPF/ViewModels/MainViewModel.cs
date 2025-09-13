@@ -48,10 +48,17 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public ObservableCollection<string> Tabs { get; }
 
+        // TODO: remove PolynomialTermViewModel property once PolynomialTermContainerViewModel is working.
+
         /// <summary>
         /// Gets the view model for the PolynomialTerm control.
         /// </summary>
         public PolynomialTermViewModel PolynomialTermViewModel { get; } = new PolynomialTermViewModel();
+
+        /// <summary>
+        /// Gets the view model for the PolynomialTermContainer control.
+        /// </summary>
+        public PolynomialTermContainerViewModel PolynomialTermContainerViewModel { get; } = new PolynomialTermContainerViewModel();
 
         /// <summary>
         /// Gets the view model for the Polynomial control.

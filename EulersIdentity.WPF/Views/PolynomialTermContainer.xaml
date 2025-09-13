@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Sde.EulersIdentity.WPF.Views.PolynomialTermContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sde.EulersIdentity.WPF.Views"
+             xmlns:conv="clr-namespace:Sde.EulersIdentity.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:StringToSanitisedStringConverter x:Key="SanitisedStringConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- PolynomialTermControl -->
+            <local:PolynomialTermControl DataContext="{Binding PolynomialTerm}" />
+
+            <!-- Polynomial Term Representation -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Polynomial Term: " VerticalAlignment="Center" />
+                <TextBlock Text="{Binding PolynomialTermRepresentation}" VerticalAlignment="Center" FontWeight="Bold" />
+            </StackPanel>
+
+            <!-- Value of x -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Value of x: " VerticalAlignment="Center" />
+                <TextBox 
+                    Style="{StaticResource FloatingPointTextBoxStyle}"
+                    Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+            <!-- Calculated Term Value -->
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <TextBlock Text="Term Value: " VerticalAlignment="Center" />
+                <TextBlock Text="{Binding TermValue}" VerticalAlignment="Center" FontWeight="Bold" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
