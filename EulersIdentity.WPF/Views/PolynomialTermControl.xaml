@@ -9,9 +9,6 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
-        <!-- Converts between strings and floating point numbers -->
-        <conv:StringToDoubleConverter x:Key="StringToDoubleConverter" />
-        
         <!-- Removes invalid characters from a string which should represent a floating point number -->
         <conv:StringToSanitisedStringConverter x:Key="SanitisedStringConverter" />
 
