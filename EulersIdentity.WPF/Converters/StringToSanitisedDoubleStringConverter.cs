@@ -1,4 +1,4 @@
-﻿// <copyright file="StringToSanitisedStringConverter.cs" company="Simon Bridewell">
+﻿// <copyright file="StringToSanitisedDoubleStringConverter.cs" company="Simon Bridewell">
 // Copyright (c) Simon Bridewell.
 // Released under the MIT license - see LICENSE.txt in the repository root.
 // </copyright>
@@ -12,7 +12,7 @@ namespace Sde.EulersIdentity.WPF.Converters
     /// <summary>
     /// Sanitises a string to ensure it is a valid floating-point number format.
     /// </summary>
-    public class StringToSanitisedStringConverter : IValueConverter
+    public class StringToSanitisedDoubleStringConverter : IValueConverter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

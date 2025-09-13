@@ -10,7 +10,7 @@
              d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
         <!-- Removes invalid characters from a string which should represent a floating point number -->
-        <conv:StringToSanitisedStringConverter x:Key="SanitisedStringConverter" />
+        <conv:StringToSanitisedDoubleStringConverter x:Key="SanitisedStringConverter" />
 
     </UserControl.Resources>
 

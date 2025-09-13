@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <conv:StringToSanitisedStringConverter x:Key="SanitisedStringConverter" />
+        <conv:StringToSanitisedDoubleStringConverter x:Key="SanitisedStringConverter" />
     </UserControl.Resources>
     <Grid>
         <StackPanel Margin="10">

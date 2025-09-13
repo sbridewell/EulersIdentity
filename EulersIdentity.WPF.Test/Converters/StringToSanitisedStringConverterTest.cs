@@ -10,7 +10,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
     using Sde.EulersIdentity.WPF.Converters;
 
     /// <summary>
-    /// Unit tests for the <see cref="Sde.EulersIdentity.WPF.Converters.StringToSanitisedStringConverter"/> class.
+    /// Unit tests for the <see cref="Sde.EulersIdentity.WPF.Converters.StringToSanitisedDoubleStringConverter"/> class.
     /// </summary>
     public class StringToSanitisedStringConverterTest
     {
@@ -21,7 +21,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void Convert_ShouldSanitizeInput()
         {
             // Arrange
-            var converter = new StringToSanitisedStringConverter();
+            var converter = new StringToSanitisedDoubleStringConverter();
             string input = "12.34abc";
             string expected = "12.34";
 
@@ -41,7 +41,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void ConvertBack_ShouldSanitizeInput()
         {
             // Arrange
-            var converter = new StringToSanitisedStringConverter();
+            var converter = new StringToSanitisedDoubleStringConverter();
             string input = "12.34abc";
             string expected = "12.34";
 
@@ -61,7 +61,7 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
         public void Convert_ShouldReturnNonStringInputUnchanged()
         {
             // Arrange
-            var converter = new StringToSanitisedStringConverter();
+            var converter = new StringToSanitisedDoubleStringConverter();
             int input = 42; // Example of a non-string input
             int expected = input;
 
