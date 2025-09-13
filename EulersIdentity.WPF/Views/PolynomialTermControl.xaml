@@ -45,12 +45,12 @@
 
                 <!-- TODO: value of x isn't really part of the polynomial term, once we include the term in a polynomial -->
                 <!-- Value of x -->
-                <TextBlock Text="Value of x:" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <!--<TextBlock Text="Value of x:" VerticalAlignment="Center" Margin="0,0,5,0" />
                 <TextBox 
                     x:Name="XValueTextBox"
                     Style="{StaticResource FloatingPointTextBoxStyle}"
                     Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
-                    />
+                    />-->
 
             </StackPanel>
         </StackPanel>

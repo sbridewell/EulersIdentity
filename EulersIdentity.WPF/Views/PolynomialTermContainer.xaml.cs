@@ -5,11 +5,13 @@
 
 namespace Sde.EulersIdentity.WPF.Views
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for PolynomialTermContainer.xaml.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class PolynomialTermContainer : UserControl
     {
         /// <summary>
