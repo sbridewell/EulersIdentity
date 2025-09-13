@@ -53,5 +53,25 @@ namespace Sde.EulersIdentity.WPF.Test.Converters
             // Assert
             result.Should().Be(expected);
         }
+
+        /// <summary>
+        /// Tests that the Convert method returns non-string inputs unchanged.
+        /// </summary>
+        [Fact]
+        public void Convert_ShouldReturnNonStringInputUnchanged()
+        {
+            // Arrange
+            var converter = new StringToSanitisedStringConverter();
+            int input = 42; // Example of a non-string input
+            int expected = input;
+
+            // Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            var result = converter.Convert(input, null, null, CultureInfo.InvariantCulture);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
+            // Assert
+            result.Should().Be(expected);
+        }
     }
 }
