@@ -13,11 +13,16 @@ namespace Sde.EulersIdentity.WPF.UI.Test
     /// </summary>
     public partial class PolynomialTermTabTest : UITestBase
     {
+        // Define private constants for control names
+        private const string CoefficientTextBoxName = "CoefficientTextBox";
+        private const string ExponentTextBoxName = "ExponentTextBox";
+        private const string XValueTextBoxName = "XValueTextBox";
+
         private static readonly List<string> TextBoxNames = new()
         {
-            "CoefficientTextBox",
-            "ExponentTextBox",
-            "XValueTextBox",
+            CoefficientTextBoxName,
+            ExponentTextBoxName,
+            XValueTextBoxName,
         };
 
         private static readonly List<string> ValidValues = new()
@@ -101,6 +106,70 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 given => this.TheApplicationHasStarted(),
                 when => this.TheUserEntersAValueIntoTheTextBox(automationId, value),
                 then => this.TheTextBoxDisplaysTheValue(automationId, expectedDisplay));
+        }
+
+        /// <summary>
+        /// Verifies that when the user changes the coefficient, the PolynomialTermTextBlock and TermValueTextBlock are updated.
+        /// </summary>
+        [Scenario]
+        public void UserChangesCoefficient_TextBlocksAreUpdated()
+        {
+            this.Runner.RunScenario(
+                given => this.TheApplicationHasStarted(),
+                and => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, "2"),
+                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, "3"),
+                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, "4"),
+                when => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, "3"),
+                then => this.TheCoefficientIsIncludedInTheStringRepresentationOfTheTerm("3"),
+                and => this.TheTermValueIsUpdatedCorrectly("192")); // 3 * 4^3 = 192
+        }
+
+        /// <summary>
+        /// Verifies that when the user changes the exponent, the PolynomialTermTextBlock and TermValueTextBlock are updated.
+        /// </summary>
+        [Scenario]
+        public void UserChangesExponent_TextBlocksAreUpdated()
+        {
+            this.Runner.RunScenario(
+                given => this.TheApplicationHasStarted(),
+                and => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, "2"),
+                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, "3"),
+                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, "4"),
+                when => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, "2"),
+                then => this.TheExponentIsIncludedInTheStringRepresentationOfTheTerm("2"),
+                and => this.TheTermValueIsUpdatedCorrectly("32")); // 2 * 4^2 = 32
+        }
+
+        /// <summary>
+        /// Verifies that when the user changes the x value, the TermValueTextBlock is updated.
+        /// </summary>
+        [Scenario]
+        public void UserChangesXValue_TextBlocksAreUpdated()
+        {
+            this.Runner.RunScenario(
+                given => this.TheApplicationHasStarted(),
+                and => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, "2"),
+                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, "3"),
+                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, "4"),
+                when => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, "5"),
+                then => this.TheXValueIsIncludedInTheStringRepresentationOfTheTerm("5"),
+                and => this.TheTermValueIsUpdatedCorrectly("250")); // 2 * 5^3 = 250
+        }
+
+        /// <summary>
+        /// Verifies that when the user changes all values, the PolynomialTermTextBlock and TermValueTextBlock are updated.
+        /// </summary>
+        [Scenario]
+        public void UserChangesAllValues_TextBlocksAreUpdated()
+        {
+            this.Runner.RunScenario(
+                given => this.TheApplicationHasStarted(),
+                when => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, "3"),
+                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, "2"),
+                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, "4"),
+                then => this.TheCoefficientIsIncludedInTheStringRepresentationOfTheTerm("3"),
+                and => this.TheExponentIsIncludedInTheStringRepresentationOfTheTerm("2"),
+                and => this.TheTermValueIsUpdatedCorrectly("48")); // 3 * 4^2 = 48
         }
 
         /// <summary>

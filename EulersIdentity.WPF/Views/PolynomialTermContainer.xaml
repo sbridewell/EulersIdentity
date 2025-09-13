@@ -15,10 +15,15 @@
             <!-- PolynomialTermControl -->
             <local:PolynomialTermControl DataContext="{Binding PolynomialTerm}" />
 
-            <!-- Polynomial Term Representation -->
+            <!-- Polynomial term string representation -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Polynomial Term: " VerticalAlignment="Center" />
-                <TextBlock Text="{Binding PolynomialTermRepresentation}" VerticalAlignment="Center" FontWeight="Bold" />
+                <TextBlock 
+                    x:Name="PolynomialTermTextBlock"
+                    Text="{Binding PolynomialTermRepresentation}" 
+                    VerticalAlignment="Center" 
+                    FontWeight="Bold" 
+                    />
             </StackPanel>
 
             <!-- Value of x -->
@@ -30,10 +35,14 @@
                     Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
-            <!-- Calculated Term Value -->
+            <!-- Calculated term value -->
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Term Value: " VerticalAlignment="Center" />
-                <TextBlock Text="{Binding TermValue}" VerticalAlignment="Center" FontWeight="Bold" />
+                <TextBlock 
+                    x:Name="TermValueTextBlock"
+                    Text="{Binding TermValue}"
+                    VerticalAlignment="Center" FontWeight="Bold" 
+                    />
             </StackPanel>
         </StackPanel>
     </Grid>
