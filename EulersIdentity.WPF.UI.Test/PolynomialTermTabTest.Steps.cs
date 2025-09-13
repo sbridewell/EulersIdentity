@@ -6,6 +6,7 @@
 namespace Sde.EulersIdentity.WPF.UI.Test
 {
     using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Tools;
     using FluentAssertions;
 
     /// <summary>
@@ -26,8 +27,8 @@ namespace Sde.EulersIdentity.WPF.UI.Test
 
         private void TheUserEntersAValueIntoTheTextBox(string automationId, string coefficient)
         {
-            var textBox = this.FindControlInTab<TextBox>(0, automationId);
-            textBox.Enter(coefficient);
+            var textBox = this.FindControlByAutomationId<TextBox>(automationId);
+            textBox.Text = coefficient;
         }
 
         #endregion
@@ -56,26 +57,6 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 expectedPrefix,
                 because: $"the coefficient '{coefficient}' should appear at the start of the term string.");
         }
-
-        ///// <summary>
-        ///// Verifies that the value of x is included correctly in the string representation of the term.
-        ///// </summary>
-        ///// <param name="xValue">The expected value of x.</param>
-        //private void TheXValueIsIncludedInTheStringRepresentationOfTheTerm(string xValue)
-        //{
-        //    var termStringTextBlock = this.FindControlInTab<Label>(0, "PolynomialTermTextBlock");
-
-        //    // Get the text from the PolynomialTermTextBlock
-        //    var termString = termStringTextBlock.Text;
-
-        //    // Define the expected substring (e.g., "x^n" where n is the exponent)
-        //    var expectedSubstring = $"x^{xValue}";
-
-        //    // Assert that the term string contains the expected x value substring
-        //    termString.Should().Contain(
-        //        expectedSubstring,
-        //        because: $"the value of x '{xValue}' should appear in the string representation of the term.");
-        //}
 
         private void TheExponentIsIncludedInTheStringRepresentationOfTheTerm(string exponent)
         {

@@ -7,6 +7,7 @@ namespace Sde.EulersIdentity.WPF.UI.Test
 {
     using FlaUI.Core;
     using FlaUI.Core.AutomationElements;
+    using FlaUI.Core.Tools;
     using FlaUI.UIA2;
     using LightBDD.XUnit2;
 
@@ -133,6 +134,37 @@ namespace Sde.EulersIdentity.WPF.UI.Test
             }
 
             return control;
+        }
+
+        /// <summary>
+        /// Finds a control in the main window by its AutomationId with retry logic.
+        /// </summary>
+        /// <typeparam name="T">The type of the control to find.</typeparam>
+        /// <param name="automationId">The AutomationId of the control.</param>
+        /// <returns>The control element.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the control is not found.</exception>
+        protected T FindControlByAutomationId<T>(string automationId)
+            where T : AutomationElement
+        {
+            var mainWindow = this.GetMainWindow();
+            mainWindow.Focus();
+            var retryResult = Retry.WhileNull(
+                () => mainWindow.FindFirstDescendant(cf => cf.ByAutomationId(automationId))?.As<T>(),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromMilliseconds(100));
+
+            if (retryResult == null)
+            {
+                throw new InvalidOperationException($"RetryResult for AutomationId '{automationId}' is null.");
+            }
+
+            var automationElement = retryResult.Result;
+            if (automationElement == null)
+            {
+                throw new InvalidOperationException($"AutomationElement for AutomationId '{automationId}' is null.");
+            }
+
+            return automationElement;
         }
 
         /// <summary>
