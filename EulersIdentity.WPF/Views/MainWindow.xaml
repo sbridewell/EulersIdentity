@@ -29,13 +29,13 @@
         <!-- TabControl for switching between different views -->
         <TabControl Grid.Row="0">
             <!-- Tab for Polynomial Terms -->
+            <TabItem Header="Polynomial Term Container">
+                <local:PolynomialTermContainer DataContext="{Binding PolynomialTermContainerViewModel}" />
+            </TabItem>
+
             <TabItem Header="Polynomial Term">
                 <local:PolynomialTermControl DataContext="{Binding PolynomialTermViewModel}" />
                 <!-- TODO: string representation of the polynomial -->
-            </TabItem>
-
-            <TabItem Header="Polynomial Term Container">
-                <local:PolynomialTermContainer DataContext="{Binding PolynomialTermContainerViewModel}" />
             </TabItem>
 
             <!-- Tab for Polynomials -->

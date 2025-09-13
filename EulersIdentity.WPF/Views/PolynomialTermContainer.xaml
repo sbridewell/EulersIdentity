@@ -25,6 +25,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                 <TextBlock Text="Value of x: " VerticalAlignment="Center" />
                 <TextBox 
+                    x:Name="XValueTextBox"
                     Style="{StaticResource FloatingPointTextBoxStyle}"
                     Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
