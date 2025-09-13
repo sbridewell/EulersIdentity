@@ -6,7 +6,6 @@
 namespace Sde.EulersIdentity.WPF.ViewModels
 {
     using System.ComponentModel;
-    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// ViewModel for the PolynomialTermContainer control.
@@ -14,11 +13,33 @@ namespace Sde.EulersIdentity.WPF.ViewModels
     public class PolynomialTermContainerViewModel : ViewModelBase
     {
         private string xValue = string.Empty;
+        private PolynomialTermViewModel polynomialTerm;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PolynomialTermContainerViewModel"/> class.
+        /// </summary>
+        public PolynomialTermContainerViewModel()
+        {
+            this.PolynomialTerm = new PolynomialTermViewModel();
+        }
 
         /// <summary>
         /// Gets or sets the PolynomialTermViewModel.
         /// </summary>
-        public PolynomialTermViewModel PolynomialTerm { get; set; } = new PolynomialTermViewModel();
+        public PolynomialTermViewModel PolynomialTerm
+        {
+            get => this.polynomialTerm;
+            set
+            {
+                if (this.SetProperty(ref this.polynomialTerm, value))
+                {
+                    if (this.polynomialTerm != null)
+                    {
+                        this.polynomialTerm.PropertyChanged += this.OnPolynomialTermPropertyChanged;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the text representation of the polynomial term in the format cx^e.
@@ -59,6 +80,16 @@ namespace Sde.EulersIdentity.WPF.ViewModels
                 {
                     return double.NaN; // Indicate invalid input
                 }
+            }
+        }
+
+        private void OnPolynomialTermPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(PolynomialTermViewModel.Coefficient) ||
+                e.PropertyName == nameof(PolynomialTermViewModel.Exponent))
+            {
+                this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
+                this.OnPropertyChanged(nameof(this.TermValue));
             }
         }
     }

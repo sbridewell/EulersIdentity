@@ -89,5 +89,30 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             containerViewModel.PolynomialTermRepresentation.Should().Be("3x^2");
             containerViewModel.TermValue.Should().BeApproximately(48.0, 0.0001); // 3 * 4^2 = 48
         }
+
+        /// <summary>
+        /// Tests that changing the coefficient updates the PolynomialTermRepresentation and TermValue.
+        /// </summary>
+        [Fact]
+        public void ChangingCoefficient_UpdatesPolynomialTermRepresentationAndTermValue()
+        {
+            // Arrange
+            var containerViewModel = new PolynomialTermContainerViewModel
+            {
+                PolynomialTerm = new PolynomialTermViewModel
+                {
+                    Coefficient = "2",
+                    Exponent = "3",
+                },
+                XValue = "4",
+            };
+
+            // Act
+            containerViewModel.PolynomialTerm.Coefficient = "3";
+
+            // Assert
+            containerViewModel.PolynomialTermRepresentation.Should().Be("3x^3");
+            containerViewModel.TermValue.Should().Be(192); // 3 * 4^3
+        }
     }
 }

@@ -57,25 +57,25 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 because: $"the coefficient '{coefficient}' should appear at the start of the term string.");
         }
 
-        /// <summary>
-        /// Verifies that the value of x is included correctly in the string representation of the term.
-        /// </summary>
-        /// <param name="xValue">The expected value of x.</param>
-        private void TheXValueIsIncludedInTheStringRepresentationOfTheTerm(string xValue)
-        {
-            var termStringTextBlock = this.FindControlInTab<Label>(0, "PolynomialTermTextBlock");
+        ///// <summary>
+        ///// Verifies that the value of x is included correctly in the string representation of the term.
+        ///// </summary>
+        ///// <param name="xValue">The expected value of x.</param>
+        //private void TheXValueIsIncludedInTheStringRepresentationOfTheTerm(string xValue)
+        //{
+        //    var termStringTextBlock = this.FindControlInTab<Label>(0, "PolynomialTermTextBlock");
 
-            // Get the text from the PolynomialTermTextBlock
-            var termString = termStringTextBlock.Text;
+        //    // Get the text from the PolynomialTermTextBlock
+        //    var termString = termStringTextBlock.Text;
 
-            // Define the expected substring (e.g., "x^n" where n is the exponent)
-            var expectedSubstring = $"x^{xValue}";
+        //    // Define the expected substring (e.g., "x^n" where n is the exponent)
+        //    var expectedSubstring = $"x^{xValue}";
 
-            // Assert that the term string contains the expected x value substring
-            termString.Should().Contain(
-                expectedSubstring,
-                because: $"the value of x '{xValue}' should appear in the string representation of the term.");
-        }
+        //    // Assert that the term string contains the expected x value substring
+        //    termString.Should().Contain(
+        //        expectedSubstring,
+        //        because: $"the value of x '{xValue}' should appear in the string representation of the term.");
+        //}
 
         private void TheExponentIsIncludedInTheStringRepresentationOfTheTerm(string exponent)
         {
@@ -87,7 +87,7 @@ namespace Sde.EulersIdentity.WPF.UI.Test
 
             // Define the expected format (e.g., "coefficient x^exponent")
             // This assumes the exponent is represented as "^exponent" in the term string
-            var expectedSubstring = $"^({exponent})";
+            var expectedSubstring = $"^{exponent}";
 
             // Assert that the term string contains the expected exponent substring
             termString.Should().Contain(
