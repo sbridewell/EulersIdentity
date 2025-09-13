@@ -13,7 +13,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
     public class PolynomialTermContainerViewModel : ViewModelBase
     {
         private string xValue = string.Empty;
-        private PolynomialTermViewModel polynomialTerm;
+        private PolynomialTermViewModel polynomialTerm = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PolynomialTermContainerViewModel"/> class.
@@ -31,12 +31,9 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             get => this.polynomialTerm;
             set
             {
-                if (this.SetProperty(ref this.polynomialTerm, value))
+                if (this.SetProperty(ref this.polynomialTerm, value) && this.polynomialTerm != null)
                 {
-                    if (this.polynomialTerm != null)
-                    {
-                        this.polynomialTerm.PropertyChanged += this.OnPolynomialTermPropertyChanged;
-                    }
+                    this.polynomialTerm.PropertyChanged += this.OnPolynomialTermPropertyChanged;
                 }
             }
         }

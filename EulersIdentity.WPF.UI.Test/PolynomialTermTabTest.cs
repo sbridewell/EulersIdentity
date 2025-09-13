@@ -185,7 +185,6 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, initialExponent),
                 and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, initialXValue),
                 when => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, newXValue),
-                //then => this.TheXValueIsIncludedInTheStringRepresentationOfTheTerm(newXValue),
                 and => this.TheTermValueIsUpdatedCorrectly(expectedTermValue));
         }
 
