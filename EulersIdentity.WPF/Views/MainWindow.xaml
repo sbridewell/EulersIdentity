@@ -33,11 +33,6 @@
                 <local:PolynomialTermContainer DataContext="{Binding PolynomialTermContainerViewModel}" />
             </TabItem>
 
-            <!--<TabItem Header="Polynomial Term">
-                <local:PolynomialTermControl DataContext="{Binding PolynomialTermViewModel}" />
-                --><!-- TODO: string representation of the polynomial --><!--
-            </TabItem>-->
-
             <!-- Tab for Polynomials -->
             <TabItem Header="Polynomial">
                 <!--<local:PolynomialControl DataContext="{Binding PolynomialViewModel}" />-->

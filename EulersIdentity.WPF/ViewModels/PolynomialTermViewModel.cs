@@ -17,17 +17,6 @@ namespace Sde.EulersIdentity.WPF.ViewModels
     {
         private string coefficient = string.Empty;
         private string exponent = string.Empty;
-        //private string xValue = string.Empty;
-        //private string result = string.Empty;
-        //private string polynomialTermState = string.Empty;
-
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="PolynomialTermViewModel"/> class.
-        ///// </summary>
-        //public PolynomialTermViewModel()
-        //{
-        //    this.EvaluateCommand = new RelayCommand(this.Evaluate, this.CanEvaluate);
-        //}
 
         /// <summary>
         /// Gets or sets the coefficient value as a string.
@@ -54,90 +43,5 @@ namespace Sde.EulersIdentity.WPF.ViewModels
                 this.SetProperty(ref this.exponent, sanitised);
             }
         }
-
-        ///// <summary>
-        ///// Gets or sets the x value as a string.
-        ///// </summary>
-        //public string XValue
-        //{
-        //    get => this.xValue;
-        //    set
-        //    {
-        //        var sanitised = InputValidationUtilities.CleanFloatingPointInput(value);
-        //        this.SetProperty(ref this.xValue, sanitised);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Gets the result of the polynomial evaluation.
-        ///// </summary>
-        //public string Result
-        //{
-        //    get => this.result;
-        //    private set => this.SetProperty(ref this.result, value);
-        //}
-
-        ///// <summary>
-        ///// Gets the string representation of the polynomial term.
-        ///// </summary>
-        //public string PolynomialTermState
-        //{
-        //    get => this.polynomialTermState;
-        //    private set => this.SetProperty(ref this.polynomialTermState, value);
-        //}
-
-        ///// <summary>
-        ///// Gets a command to evaluate the polynomial term.
-        ///// </summary>
-        //public ICommand EvaluateCommand { get; }
-
-        //private bool CanEvaluate()
-        //{
-        //    return !string.IsNullOrWhiteSpace(this.Coefficient) &&
-        //           !string.IsNullOrWhiteSpace(this.Exponent) &&
-        //           !string.IsNullOrWhiteSpace(this.XValue);
-        //}
-
-        //private void Evaluate()
-        //{
-        //    try
-        //    {
-        //        if (!double.TryParse(this.Coefficient, out double coefficientValue))
-        //        {
-        //            throw new FormatException("Invalid coefficient.");
-        //        }
-
-        //        if (!double.TryParse(this.Exponent, out double exponentValue))
-        //        {
-        //            throw new FormatException("Invalid exponent.");
-        //        }
-
-        //        if (!double.TryParse(this.XValue, out double numericXValue))
-        //        {
-        //            throw new FormatException("Invalid value for x.");
-        //        }
-
-        //        var term = new PolynomialTerm(coefficientValue, exponentValue);
-        //        this.Result = term.Evaluate(numericXValue).ToString();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.Result = $"Error: {ex.Message}";
-        //    }
-        //}
-
-        //private void UpdatePolynomialTermState()
-        //{
-        //    if (double.TryParse(this.Coefficient, out double coefficientValue) &&
-        //        double.TryParse(this.Exponent, out double exponentValue))
-        //    {
-        //        var term = new PolynomialTerm(coefficientValue, exponentValue);
-        //        this.PolynomialTermState = term.ToString();
-        //    }
-        //    else
-        //    {
-        //        this.PolynomialTermState = string.Empty;
-        //    }
-        //}
     }
 }

@@ -16,7 +16,6 @@ namespace Sde.EulersIdentity.WPF.Utilities
         /// <summary>
         /// The regular expression for validating floating-point input.
         /// </summary>
-        //public static readonly Regex FloatingPointRegex = new(@"^-?$|^-?(?:[0-9]+(\.[0-9]*)?|\.[0-9]+)$");
         public static readonly Regex FloatingPointRegex = new(@"^-?$|^-?(?:[0-9]+(\.[0-9]*)?|\.[0-9]*|-?\.)$");
 
         /// <summary>
