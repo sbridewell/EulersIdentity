@@ -31,6 +31,7 @@ namespace Sde.EulersIdentity.WPF.Test.Utilities
         [InlineData("", true)] // Valid: empty string
         [InlineData(".", false)] // Invalid: only decimal point
         [InlineData("-", true)] // Valid: single hyphen
+        [InlineData("-.", true)] // Valid: negative decimal
         [InlineData("-1.", true)] // Valid negative number with trailing decimal
         [InlineData(".23", true)] // Valid number with leading decimal
         [InlineData("1.", true)] // Valid number with trailing decimal
@@ -58,6 +59,7 @@ namespace Sde.EulersIdentity.WPF.Test.Utilities
         [InlineData("", "")] // Empty string
         [InlineData(".", ".")] // Valid: single decimal point
         [InlineData("-", "-")] // Valid: single hyphen
+        [InlineData("-.", "-.")] // Valid: negative decimal
         [InlineData("-1.", "-1.")] // Valid negative number with trailing decimal
         [InlineData(".23", ".23")] // Valid number with leading decimal
         [InlineData("1.", "1.")] // Valid number with trailing decimal
