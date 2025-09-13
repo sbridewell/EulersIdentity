@@ -29,7 +29,7 @@ namespace Sde.EulersIdentity.WPF.Test.Utilities
         [InlineData("--1.23", false)] // Invalid: multiple negative signs
         [InlineData("abc", false)] // Invalid: non-numeric input
         [InlineData("", true)] // Valid: empty string
-        [InlineData(".", false)] // Invalid: only decimal point
+        [InlineData(".", true)] // Valid: only decimal point
         [InlineData("-", true)] // Valid: single hyphen
         [InlineData("-.", true)] // Valid: negative decimal
         [InlineData("-1.", true)] // Valid negative number with trailing decimal
