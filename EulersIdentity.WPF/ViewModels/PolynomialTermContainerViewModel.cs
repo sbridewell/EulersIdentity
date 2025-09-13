@@ -22,7 +22,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public PolynomialTermContainerViewModel()
         {
             // Subscribe to changes in PolynomialTerm properties
-            this.PolynomialTerm.PropertyChanged += this.OnPolynomialTermPropertyChanged;
+            //this.PolynomialTerm.PropertyChanged += this.OnPolynomialTermPropertyChanged;
         }
 
         /// <summary>
@@ -46,7 +46,9 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             {
                 if (this.SetProperty(ref this.xValue, value))
                 {
-                    this.CalculateTermValue();
+                    //this.CalculateTermValue();
+                    this.OnPropertyChanged(nameof(this.TermValue));
+                    this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
                 }
             }
         }
@@ -56,33 +58,47 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public double TermValue
         {
-            get => this.termValue;
-            private set => this.SetProperty(ref this.termValue, value);
+            //get => this.termValue;
+            //private set => this.SetProperty(ref this.termValue, value);
+            get
+            {
+                if (double.TryParse(this.PolynomialTerm.Coefficient, out double parsedCoefficient)
+                    && double.TryParse(this.XValue, out double parsedXValue)
+                    && double.TryParse(this.PolynomialTerm.Exponent, out double parsedExponent))
+                {
+                    return parsedCoefficient * Math.Pow(parsedXValue, parsedExponent);
+                }
+                else
+                {
+                    return double.NaN; // Indicate invalid input
+                }
+            }
+
         }
 
-        private void CalculateTermValue()
-        {
-            if (
-                double.TryParse(this.PolynomialTerm.Coefficient, out double parsedCoefficient)
-                && double.TryParse(this.XValue, out double parsedXValue)
-                && double.TryParse(this.PolynomialTerm.Exponent, out double parsedExponent))
-            {
-                this.TermValue = parsedCoefficient * Math.Pow(parsedXValue, parsedExponent);
-            }
-            else
-            {
-                this.TermValue = double.NaN; // Indicate invalid input        }
-            }
-        }
+        //private void CalculateTermValue()
+        //{
+        //    if (
+        //        double.TryParse(this.PolynomialTerm.Coefficient, out double parsedCoefficient)
+        //        && double.TryParse(this.XValue, out double parsedXValue)
+        //        && double.TryParse(this.PolynomialTerm.Exponent, out double parsedExponent))
+        //    {
+        //        this.TermValue = parsedCoefficient * Math.Pow(parsedXValue, parsedExponent);
+        //    }
+        //    else
+        //    {
+        //        this.TermValue = double.NaN; // Indicate invalid input        }
+        //    }
+        //}
 
-        private void OnPolynomialTermPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(this.PolynomialTerm.Coefficient) ||
-                e.PropertyName == nameof(this.PolynomialTerm.Exponent))
-            {
-                // Notify that PolynomialTermRepresentation has changed
-                this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
-            }
-        }
+        //private void OnPolynomialTermPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName == nameof(this.PolynomialTerm.Coefficient) ||
+        //        e.PropertyName == nameof(this.PolynomialTerm.Exponent))
+        //    {
+        //        // Notify that PolynomialTermRepresentation has changed
+        //        this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
+        //    }
+        //}
     }
 }

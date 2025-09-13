@@ -60,5 +60,34 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             // Assert
             termValue.Should().Be(double.NaN);
         }
+
+        /// <summary>
+        /// Tests that PolynomialTerm and PolynomialTermRepresentation are updated correctly
+        /// when xValue in MainViewModel is updated.
+        /// </summary>
+        [Fact]
+        public void PolynomialTermAndRepresentation_ShouldUpdateWhenXValueChanges()
+        {
+            // Arrange
+            var mainViewModel = new MainViewModel();
+            var containerViewModel = new PolynomialTermContainerViewModel
+            {
+                PolynomialTerm = new PolynomialTermViewModel
+                {
+                    Coefficient = "3",
+                    Exponent = "2",
+                },
+            };
+
+            // Act
+            mainViewModel.XValue = 4.0; // Update xValue in MainViewModel
+            containerViewModel.XValue = mainViewModel.XValue.ToString();
+
+            // Assert
+            containerViewModel.PolynomialTerm.Coefficient.Should().Be("3");
+            containerViewModel.PolynomialTerm.Exponent.Should().Be("2");
+            containerViewModel.PolynomialTermRepresentation.Should().Be("3x^2");
+            containerViewModel.TermValue.Should().BeApproximately(48.0, 0.0001); // 3 * 4^2 = 48
+        }
     }
 }
