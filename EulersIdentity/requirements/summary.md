@@ -38,6 +38,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Classes**:
   - `MainViewModel`: The main ViewModel for the application, managing tab states and debug messages.
   - `PolynomialTermControl`: A user control for creating and evaluating polynomial terms.
+  - `PolynomialTermContainerViewModel`: Handles the logic for displaying and updating polynomial terms and their results.
   - `FloatingPointInputBehaviour`: Restricts `TextBox` input to valid floating-point numbers.
   - `ValidationBehaviour`: Provides an attached property to apply validation rules to a `TextBox`.
 
@@ -47,6 +48,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Test Classes**:
   - `MainViewModelTest`: Tests the `MainViewModel` class.
   - `PolynomialTermControlTest`: Tests the `PolynomialTermControl` user control.
+  - `PolynomialTermContainerViewModelTest`: Tests the `PolynomialTermContainerViewModel` class, including its `PolynomialTermAndResult` property and `OnPolynomialTermPropertyChanged` method.
   - `FloatingPointInputBehaviourTest`: Tests the `FloatingPointInputBehaviour` class.
   - `ValidationBehaviourTest`: Tests the `ValidationBehaviour` class.
 
@@ -55,7 +57,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Testing Frameworks**: LightBDD for behaviour-driven development and FluentAssertions for assertions.
 - **Key Test Classes**:
   - `MainWindowTest`: Tests the `MainWindow` class.
-  - `PolynomialTermTabTest`: Tests the `PolynomialTerm` tab functionality.
+  - `PolynomialTermTabTest`: Tests the `PolynomialTerm` tab functionality, including updates to `PolynomialTermAndResultTextBlock` when the user edits the coefficient, exponent, or value of `x`.
 
 ## Current State
 - **Code Quality**: The solution adheres to Microsoft's C# coding conventions and includes XML documentation for all publicly visible entities.
@@ -70,17 +72,12 @@ Euler's Identity is a mathematical expression that combines several fundamental 
   - There is an outstanding bug in the `PolynomialTermControl` where the `XValueTextBox` control is not correctly validating or displaying user input, causing related UI tests to fail.
 
 ## Recent Updates
-- Added a `TextBox` in the `MainWindow` to display debug messages.
-- Introduced `DebugMessages` and `DebugEnabled` properties in the `MainViewModel`.
-- Enhanced the `PolynomialTermControl` to bind directly to `MainViewModel` properties.
-- Implemented data persistence across tabs in the WPF application.
-- Resolved SA1101 warnings by prefixing local calls with `this`.
-- Expanded unit tests for `RelayCommand` and `ViewModelBase` to ensure full coverage.
-- Addressed CS8618 warnings by initializing non-nullable fields with default values.
-- Updated `RelayCommand` to use nullable `Func<bool>?` for `canExecute` to resolve CS8625 warnings.
-- Updated `SetProperty` in `ViewModelBase` to mark `propertyName` as nullable to resolve CS8625 warnings.
-- Added `FloatingPointInputBehaviourTest` to test floating-point input restrictions.
-- Added `ValidationBehaviourTest` to test the `ValidationBehaviour` class.
+- Renamed `StringToSanitisedStringConverter` to `StringToSanitisedDoubleStringConverter` and updated all references.
+- Added a `TextBlock` to `PolynomialTermContainer.xaml` to display the formatted polynomial term and its result.
+- Expanded `PolynomialTermContainerViewModelTest` to provide full coverage of the `OnPolynomialTermPropertyChanged` method.
+- Added UI tests to `PolynomialTermTabTest` to verify updates to `PolynomialTermAndResultTextBlock` when the user edits the coefficient, exponent, or value of `x`.
+- Implemented `GetTextBlockValue` in `UITestBase` to support retrieving `TextBlock` values in UI tests.
+- Enhanced `PolynomialTermAndResult` to handle edge cases, such as negative `x` values with non-integer exponents, returning `NaN` as expected.
 
 ## Future Work
 - Consolidate test framework references in the `EulersIdentity.WPF.Test` project to eliminate duplicate test methods in the test explorer.
