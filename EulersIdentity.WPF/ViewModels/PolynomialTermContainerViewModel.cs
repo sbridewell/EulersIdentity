@@ -56,6 +56,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
                 {
                     this.OnPropertyChanged(nameof(this.TermValue));
                     this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
+                    this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
                 }
             }
         }
@@ -80,6 +81,28 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the formatted string representation of the polynomial term and its result.
+        /// Example: "2 * 9^3 = 1458".
+        /// </summary>
+        public string PolynomialTermAndResult
+        {
+            get
+            {
+                if (double.TryParse(this.PolynomialTerm.Coefficient, out double parsedCoefficient)
+                    && double.TryParse(this.XValue, out double parsedXValue)
+                    && double.TryParse(this.PolynomialTerm.Exponent, out double parsedExponent))
+                {
+                    var result = parsedCoefficient * Math.Pow(parsedXValue, parsedExponent);
+                    return $"{parsedCoefficient} * {parsedXValue}^{parsedExponent} = {result}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
         private void OnPolynomialTermPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(PolynomialTermViewModel.Coefficient) ||
@@ -87,6 +110,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             {
                 this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
                 this.OnPropertyChanged(nameof(this.TermValue));
+                this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
             }
         }
     }

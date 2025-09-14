@@ -224,5 +224,53 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             containerViewModel.PolynomialTermRepresentation.Should().Be("2x^2");
             containerViewModel.TermValue.Should().Be(32); // 2 * 4^2
         }
+
+        /// <summary>
+        /// Tests that the PolynomialTermAndResult property formats the polynomial term and result correctly.
+        /// </summary>
+        [Fact]
+        public void PolynomialTermAndResult_ShouldReturnFormattedStringForValidInputs()
+        {
+            // Arrange
+            var viewModel = new PolynomialTermContainerViewModel
+            {
+                PolynomialTerm = new PolynomialTermViewModel
+                {
+                    Coefficient = "2",
+                    Exponent = "3",
+                },
+                XValue = "4",
+            };
+
+            // Act
+            var result = viewModel.PolynomialTermAndResult;
+
+            // Assert
+            result.Should().Be("2 * 4^3 = 128");
+        }
+
+        /// <summary>
+        /// Tests that the PolynomialTermAndResult property returns an empty string for invalid inputs.
+        /// </summary>
+        [Fact]
+        public void PolynomialTermAndResult_ShouldReturnEmptyStringForInvalidInputs()
+        {
+            // Arrange
+            var viewModel = new PolynomialTermContainerViewModel
+            {
+                PolynomialTerm = new PolynomialTermViewModel
+                {
+                    Coefficient = "invalid",
+                    Exponent = "3",
+                },
+                XValue = "4",
+            };
+
+            // Act
+            var result = viewModel.PolynomialTermAndResult;
+
+            // Assert
+            result.Should().BeEmpty();
+        }
     }
 }

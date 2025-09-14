@@ -25,6 +25,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" /> <!-- New row for the formatted result -->
                 </Grid.RowDefinitions>
 
                 <!-- String representation of the polynomial term -->
@@ -55,8 +56,14 @@
                     Grid.Row="2" Grid.Column="1"
                     />
 
+                <!-- Display the full polynomial term and the result for the given value of x -->
+                <TextBlock 
+                    x:Name="PolynomialTermAndResultTextBlock"
+                    Text="{Binding PolynomialTermAndResult}"
+                    VerticalAlignment="Center" FontWeight="Bold" FontSize="28"
+                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    />
             </Grid>
-
         </StackPanel>
     </Grid>
 </UserControl>
