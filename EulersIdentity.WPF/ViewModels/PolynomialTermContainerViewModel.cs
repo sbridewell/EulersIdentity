@@ -77,11 +77,15 @@ namespace Sde.EulersIdentity.WPF.ViewModels
 
         private void OnPolynomialTermPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(PolynomialTermViewModel.Coefficient) ||
-                e.PropertyName == nameof(PolynomialTermViewModel.Exponent))
-            {
-                this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
-            }
+            // If any more properties are added to PolynomialTermViewModel that don't affect the result,
+            // then we need to add the following test to avoid unnecessary updates:
+            ////if (e.PropertyName == nameof(PolynomialTermViewModel.Coefficient) ||
+            ////    e.PropertyName == nameof(PolynomialTermViewModel.Exponent))
+            ////{
+            ////    this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
+            ////}
+
+            this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
         }
     }
 }
