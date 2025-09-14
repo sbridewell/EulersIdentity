@@ -3,7 +3,7 @@
 ## 3.3 - Implement and test the functionality for creating and evaluating polynomials (needs extra info).
 
 - As a developer with an interest in maths,
-- I want to create instances of the Polynomial class, add terms to it, and evaluate it for given values of x,
+- I want to create instances of the Polynomial class, add terms to it, remove terms from it, and evaluate it for given values of x,
 - So that I can verify the correctness of polynomial expressions.
 - Acceptance Criteria:
   - 1
@@ -13,37 +13,32 @@
 	- Then I can add instances of PolynomialTerm to the polynomial.
 	- Then I can view a string representation of the polynomial in a label.
 	  - The terms of the polynomial will be displayed in descending order of exponent.
-	- Then I can do this in the Polynomial tab of the Windows Forms application.
+	- Then I can do this in the Polynomial tab of the WPF application.
 	- Then the UI functionality will be implemented in a user control which can be reused in the Equation tab.
 	- Then the UI will allow me to add and remove terms from the polynomial by clicking buttons.
 	- Then I can enter a value of x into a text box.
 	- Then I can evaluate the polynomial for the entered value of x.
 	- Then the evaluation result will be displayed in a label.
   - 2
-    - Given a PolynomialTermControl user control has already been implemented
+    - Given the PolynomialTermControl and PolynomialTermContainer user controls have already been implemented
     - When the user interacts with the PolynomialControl
     - Then the functionality implemented in the PolynomialTermControl user control to edit and validate polynomial terms will be reused in the PolynomialControl user control
       - The PolynomialControl user control will allow the user to add and remove PolynomialTermControl user controls to edit multiple polynomial terms
-      - Responsibilities of the PolynomialTermControl:
-        - Manages the value of a single PolynomialTerm (coefficient and exponent)
-        - Allows the user to edit the coefficient and exponent of the PolynomialTerm
-        - Not responsible for evaluating the PolynomialTerm for a given value of x
       - Responsibilities of the PolynomialControl:
         - Manages the value of a Polynomial (a collection of PolynomialTerms)
         - Allows the user to add and remove PolynomialTermControl user controls to edit multiple polynomial terms
         - Delegates the editing and validation of individual PolynomialTerms to the PolynomialTermControl user control
         - Not responsible for evaluating the Polynomial for a given value of x
-      - Responsibilities of the tab in the main window which contains the PolynomialTermControl:
+      - Responsibilities of the PolynomialContainer control:
         - Manages the overall state of the PolynomialControl user control
         - Allows the user to enter a value of x to evaluate the Polynomial
         - Displays the string representation of the Polynomial and the evaluation result
         - Not responsible for managing individual PolynomialTerms or their editing and validation
-      - Responsibilities of the tab in the main window which contains the PolynomialControl:
-        - Manages the overall state of the PolynomialControl user control
-        - Allows the user to enter a value of x to evaluate the Polynomial
-        - Displays the string representation of the Polynomial and the evaluation result
-        - Not responsible for managing individual PolynomialTerms or their editing and validation
+      - Responsibilities of the tab in the main window which contains the PolynomialContainer:
+        - Contains a PolynomialControl
     - Then the state of the PolynomialTermControl will be preserved when switching between tabs
+    - Then the state of the PolynomialControl will be preserved when switching between tabs
+    - Then the PolynomialControl will be reusable in later work as part of a control for working with equations which can consist of polynomials on either side of an equals sign
   - 3
     - Given the application contains multiple tabs and user controls
     - When the application code is written
@@ -53,3 +48,4 @@
     - Then the view models will expose all necessary data and commands to the views via properties and ICommand implementations
     - Then the views will bind to the view models using data binding to ensure a clear separation of concerns
     - Then the application will follow the MVVM pattern to ensure testability, maintainability, and adherence to best practices
+    - Then all new and updated code will be accompanied by unit tests and UI tests to verify functionality and ensure code quality
