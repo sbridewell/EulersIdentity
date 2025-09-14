@@ -22,38 +22,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" /> <!-- New row for the formatted result -->
+                    <RowDefinition Height="Auto" /> <!-- value of x -->
+                    <RowDefinition Height="Auto" /> <!-- string representation of the polynomial term -->
                 </Grid.RowDefinitions>
 
-                <!-- String representation of the polynomial term -->
-                <TextBlock Text="Polynomial Term: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
-                <TextBlock 
-                    x:Name="PolynomialTermTextBlock"
-                    Text="{Binding PolynomialTermRepresentation}" 
-                    VerticalAlignment="Center" 
-                    FontWeight="Bold" 
-                    Grid.Row="0" Grid.Column="1"
-                    />
-
                 <!-- User can enter a value of x here -->
-                <TextBlock Text="Value of x: " VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" />
+                <TextBlock Text="Value of x: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
                 <TextBox 
                     x:Name="XValueTextBox"
                     Style="{StaticResource FloatingPointTextBoxStyle}"
                     Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
-                    Grid.Row="1" Grid.Column="1"
-                    />
-
-                <!-- Display the value of the polynomial term for the given value of x -->
-                <TextBlock Text="Term Value: " VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" />
-                <TextBlock 
-                    x:Name="TermValueTextBlock"
-                    Text="{Binding TermValue}"
-                    VerticalAlignment="Center" FontWeight="Bold" 
-                    Grid.Row="2" Grid.Column="1"
+                    Grid.Row="0" Grid.Column="1"
                     />
 
                 <!-- Display the full polynomial term and the result for the given value of x -->
@@ -61,7 +40,7 @@
                     x:Name="PolynomialTermAndResultTextBlock"
                     Text="{Binding PolynomialTermAndResult}"
                     VerticalAlignment="Center" FontWeight="Bold" FontSize="28"
-                    Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     />
             </Grid>
         </StackPanel>

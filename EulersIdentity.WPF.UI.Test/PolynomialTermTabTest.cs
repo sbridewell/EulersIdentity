@@ -109,21 +109,21 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         }
 
         /// <summary>
-        /// Verifies that when the user changes the coefficient, the PolynomialTermTextBlock and TermValueTextBlock are updated.
+        /// Verifies that the PolynomialTermAndResultTextBlock is updated correctly when the user edits the coefficient.
         /// </summary>
         /// <param name="initialCoefficient">The initial coefficient value.</param>
         /// <param name="initialExponent">The initial exponent value.</param>
         /// <param name="initialXValue">The initial x value.</param>
         /// <param name="newCoefficient">The new coefficient value.</param>
-        /// <param name="expectedTermValue">The expected term value after the change.</param>
+        /// <param name="expectedResult">The expected result displayed in the PolynomialTermAndResultTextBlock.</param>
         [Scenario]
-        [InlineData("2", "3", "4", "3", "192")] // Example: 3 * 4^3 = 192
-        public void UserChangesCoefficient_TextBlocksAreUpdated(
+        [InlineData("2", "3", "4", "5", "5 * 4^3 = 320")] // Example: 5 * 4^3 = 320
+        public void UserEditsCoefficient_PolynomialTermAndResultTextBlockIsUpdated(
             string initialCoefficient,
             string initialExponent,
             string initialXValue,
             string newCoefficient,
-            string expectedTermValue)
+            string expectedResult)
         {
             this.Runner.RunScenario(
                 given => this.TheApplicationHasStarted(),
@@ -131,26 +131,25 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, initialExponent),
                 and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, initialXValue),
                 when => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, newCoefficient),
-                then => this.TheCoefficientIsIncludedInTheStringRepresentationOfTheTerm(newCoefficient),
-                and => this.TheTermValueIsUpdatedCorrectly(expectedTermValue));
+                then => this.ThePolynomialTermAndResultTextBlockDisplays(expectedResult));
         }
 
         /// <summary>
-        /// Verifies that when the user changes the exponent, the PolynomialTermTextBlock and TermValueTextBlock are updated.
+        /// Verifies that the PolynomialTermAndResultTextBlock is updated correctly when the user edits the exponent.
         /// </summary>
         /// <param name="initialCoefficient">The initial coefficient value.</param>
         /// <param name="initialExponent">The initial exponent value.</param>
         /// <param name="initialXValue">The initial x value.</param>
         /// <param name="newExponent">The new exponent value.</param>
-        /// <param name="expectedTermValue">The expected term value after the change.</param>
+        /// <param name="expectedResult">The expected result displayed in the PolynomialTermAndResultTextBlock.</param>
         [Scenario]
-        [InlineData("2", "3", "4", "2", "32")] // Example: 2 * 4^2 = 32
-        public void UserChangesExponent_TextBlocksAreUpdated(
+        [InlineData("2", "3", "4", "2", "2 * 4^2 = 32")] // Example: 2 * 4^2 = 32
+        public void UserEditsExponent_PolynomialTermAndResultTextBlockIsUpdated(
             string initialCoefficient,
             string initialExponent,
             string initialXValue,
             string newExponent,
-            string expectedTermValue)
+            string expectedResult)
         {
             this.Runner.RunScenario(
                 given => this.TheApplicationHasStarted(),
@@ -158,26 +157,25 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, initialExponent),
                 and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, initialXValue),
                 when => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, newExponent),
-                then => this.TheExponentIsIncludedInTheStringRepresentationOfTheTerm(newExponent),
-                and => this.TheTermValueIsUpdatedCorrectly(expectedTermValue));
+                then => this.ThePolynomialTermAndResultTextBlockDisplays(expectedResult));
         }
 
         /// <summary>
-        /// Verifies that when the user changes the x value, the TermValueTextBlock is updated.
+        /// Verifies that the PolynomialTermAndResultTextBlock is updated correctly when the user edits the value of x.
         /// </summary>
         /// <param name="initialCoefficient">The initial coefficient value.</param>
         /// <param name="initialExponent">The initial exponent value.</param>
         /// <param name="initialXValue">The initial x value.</param>
         /// <param name="newXValue">The new x value.</param>
-        /// <param name="expectedTermValue">The expected term value after the change.</param>
+        /// <param name="expectedResult">The expected result displayed in the PolynomialTermAndResultTextBlock.</param>
         [Scenario]
-        [InlineData("2", "3", "4", "5", "250")] // Example: 2 * 5^3 = 250
-        public void UserChangesXValue_TextBlocksAreUpdated(
+        [InlineData("2", "3", "4", "5", "2 * 5^3 = 250")] // Example: 2 * 5^3 = 250
+        public void UserEditsXValue_PolynomialTermAndResultTextBlockIsUpdated(
             string initialCoefficient,
             string initialExponent,
             string initialXValue,
             string newXValue,
-            string expectedTermValue)
+            string expectedResult)
         {
             this.Runner.RunScenario(
                 given => this.TheApplicationHasStarted(),
@@ -185,41 +183,7 @@ namespace Sde.EulersIdentity.WPF.UI.Test
                 and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, initialExponent),
                 and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, initialXValue),
                 when => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, newXValue),
-                and => this.TheTermValueIsUpdatedCorrectly(expectedTermValue));
-        }
-
-        /// <summary>
-        /// Verifies that when the user changes all values, the PolynomialTermTextBlock and TermValueTextBlock are updated.
-        /// </summary>
-        /// <param name="initialCoefficient">The initial coefficient value.</param>
-        /// <param name="initialExponent">The initial exponent value.</param>
-        /// <param name="initialXValue">The initial x value.</param>
-        /// <param name="newCoefficient">The new coefficient value.</param>
-        /// <param name="newExponent">The new exponent value.</param>
-        /// <param name="newXValue">The new x value.</param>
-        /// <param name="expectedTermValue">The expected term value after the changes.</param>
-        [Scenario]
-        [InlineData("2", "3", "4", "3", "2", "5", "75")] // Example: 3 * 5^2 = 75
-        public void UserChangesAllValues_TextBlocksAreUpdated(
-            string initialCoefficient,
-            string initialExponent,
-            string initialXValue,
-            string newCoefficient,
-            string newExponent,
-            string newXValue,
-            string expectedTermValue)
-        {
-            this.Runner.RunScenario(
-                given => this.TheApplicationHasStarted(),
-                and => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, initialCoefficient),
-                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, initialExponent),
-                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, initialXValue),
-                when => this.TheUserEntersAValueIntoTheTextBox(CoefficientTextBoxName, newCoefficient),
-                and => this.TheUserEntersAValueIntoTheTextBox(ExponentTextBoxName, newExponent),
-                and => this.TheUserEntersAValueIntoTheTextBox(XValueTextBoxName, newXValue),
-                then => this.TheCoefficientIsIncludedInTheStringRepresentationOfTheTerm(newCoefficient),
-                and => this.TheExponentIsIncludedInTheStringRepresentationOfTheTerm(newExponent),
-                and => this.TheTermValueIsUpdatedCorrectly(expectedTermValue));
+                then => this.ThePolynomialTermAndResultTextBlockDisplays(expectedResult));
         }
 
         /// <summary>

@@ -41,52 +41,14 @@ namespace Sde.EulersIdentity.WPF.UI.Test
             textBox.Text.Should().Be(coefficient);
         }
 
-        private void TheCoefficientIsIncludedInTheStringRepresentationOfTheTerm(string coefficient)
+        /// <summary>
+        /// Verifies that the PolynomialTermAndResultTextBlock displays the expected result.
+        /// </summary>
+        /// <param name="expectedResult">The expected result to verify.</param>
+        private void ThePolynomialTermAndResultTextBlockDisplays(string expectedResult)
         {
-            var termStringTextBlock = this.FindControlInTab<Label>(0, "PolynomialTermTextBlock");
-
-            // Get the text from the PolynomialTermTextBlock
-            var termString = termStringTextBlock.Text;
-
-            // Define the expected format (e.g., "{coefficient}x^n")
-            // This is an example; adjust based on the actual format
-            var expectedPrefix = $"{coefficient}x";
-
-            // Assert that the term string starts with the expected prefix
-            termString.Should().StartWith(
-                expectedPrefix,
-                because: $"the coefficient '{coefficient}' should appear at the start of the term string.");
-        }
-
-        private void TheExponentIsIncludedInTheStringRepresentationOfTheTerm(string exponent)
-        {
-            // Find the TermStringTextBlock in the Polynomial Term tab
-            var termStringTextBlock = this.FindControlInTab<Label>(0, "PolynomialTermTextBlock");
-
-            // Get the text from the TermStringTextBlock
-            var termString = termStringTextBlock.Text;
-
-            // Define the expected format (e.g., "coefficient x^exponent")
-            // This assumes the exponent is represented as "^exponent" in the term string
-            var expectedSubstring = $"^{exponent}";
-
-            // Assert that the term string contains the expected exponent substring
-            termString.Should().Contain(
-                expectedSubstring,
-                because: $"the exponent '{exponent}' should appear in the string representation of the term.");
-        }
-
-        private void TheTermValueIsUpdatedCorrectly(string expectedValue)
-        {
-            var termValueTextBlock = this.FindControlInTab<Label>(0, "TermValueTextBlock");
-
-            // Get the text from the TermValueTextBlock
-            var termValue = termValueTextBlock.Text;
-
-            // Assert that the term value matches the expected value
-            termValue.Should().Be(
-                expectedValue,
-                because: $"the term value should be updated to '{expectedValue}' based on the inputs.");
+            var actualResult = this.GetTextBlockValue("PolynomialTermAndResultTextBlock");
+            actualResult.Should().Be(expectedResult);
         }
 
         #endregion

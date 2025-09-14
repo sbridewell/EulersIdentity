@@ -39,12 +39,6 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         }
 
         /// <summary>
-        /// Gets the text representation of the polynomial term in the format cx^e.
-        /// </summary>
-        public string PolynomialTermRepresentation
-            => $"{this.PolynomialTerm.Coefficient}x^{this.PolynomialTerm.Exponent}";
-
-        /// <summary>
         /// Gets or sets the value of x.
         /// </summary>
         public string XValue
@@ -54,29 +48,7 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             {
                 if (this.SetProperty(ref this.xValue, value))
                 {
-                    this.OnPropertyChanged(nameof(this.TermValue));
-                    this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
                     this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculated value of the term for the given value of x.
-        /// </summary>
-        public double TermValue
-        {
-            get
-            {
-                if (double.TryParse(this.PolynomialTerm.Coefficient, out double parsedCoefficient)
-                    && double.TryParse(this.XValue, out double parsedXValue)
-                    && double.TryParse(this.PolynomialTerm.Exponent, out double parsedExponent))
-                {
-                    return parsedCoefficient * Math.Pow(parsedXValue, parsedExponent);
-                }
-                else
-                {
-                    return double.NaN; // Indicate invalid input
                 }
             }
         }
@@ -108,8 +80,6 @@ namespace Sde.EulersIdentity.WPF.ViewModels
             if (e.PropertyName == nameof(PolynomialTermViewModel.Coefficient) ||
                 e.PropertyName == nameof(PolynomialTermViewModel.Exponent))
             {
-                this.OnPropertyChanged(nameof(this.PolynomialTermRepresentation));
-                this.OnPropertyChanged(nameof(this.TermValue));
                 this.OnPropertyChanged(nameof(this.PolynomialTermAndResult));
             }
         }

@@ -168,6 +168,17 @@ namespace Sde.EulersIdentity.WPF.UI.Test
         }
 
         /// <summary>
+        /// Retrieves the text value of a TextBlock control by its automation ID.
+        /// </summary>
+        /// <param name="automationId">The automation ID of the TextBlock.</param>
+        /// <returns>The text value of the TextBlock.</returns>
+        protected string GetTextBlockValue(string automationId)
+        {
+            var textBlock = this.FindControlByAutomationId<Label>(automationId);
+            return textBlock.Text;
+        }
+
+        /// <summary>
         /// Disposes of resources used by the test class.
         /// </summary>
         /// <param name="disposing">A value indicating whether the method is called from Dispose.</param>
