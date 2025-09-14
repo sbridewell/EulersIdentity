@@ -43,5 +43,16 @@ namespace Sde.EulersIdentity.WPF.ViewModels
                 this.SetProperty(ref this.exponent, sanitised);
             }
         }
+
+        /// <summary>
+        /// Converts the view model to a PolynomialTerm.
+        /// </summary>
+        /// <returns>A PolynomialTerm object.</returns>
+        public PolynomialTerm ToPolynomialTerm()
+        {
+            var coefficient = double.TryParse(Coefficient, out var parsedCoefficient) ? parsedCoefficient : 0;
+            var exponent = double.TryParse(Exponent, out var parsedExponent) ? parsedExponent : 0;
+            return new PolynomialTerm(coefficient, exponent);
+        }
     }
 }

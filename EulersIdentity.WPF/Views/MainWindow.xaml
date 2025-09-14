@@ -35,7 +35,7 @@
 
             <!-- Tab for Polynomials -->
             <TabItem Header="Polynomial">
-                <!--<local:PolynomialControl DataContext="{Binding PolynomialViewModel}" />-->
+                <local:PolynomialContainer DataContext="{Binding PolynomialContainerViewModel}" />
             </TabItem>
         </TabControl>
 

@@ -50,10 +50,10 @@ namespace Sde.EulersIdentity.WPF.ViewModels
 
         // TODO: remove PolynomialTermViewModel property once PolynomialTermContainerViewModel is working.
 
-        /// <summary>
-        /// Gets the view model for the PolynomialTerm control.
-        /// </summary>
-        public PolynomialTermViewModel PolynomialTermViewModel { get; } = new PolynomialTermViewModel();
+        ///// <summary>
+        ///// Gets the view model for the PolynomialTerm control.
+        ///// </summary>
+        //public PolynomialTermViewModel PolynomialTermViewModel { get; } = new PolynomialTermViewModel();
 
         /// <summary>
         /// Gets the view model for the PolynomialTermContainer control.
@@ -61,9 +61,15 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         public PolynomialTermContainerViewModel PolynomialTermContainerViewModel { get; } = new PolynomialTermContainerViewModel();
 
         /// <summary>
-        /// Gets the view model for the Polynomial control.
+        /// Gets the view model that manages the polynomial container, providing data binding and interaction logic for
+        /// polynomial-related operations.
         /// </summary>
-        public PolynomialViewModel PolynomialViewModel { get; } = new PolynomialViewModel();
+        public PolynomialContainerViewModel PolynomialContainerViewModel { get; } = new PolynomialContainerViewModel();
+
+        ///// <summary>
+        ///// Gets the view model for the Polynomial control.
+        ///// </summary>
+        //public PolynomialViewModel PolynomialViewModel { get; } = new PolynomialViewModel();
 
         /// <summary>
         /// Gets or sets the selected tab.

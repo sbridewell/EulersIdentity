@@ -22,6 +22,15 @@ namespace Sde.EulersIdentity
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> class.
+        /// </summary>
+        /// <param name="terms">The terms to include in the polynomial.</param>
+        public Polynomial(IEnumerable<IPolynomialTerm> terms)
+        {
+            this.terms = new List<IPolynomialTerm>(terms);
+        }
+
+        /// <summary>
         /// Gets the terms which make up the polynomial.
         /// </summary>
         public IReadOnlyList<IPolynomialTerm> Terms => this.terms.AsReadOnly();
