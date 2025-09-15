@@ -50,9 +50,9 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// <returns>A PolynomialTerm object.</returns>
         public PolynomialTerm ToPolynomialTerm()
         {
-            var coefficient = double.TryParse(Coefficient, out var parsedCoefficient) ? parsedCoefficient : 0;
-            var exponent = double.TryParse(Exponent, out var parsedExponent) ? parsedExponent : 0;
-            return new PolynomialTerm(coefficient, exponent);
+            var newCoefficient = double.TryParse(this.Coefficient, out var parsedCoefficient) ? parsedCoefficient : 0;
+            var newExponent = double.TryParse(this.Exponent, out var parsedExponent) ? parsedExponent : 0;
+            return new PolynomialTerm(newCoefficient, newExponent);
         }
     }
 }

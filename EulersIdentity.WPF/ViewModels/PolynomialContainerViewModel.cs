@@ -1,15 +1,19 @@
-using System.Windows.Input;
-using Sde.EulersIdentity.WPF.Utilities;
+// <copyright file="PolynomialContainerViewModel.cs" company="Simon Bridewell">
+// Copyright (c) Simon Bridewell.
+// Released under the MIT license - see LICENSE.txt in the repository root.
+// </copyright>
 
 namespace Sde.EulersIdentity.WPF.ViewModels
 {
+    using System.Windows.Input;
+
     /// <summary>
     /// ViewModel for the PolynomialContainer user control.
     /// </summary>
     public class PolynomialContainerViewModel : ViewModelBase
     {
         private double xValue;
-        private string polynomialString;
+        private string polynomialString = string.Empty;
         private double evaluationResult;
 
         /// <summary>
@@ -17,8 +21,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public PolynomialContainerViewModel()
         {
-            PolynomialControlViewModel = new PolynomialControlViewModel();
-            EvaluateCommand = new RelayCommand(Evaluate);
+            this.PolynomialControlViewModel = new PolynomialControlViewModel();
+            this.EvaluateCommand = new RelayCommand(this.Evaluate);
         }
 
         /// <summary>
@@ -31,8 +35,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public double XValue
         {
-            get => xValue;
-            set => SetProperty(ref xValue, value);
+            get => this.xValue;
+            set => this.SetProperty(ref this.xValue, value);
         }
 
         /// <summary>
@@ -40,8 +44,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public string PolynomialString
         {
-            get => polynomialString;
-            private set => SetProperty(ref polynomialString, value);
+            get => this.polynomialString;
+            private set => this.SetProperty(ref this.polynomialString, value);
         }
 
         /// <summary>
@@ -49,8 +53,8 @@ namespace Sde.EulersIdentity.WPF.ViewModels
         /// </summary>
         public double EvaluationResult
         {
-            get => evaluationResult;
-            private set => SetProperty(ref evaluationResult, value);
+            get => this.evaluationResult;
+            private set => this.SetProperty(ref this.evaluationResult, value);
         }
 
         /// <summary>
@@ -60,9 +64,9 @@ namespace Sde.EulersIdentity.WPF.ViewModels
 
         private void Evaluate()
         {
-            var polynomial = PolynomialControlViewModel.ToPolynomial();
-            PolynomialString = polynomial.ToString();
-            EvaluationResult = polynomial.Evaluate(XValue);
+            var polynomial = this.PolynomialControlViewModel.ToPolynomial();
+            this.PolynomialString = polynomial.ToString();
+            this.EvaluationResult = polynomial.Evaluate(this.XValue);
         }
     }
 }
