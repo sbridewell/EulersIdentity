@@ -284,5 +284,27 @@ namespace Sde.EulersIdentity.Test
             dividedTerm.Should().NotBeNull();
             dividedTerm!.Coefficient.Should().BeApproximately(3, 0.0001);
         }
+
+        /// <summary>
+        /// Tests that the <see cref="Polynomial"/> constructor correctly initializes the terms collection.
+        /// </summary>
+        [Fact]
+        public void Constructor_ShouldInitializeTermsCollection()
+        {
+            // Arrange
+            var terms = new List<IPolynomialTerm>
+            {
+                new PolynomialTerm(3, 2),
+                new PolynomialTerm(2, 1),
+                new PolynomialTerm(1, 0),
+            };
+
+            // Act
+            var polynomial = new Polynomial(terms);
+
+            // Assert
+            polynomial.Terms.Should().HaveCount(3);
+            polynomial.Terms.Should().ContainInOrder(terms);
+        }
     }
 }
