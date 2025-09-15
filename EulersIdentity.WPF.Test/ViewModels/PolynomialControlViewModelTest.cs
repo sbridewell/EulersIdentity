@@ -106,5 +106,61 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
             // Assert
             canExecute.Should().BeFalse();
         }
+
+        /// <summary>
+        /// Tests that the <see cref="PolynomialControlViewModel.ToPolynomial"/> method correctly converts the terms in the view model to a <see cref="Polynomial"/> object.
+        /// </summary>
+        [Fact]
+        public void ToPolynomial_ShouldConvertTermsToPolynomial()
+        {
+            // Arrange
+            var viewModel = new PolynomialControlViewModel();
+            viewModel.AddTermCommand.Execute(null);
+            var term = viewModel.Terms.First();
+            term.Coefficient = "3";
+            term.Exponent = "2";
+
+            // Act
+            var polynomial = viewModel.ToPolynomial();
+
+            // Assert
+            polynomial.Terms.Should().HaveCount(1);
+            var polynomialTerm = polynomial.Terms.First();
+            polynomialTerm.Coefficient.Should().Be(3);
+            polynomialTerm.Exponent.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="PolynomialControlViewModel.CanRemoveTerm"/> method returns true when there are terms in the <see cref="PolynomialControlViewModel.Terms"/> collection.
+        /// </summary>
+        [Fact]
+        public void CanRemoveTerm_ShouldReturnTrue_WhenTermsExist()
+        {
+            // Arrange
+            var viewModel = new PolynomialControlViewModel();
+            viewModel.AddTermCommand.Execute(null);
+
+            // Act
+            var canRemove = viewModel.RemoveTermCommand.CanExecute(null);
+
+            // Assert
+            canRemove.Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="PolynomialControlViewModel.CanRemoveTerm"/> method returns false when the <see cref="PolynomialControlViewModel.Terms"/> collection is empty.
+        /// </summary>
+        [Fact]
+        public void CanRemoveTerm_ShouldReturnFalse_WhenNoTermsExist()
+        {
+            // Arrange
+            var viewModel = new PolynomialControlViewModel();
+
+            // Act
+            var canRemove = viewModel.RemoveTermCommand.CanExecute(null);
+
+            // Assert
+            canRemove.Should().BeFalse();
+        }
     }
 }

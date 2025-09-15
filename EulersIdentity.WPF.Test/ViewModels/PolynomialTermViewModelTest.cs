@@ -13,36 +13,90 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
     /// </summary>
     public class PolynomialTermViewModelTest
     {
+        // Existing test methods...
+
         /// <summary>
-        /// Tests that the Coefficient property sanitises input correctly.
+        /// Tests that <see cref="PolynomialTermViewModel.ToPolynomialTerm"/> correctly converts valid coefficient and exponent values.
         /// </summary>
         [Fact]
-        public void Coefficient_ShouldSanitiseInput()
+        public void ToPolynomialTerm_ShouldConvertValidValues()
         {
             // Arrange
-            var viewModel = new PolynomialTermViewModel();
+            var viewModel = new PolynomialTermViewModel
+            {
+                Coefficient = "3.5",
+                Exponent = "2",
+            };
 
             // Act
-            viewModel.Coefficient = "1.2.3";
+            var polynomialTerm = viewModel.ToPolynomialTerm();
 
             // Assert
-            viewModel.Coefficient.Should().Be("1.23");
+            polynomialTerm.Coefficient.Should().Be(3.5);
+            polynomialTerm.Exponent.Should().Be(2);
         }
 
         /// <summary>
-        /// Tests that the Exponent property sanitises input correctly.
+        /// Tests that <see cref="PolynomialTermViewModel.ToPolynomialTerm"/> returns a coefficient of 0 when the coefficient is invalid.
         /// </summary>
         [Fact]
-        public void Exponent_ShouldSanitiseInput()
+        public void ToPolynomialTerm_ShouldReturnZeroCoefficient_WhenCoefficientIsInvalid()
         {
             // Arrange
-            var viewModel = new PolynomialTermViewModel();
+            var viewModel = new PolynomialTermViewModel
+            {
+                Coefficient = "invalid",
+                Exponent = "2",
+            };
 
             // Act
-            viewModel.Exponent = "4.5.6";
+            var polynomialTerm = viewModel.ToPolynomialTerm();
 
             // Assert
-            viewModel.Exponent.Should().Be("4.56");
+            polynomialTerm.Coefficient.Should().Be(0);
+            polynomialTerm.Exponent.Should().Be(2);
+        }
+
+        /// <summary>
+        /// Tests that <see cref="PolynomialTermViewModel.ToPolynomialTerm"/> returns an exponent of 0 when the exponent is invalid.
+        /// </summary>
+        [Fact]
+        public void ToPolynomialTerm_ShouldReturnZeroExponent_WhenExponentIsInvalid()
+        {
+            // Arrange
+            var viewModel = new PolynomialTermViewModel
+            {
+                Coefficient = "3.5",
+                Exponent = "invalid",
+            };
+
+            // Act
+            var polynomialTerm = viewModel.ToPolynomialTerm();
+
+            // Assert
+            polynomialTerm.Coefficient.Should().Be(3.5);
+            polynomialTerm.Exponent.Should().Be(0);
+        }
+
+        /// <summary>
+        /// Tests that <see cref="PolynomialTermViewModel.ToPolynomialTerm"/> returns a coefficient and exponent of 0 when both are invalid.
+        /// </summary>
+        [Fact]
+        public void ToPolynomialTerm_ShouldReturnZeroCoefficientAndExponent_WhenBothAreInvalid()
+        {
+            // Arrange
+            var viewModel = new PolynomialTermViewModel
+            {
+                Coefficient = "invalid",
+                Exponent = "invalid",
+            };
+
+            // Act
+            var polynomialTerm = viewModel.ToPolynomialTerm();
+
+            // Assert
+            polynomialTerm.Coefficient.Should().Be(0);
+            polynomialTerm.Exponent.Should().Be(0);
         }
     }
 }

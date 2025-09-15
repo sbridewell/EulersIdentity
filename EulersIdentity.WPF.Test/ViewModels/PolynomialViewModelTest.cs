@@ -3,7 +3,7 @@
 // Released under the MIT license - see LICENSE.txt in the repository root.
 // </copyright>
 
-namespace Sde.EulersIdentity.WPF.Test
+namespace Sde.EulersIdentity.WPF.Test.ViewModels
 {
     using FluentAssertions;
     using Sde.EulersIdentity.WPF.ViewModels;

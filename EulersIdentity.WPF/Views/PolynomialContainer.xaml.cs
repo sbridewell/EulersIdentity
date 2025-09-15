@@ -5,6 +5,7 @@
 
 namespace Sde.EulersIdentity.WPF.Views
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Controls;
 
     /// <summary>
@@ -13,6 +14,7 @@ namespace Sde.EulersIdentity.WPF.Views
     /// <remarks>This class is a partial class that extends <see cref="UserControl"/> and is intended to be
     /// used as part of a graphical user interface. It provides the necessary initialization for its
     /// components.</remarks>
+    [ExcludeFromCodeCoverage]
     public partial class PolynomialContainer : UserControl
     {
         /// <summary>
