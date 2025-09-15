@@ -131,7 +131,8 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
         }
 
         /// <summary>
-        /// Tests that the <see cref="PolynomialControlViewModel.CanRemoveTerm"/> method returns true when there are terms in the <see cref="PolynomialControlViewModel.Terms"/> collection.
+        /// Tests that the CanRemoveTerm method returns true when there are terms in
+        /// the <see cref="PolynomialControlViewModel.Terms"/> collection.
         /// </summary>
         [Fact]
         public void CanRemoveTerm_ShouldReturnTrue_WhenTermsExist()
@@ -148,7 +149,8 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
         }
 
         /// <summary>
-        /// Tests that the <see cref="PolynomialControlViewModel.CanRemoveTerm"/> method returns false when the <see cref="PolynomialControlViewModel.Terms"/> collection is empty.
+        /// Tests that the CanRemoveTerm method returns false when the 
+        /// <see cref="PolynomialControlViewModel.Terms"/> collection is empty.
         /// </summary>
         [Fact]
         public void CanRemoveTerm_ShouldReturnFalse_WhenNoTermsExist()
