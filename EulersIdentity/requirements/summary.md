@@ -24,7 +24,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Purpose**: Contains unit tests for the core library.
 - **Testing Frameworks**: XUnit for testing and FluentAssertions for assertions.
 - **Key Test Classes**:
-  - `PolynomialTest`: Tests the `Polynomial` class, including its `ToString` method and arithmetic operations.
+  - `PolynomialTest`: Tests the `Polynomial` class, including its `ToString` method, arithmetic operations, and constructor.
   - `EquationTest`: Tests the `Equation` class.
   - `PolynomialTermTest`: Tests the `PolynomialTerm` class.
 
@@ -38,7 +38,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Classes**:
   - `MainViewModel`: The main ViewModel for the application, managing tab states and debug messages.
   - `PolynomialTermControl`: A user control for creating and evaluating polynomial terms.
-  - `PolynomialTermContainerViewModel`: Handles the logic for displaying and updating polynomial terms and their results.
+  - `PolynomialContainer`: A user control for managing and displaying polynomial-related data or functionality.
+  - `PolynomialContainerViewModel`: Handles the logic for evaluating polynomials and managing the `PolynomialControlViewModel`.
   - `FloatingPointInputBehaviour`: Restricts `TextBox` input to valid floating-point numbers.
   - `ValidationBehaviour`: Provides an attached property to apply validation rules to a `TextBox`.
 
@@ -48,7 +49,8 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Test Classes**:
   - `MainViewModelTest`: Tests the `MainViewModel` class.
   - `PolynomialTermControlTest`: Tests the `PolynomialTermControl` user control.
-  - `PolynomialTermContainerViewModelTest`: Tests the `PolynomialTermContainerViewModel` class, including its `PolynomialTermAndResult` property and `OnPolynomialTermPropertyChanged` method.
+  - `PolynomialContainerViewModelTest`: Tests the `PolynomialContainerViewModel` class, including its `EvaluateCommand` and property updates.
+  - `PolynomialControlViewModelTest`: Tests the `PolynomialControlViewModel` class, including its `ToPolynomial` and `CanRemoveTerm` methods.
   - `FloatingPointInputBehaviourTest`: Tests the `FloatingPointInputBehaviour` class.
   - `ValidationBehaviourTest`: Tests the `ValidationBehaviour` class.
 
@@ -72,11 +74,11 @@ Euler's Identity is a mathematical expression that combines several fundamental 
   - There is an outstanding bug in the `PolynomialTermControl` where the `XValueTextBox` control is not correctly validating or displaying user input, causing related UI tests to fail.
 
 ## Recent Updates
-- Renamed `StringToSanitisedStringConverter` to `StringToSanitisedDoubleStringConverter` and updated all references.
-- Added a `TextBlock` to `PolynomialTermContainer.xaml` to display the formatted polynomial term and its result.
-- Expanded `PolynomialTermContainerViewModelTest` to provide full coverage of the `OnPolynomialTermPropertyChanged` method.
-- Added UI tests to `PolynomialTermTabTest` to verify updates to `PolynomialTermAndResultTextBlock` when the user edits the coefficient, exponent, or value of `x`.
-- Implemented `GetTextBlockValue` in `UITestBase` to support retrieving `TextBlock` values in UI tests.
+- Added unit tests for `PolynomialContainerViewModel` to cover its constructor, `EvaluateCommand`, and property updates.
+- Added unit tests for `PolynomialControlViewModel` to cover `ToPolynomial` and `CanRemoveTerm` methods.
+- Added unit tests for `PolynomialTermViewModel` to fully cover the `ToPolynomialTerm` method.
+- Added unit tests for the `Polynomial` constructor to ensure proper initialization of terms.
+- Added a unit test class for `PolynomialContainer` to verify its initialization.
 - Enhanced `PolynomialTermAndResult` to handle edge cases, such as negative `x` values with non-integer exponents, returning `NaN` as expected.
 
 ## Future Work
