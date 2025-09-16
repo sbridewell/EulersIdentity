@@ -19,14 +19,6 @@
 
             <Button Content="Add Term" Command="{Binding AddTermCommand}" />
             <Button Content="Remove Term" Command="{Binding RemoveTermCommand}" />
-
-            <Label Content="Value of x:" />
-            <TextBox Text="{Binding XValue, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Button Content="Evaluate" Command="{Binding EvaluateCommand}" />
-
-            <Label Content="Result:" />
-            <TextBlock Text="{Binding Result}" />
         </StackPanel>
     </Grid>
 </UserControl>
