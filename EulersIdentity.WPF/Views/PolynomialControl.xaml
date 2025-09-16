@@ -10,6 +10,11 @@
         <StackPanel>
             <Label Content="Polynomial Terms:" />
             <ItemsControl ItemsSource="{Binding Terms}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <local:PolynomialTermControl DataContext="{Binding}" />
