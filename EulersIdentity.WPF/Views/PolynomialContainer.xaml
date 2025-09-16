@@ -6,25 +6,36 @@
              xmlns:local="clr-namespace:Sde.EulersIdentity.WPF.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="400">
-    <Grid>
-        <StackPanel>
-            <!-- Polynomial Control--> 
-            <local:PolynomialControl DataContext="{Binding PolynomialControlViewModel}" />
+  <Grid>
+    <StackPanel>
+      <!-- Polynomial Control-->
+      <local:PolynomialControl DataContext="{Binding PolynomialControlViewModel}" />
 
-            <!-- Input for x value--> 
-            <Label Content="Value of x:" />
-            <TextBox Text="{Binding XValue, UpdateSourceTrigger=PropertyChanged}" />
+      <!-- Input for x value-->
+      <StackPanel Orientation="Horizontal">
+        <Label 
+          Content="Value of x:"
+          Margin="0,0,5,0"
+        />
+        <TextBox
+          Text="{Binding XValue, UpdateSourceTrigger=PropertyChanged}"
+          Style="{StaticResource FloatingPointTextBoxStyle}"
+          HorizontalAlignment="Stretch"
+        />
+        <Button Content="Evaluate" Command="{Binding EvaluateCommand}" />
+      </StackPanel>
 
-            <!-- Evaluate Button--> 
-            <Button Content="Evaluate" Command="{Binding EvaluateCommand}" />
+      <!-- Polynomial String Representation-->
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Polynomial: " FontSize="28" FontWeight="Bold" />
+        <TextBlock Text="{Binding PolynomialString}" FontSize="28" FontWeight="Bold" />
+      </StackPanel>
 
-            <!-- Polynomial String Representation--> 
-            <Label Content="Polynomial:" />
-            <TextBlock Text="{Binding PolynomialString}" />
-
-            <!-- Evaluation Result--> 
-            <Label Content="Result:" />
-            <TextBlock Text="{Binding EvaluationResult}" />
-        </StackPanel>
-    </Grid>
+      <!-- Evaluation Result-->
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Result: " FontSize="28" FontWeight="Bold" />
+        <TextBlock Text="{Binding EvaluationResult}" FontSize="28" FontWeight="Bold" />
+      </StackPanel>
+    </StackPanel>
+  </Grid>
 </UserControl>
