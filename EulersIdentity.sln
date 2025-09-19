@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity.WPF", "Euler
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity.WPF.Test", "EulersIdentity.WPF.Test\EulersIdentity.WPF.Test.csproj", "{38CE7D90-42E6-459E-9103-27456EC45EA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EulersIdentity.WPF.UI.Test", "EulersIdentity.WPF.UI.Test\EulersIdentity.WPF.UI.Test.csproj", "{E480A4F1-B3E2-4881-93A3-977F963AA3A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{38CE7D90-42E6-459E-9103-27456EC45EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38CE7D90-42E6-459E-9103-27456EC45EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38CE7D90-42E6-459E-9103-27456EC45EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E480A4F1-B3E2-4881-93A3-977F963AA3A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E480A4F1-B3E2-4881-93A3-977F963AA3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E480A4F1-B3E2-4881-93A3-977F963AA3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E480A4F1-B3E2-4881-93A3-977F963AA3A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

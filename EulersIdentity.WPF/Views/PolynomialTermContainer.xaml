@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Sde.EulersIdentity.WPF.Views.PolynomialTermContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sde.EulersIdentity.WPF.Views"
+             xmlns:conv="clr-namespace:Sde.EulersIdentity.WPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:StringToSanitisedDoubleStringConverter x:Key="SanitisedStringConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- PolynomialTermControl -->
+            <local:PolynomialTermControl DataContext="{Binding PolynomialTerm}" />
+
+            <!-- Grid containing the output from the PolynomialTermControl -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" /> <!-- value of x -->
+                    <RowDefinition Height="Auto" /> <!-- string representation of the polynomial term -->
+                </Grid.RowDefinitions>
+
+                <!-- User can enter a value of x here -->
+                <TextBlock Text="Value of x: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" />
+                <TextBox 
+                    x:Name="XValueTextBox"
+                    Style="{StaticResource FloatingPointTextBoxStyle}"
+                    Text="{Binding XValue, Converter={StaticResource SanitisedStringConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Grid.Row="0" Grid.Column="1"
+                    />
+
+                <!-- Display the full polynomial term and the result for the given value of x -->
+                <TextBlock 
+                    x:Name="PolynomialTermAndResultTextBlock"
+                    Text="{Binding PolynomialTermAndResult}"
+                    VerticalAlignment="Center" FontWeight="Bold" FontSize="28"
+                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

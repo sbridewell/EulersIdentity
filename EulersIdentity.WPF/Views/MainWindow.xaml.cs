@@ -21,5 +21,12 @@ namespace Sde.EulersIdentity.WPF.Views
         {
             this.InitializeComponent();
         }
+
+        // TODO: why does MainWindow have a PolynomialControl property but no PolynomialTermControl property?
+
+        /// <summary>
+        /// Gets the PolynomialControl instance.
+        /// </summary>
+        public PolynomialControl PolynomialControl { get; } = new();
     }
 }
