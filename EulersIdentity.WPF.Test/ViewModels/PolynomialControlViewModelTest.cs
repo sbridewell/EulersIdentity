@@ -149,7 +149,7 @@ namespace Sde.EulersIdentity.WPF.Test.ViewModels
         }
 
         /// <summary>
-        /// Tests that the CanRemoveTerm method returns false when the 
+        /// Tests that the CanRemoveTerm method returns false when the
         /// <see cref="PolynomialControlViewModel.Terms"/> collection is empty.
         /// </summary>
         [Fact]

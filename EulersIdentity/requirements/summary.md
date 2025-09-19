@@ -5,12 +5,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 
 ## Projects
 
-### 1. EulersIdentity.ConsoleApp
-- **Purpose**: A console application that serves as the entry point for the solution.
-- **Main File**: `Program.cs`
-- **Functionality**: Outputs a welcome message and demonstrates Euler's Identity.
-
-### 2. EulersIdentity
+### EulersIdentity
 - **Purpose**: Contains the core library for polynomial and equation operations.
 - **Key Classes**:
   - `Polynomial`: Represents a polynomial and supports operations like addition, subtraction, multiplication, and division.
@@ -19,16 +14,20 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - **Key Interfaces**:
   - `IPolynomial`: Defines the contract for polynomial operations.
   - `IEquation`: Defines the contract for equation operations.
+- **Issues**:
+  - Currently none
 
-### 3. EulersIdentity.Test
+### EulersIdentity.Test
 - **Purpose**: Contains unit tests for the core library.
 - **Testing Frameworks**: XUnit for testing and FluentAssertions for assertions.
 - **Key Test Classes**:
   - `PolynomialTest`: Tests the `Polynomial` class, including its `ToString` method, arithmetic operations, and constructor.
   - `EquationTest`: Tests the `Equation` class.
   - `PolynomialTermTest`: Tests the `PolynomialTerm` class.
+- **Issues**:
+  - Currently none
 
-### 4. EulersIdentity.WPF
+### EulersIdentity.WPF (not currently being progressed)
 - **Purpose**: A WPF application to demonstrate the functionality of the `PolynomialTerm`, `Polynomial`, and `Equation` classes.
 - **Key Features**:
   - A `TabControl` with three tabs: `PolynomialTerm`, `Polynomial`, and `Equation`.
@@ -40,26 +39,31 @@ Euler's Identity is a mathematical expression that combines several fundamental 
   - `PolynomialTermControl`: A user control for creating and evaluating polynomial terms.
   - `PolynomialContainer`: A user control for managing and displaying polynomial-related data or functionality.
   - `PolynomialContainerViewModel`: Handles the logic for evaluating polynomials and managing the `PolynomialControlViewModel`.
+  - `PolynomialControlViewModel`: Manages the state of the `PolynomialControl` user control, including adding, removing, and evaluating polynomial terms.
   - `FloatingPointInputBehaviour`: Restricts `TextBox` input to valid floating-point numbers.
   - `ValidationBehaviour`: Provides an attached property to apply validation rules to a `TextBox`.
+- **Issues**:
+  - I don't have enough knowledge of MVVM and databinding best practices to implement this correctly.
 
-### 5. EulersIdentity.WPF.Test
+### EulersIdentity.WPF.Test (not currently being progressed)
 - **Purpose**: Contains unit tests for the WPF application.
 - **Testing Frameworks**: XUnit for testing and FluentAssertions for assertions.
 - **Key Test Classes**:
   - `MainViewModelTest`: Tests the `MainViewModel` class.
   - `PolynomialTermControlTest`: Tests the `PolynomialTermControl` user control.
   - `PolynomialContainerViewModelTest`: Tests the `PolynomialContainerViewModel` class, including its `EvaluateCommand` and property updates.
-  - `PolynomialControlViewModelTest`: Tests the `PolynomialControlViewModel` class, including its `ToPolynomial` and `CanRemoveTerm` methods.
+  - `PolynomialControlViewModelTest`: Tests the `PolynomialControlViewModel` class, including its `ToPolynomial`, `AddTermCommand`, and `CanRemoveTerm` methods.
   - `FloatingPointInputBehaviourTest`: Tests the `FloatingPointInputBehaviour` class.
   - `ValidationBehaviourTest`: Tests the `ValidationBehaviour` class.
 
-### 6. EulersIdentity.WPF.UI.Test
+### EulersIdentity.WPF.UI.Test (not currently being progressed)
 - **Purpose**: Contains UI tests for the WPF application.
 - **Testing Frameworks**: LightBDD for behaviour-driven development and FluentAssertions for assertions.
 - **Key Test Classes**:
   - `MainWindowTest`: Tests the `MainWindow` class.
   - `PolynomialTermTabTest`: Tests the `PolynomialTerm` tab functionality, including updates to `PolynomialTermAndResultTextBlock` when the user edits the coefficient, exponent, or value of `x`.
+- **Issues**:
+  - Tests occasionally throw a COMException `Error HRESULT E_FAIL has been returned from a call to a COM component`. Cause not yet known.
 
 ## Current State
 - **Code Quality**: The solution adheres to Microsoft's C# coding conventions and includes XML documentation for all publicly visible entities.
@@ -71,14 +75,13 @@ Euler's Identity is a mathematical expression that combines several fundamental 
   - Debug messages are logged in the `MainViewModel` and displayed in the `MainWindow` when enabled.
   - Debugging can be toggled on or off using the `DebugEnabled` property.
 - **Bugs**:
+  - The "Add Term" button in the `PolynomialControl` user control is disabled due to the `CanAddTerm` method not being invoked. This issue is under investigation.
   - There is an outstanding bug in the `PolynomialTermControl` where the `XValueTextBox` control is not correctly validating or displaying user input, causing related UI tests to fail.
 
 ## Recent Updates
-- Added unit tests for `PolynomialContainerViewModel` to cover its constructor, `EvaluateCommand`, and property updates.
-- Added unit tests for `PolynomialControlViewModel` to cover `ToPolynomial` and `CanRemoveTerm` methods.
-- Added unit tests for `PolynomialTermViewModel` to fully cover the `ToPolynomialTerm` method.
-- Added unit tests for the `Polynomial` constructor to ensure proper initialization of terms.
-- Added a unit test class for `PolynomialContainer` to verify its initialization.
+- Added dynamic raising of `CanExecuteChanged` for `AddTermCommand` and `EvaluateCommand` in `PolynomialControlViewModel` when the `Terms` collection changes.
+- Verified the `RelayCommand` implementation for correctness.
+- Added unit tests for `PolynomialControlViewModel` to cover `AddTermCommand` and `CanAddTerm` logic.
 - Enhanced `PolynomialTermAndResult` to handle edge cases, such as negative `x` values with non-integer exponents, returning `NaN` as expected.
 
 ## Future Work
@@ -88,6 +91,7 @@ Euler's Identity is a mathematical expression that combines several fundamental 
 - Improve performance for large polynomials.
 - Implement additional features in the `Polynomial` and `Equation` tabs.
 - Fix the `XValueTextBox` validation and display issue in the `PolynomialTermControl`.
+- Resolve the issue with the "Add Term" button in the `PolynomialControl` user control.
 
 ## Licensing
 This solution is released under the MIT license. See `LICENSE.txt` in the repository root for details.
