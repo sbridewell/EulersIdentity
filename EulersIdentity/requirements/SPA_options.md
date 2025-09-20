@@ -90,24 +90,22 @@ To integrate a React-based UI into your existing solution, follow these steps:
 3. Search for **React and ASP.NET Core** in the project templates.
 4. Choose the **React and ASP.NET Core (JavaScript)** option for a JavaScript-based React client.
 5. Configure the project:
-   - Enter a name for the project (e.g., `EulersIdentity.UI`).
+   - Enter a name for the project (e.g., `EulersIdentity.Web`).
    - Choose the location where the project will be created.
    - Ensure the project is added to the existing solution by selecting the appropriate checkbox.
 6. Click **Create** to generate the project.
 
 ### Potential Issues:
 - **Template Availability**: The "React and ASP.NET Core" template may not be installed by default in Visual Studio. You might need to install the required workloads (e.g., "ASP.NET and web development") or update Visual Studio.
-- **Development Server Proxy**: The `spa.UseReactDevelopmentServer(npmScript: "start")` command relies on the React development server. If Node.js or npm is not installed, or if there are issues with the `npm start` script, the development server won't run.
 
 ### Recommendations:
 - Ensure the required workloads are installed in Visual Studio.
 - Verify that Node.js and npm are installed and up-to-date.
-- Test the `npm start` script independently to ensure it works before integrating it with the ASP.NET Core backend.
 
 ## 2. Project Structure and Configuration
 1. The template will create a combined project containing:
-   - An ASP.NET Core backend configured to serve the React client.
-   - A `ClientApp` folder containing the React application.
+   - An ASP.NET Core backend configured to serve the React client. This is in the `EulersIdentity.Web.Server` folder of the `EulersIdentity.Web` folder.
+   - A `eulersidentity.web.client` folder containing the React application. This is a subfolder of the `EulersIdentity.Web` folder.
 2. Open the `Startup.cs` or `Program.cs` file to verify the SPA configuration:
    ```csharp
    app.UseSpa(spa =>
@@ -121,6 +119,11 @@ To integrate a React-based UI into your existing solution, follow these steps:
    });
    ```
 3. Ensure the `ClientApp` folder is included in the project and contains the React app files.
+4. Navigate to the `ClientApp` folder in the terminal and run:
+   ```
+   npm install
+   ```
+   This will install the required dependencies for the React application.
 
 ### Potential Issues:
 - **SPA Middleware Configuration**: The `UseSpa` middleware assumes the `ClientApp` folder is correctly set up. If the folder is missing or misconfigured, the application won't serve the React app.
@@ -133,7 +136,21 @@ To integrate a React-based UI into your existing solution, follow these steps:
   "build:prod": "npm run build"
   ```
 
-## 3. Set Up Jest for Unit Testing
+## 3. Start the Development Server
+1. Navigate to the `ClientApp` folder in the terminal.
+2. Run the following command to start the React development server:
+   ```
+   npm start
+   ```
+3. Access the application at `https://localhost:<backend-port>`.
+
+### Potential Issues:
+- **Development Server Proxy**: The `spa.UseReactDevelopmentServer(npmScript: "start")` command relies on the React development server. If Node.js or npm is not installed, or if there are issues with the `npm start` script, the development server won't run.
+
+### Recommendations:
+- Test the `npm start` script independently to ensure it works before integrating it with the ASP.NET Core backend.
+
+## 4. Set Up Jest for Unit Testing
 1. Navigate to the `ClientApp` folder in the terminal.
 2. Install Jest and related dependencies:
    ```
@@ -170,7 +187,7 @@ To integrate a React-based UI into your existing solution, follow these steps:
   collectCoverageFrom: ["src/**/*.{js,jsx}"],
   ```
 
-## 4. Set Up ESLint for Code Quality
+## 5. Set Up ESLint for Code Quality
 1. Navigate to the `ClientApp` folder in the terminal.
 2. Install ESLint and relevant plugins:
    ```
@@ -224,7 +241,7 @@ To integrate a React-based UI into your existing solution, follow these steps:
 ### Recommendations:
 - Test the ESLint configuration with a sample file to ensure it works as expected.
 
-## 5. Install and Configure Babel to Transpile to ES6
+## 6. Install and Configure Babel to Transpile to ES6
 1. Navigate to the `ClientApp` folder in the terminal.
 2. Install Babel and the necessary presets:
    ```
@@ -260,7 +277,7 @@ To integrate a React-based UI into your existing solution, follow these steps:
 ### Recommendations:
 - Test the Babel build process to ensure all features are correctly transpiled.
 
-## 6. Build and Run the Solution
+## 7. Build and Run the Solution
 1. Start the ASP.NET Core backend:
    ```
    dotnet run
