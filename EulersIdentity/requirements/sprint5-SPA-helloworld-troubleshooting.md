@@ -55,6 +55,12 @@ Add a subsection to this section for each step in the investigation. In each sub
 - **Outcome:** Vite is running and accessible, but SpaProxy still fails.
 - **Learned:** SpaProxy's readiness detection is not solely based on HTTP response; it also parses process output.
 
+### 2025-09-28
+- **Action taken:** Started the Vite client manually and the ASP.NET Core server. Browsed to `http://localhost:52943/`.
+- **Reason:** To test proxying requests from the server to the client using `spa.UseProxyToSpaDevelopmentServer("http://localhost:52943")`.
+- **Outcome:** The server output window displayed hundreds of `Request: GET /weatherforecast` messages, followed by repeated `Response500` errors. The error log shows `System.Net.Http.HttpRequestException: Failed to proxy the request to http://localhost:52943/weatherforecast, because the request to the proxy target failed. No connection could be made because the target machine actively refused it. (localhost:52943)`.
+- **Learned:** The ASP.NET Core server is attempting to proxy API requests (e.g., `/weatherforecast`) to the Vite dev server, but the Vite dev server does not handle these API routes, resulting in connection failures and repeated 500 errors.
+
 ## Current state
 
 <!--
@@ -70,7 +76,7 @@ After each step, update this section with
   - Manual requests to both ports succeed.
 
 - **What is not working:**
-  - SpaProxy middleware fails to launch and detect readiness of the Vite dev server when started via `launch-dev.cmd`.
+  - SpaProxy middleware proxies API requests (such as `/weatherforecast`) to the Vite dev server, which does not handle them, causing repeated 500 errors.
   - Integration between server and client via SpaProxy is not functioning as expected.
 
 ## Next steps / hypotheses
@@ -81,14 +87,16 @@ After each step, update this section with
 - Open questions or uncertainties
 -->
 
-- Try starting the Vite dev server manually and use `spa.UseProxyToSpaDevelopmentServer("http://localhost:52943")` in `Program.cs` to proxy requests during development.
-- Investigate if Vite can be configured to output a readiness string SpaProxy expects (e.g., "Compiled successfully").
-- Review SpaProxy and Vite documentation for compatibility notes or recommended integration patterns.
-- Consider using a different proxy approach if SpaProxy is not compatible with Vite out-of-the-box.
+- Update the server routing so that API requests (e.g., `/weatherforecast`) are handled by ASP.NET Core controllers, not proxied to the Vite dev server. Only non-API (SPA) routes should be proxied.
+- Confirm that the Vite dev server is running and accessible at `http://localhost:52943/` for front-end assets.
+- Review the order of middleware in `Program.cs` to ensure `app.MapControllers()` is registered before `app.UseSpa()`.
+- Test accessing the SPA route (e.g., `/`) to confirm that front-end requests are correctly proxied, while API requests are handled by the server.
+- Investigate if any configuration in Vite or ASP.NET Core is causing all requests to be proxied, rather than only SPA routes.
 
 **Open questions:**
-- Is there a way to configure SpaProxy to recognize Vite's output as a readiness signal?
-- Are there community solutions or middleware for integrating ASP.NET Core with Vite?
+- Is the middleware order in `Program.cs` correct for separating API and SPA routes?
+- Does Vite need any configuration to support proxying only front-end requests?
+- Are there recommended patterns for distinguishing API and SPA routes in ASP.NET Core with Vite?
 
 ## References
 

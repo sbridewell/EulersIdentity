@@ -53,7 +53,8 @@ namespace EulersIdentity.Web.Server
                 if (app.Environment.IsDevelopment())
                 {
                     //spa.UseReactDevelopmentServer("http://localhost:52943");
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    //spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:52943");
                 }
             });
 
