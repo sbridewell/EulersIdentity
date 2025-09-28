@@ -106,11 +106,15 @@ To integrate a React-based UI into your existing solution, follow these steps:
 1. The template will create a combined project containing:
    - An ASP.NET Core backend configured to serve the React client. This is in the `EulersIdentity.Web.Server` folder of the `EulersIdentity.Web` folder.
    - A `eulersidentity.web.client` folder containing the React application. This is a subfolder of the `EulersIdentity.Web` folder.
-2. Open the `Startup.cs` or `Program.cs` file to verify the SPA configuration:
+2. Add the package `Microsoft.AspNetCore.SpaServices.Extensions` to the ASP.NET Core project if it's not already included. If using .net 8 then use version 8.0.20 of this package.
+3. Open the `Startup.cs` or `Program.cs` file to verify the SPA configuration. This call must be after `app.UseStaticFiles` but before `app.MapFallbackToFile`:
+    ```csharp
+    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+    ```
    ```csharp
    app.UseSpa(spa =>
    {
-       spa.Options.SourcePath = "ClientApp";
+       spa.Options.SourcePath = "eulersidentity.web.client";
 
        if (env.IsDevelopment())
        {
@@ -118,23 +122,22 @@ To integrate a React-based UI into your existing solution, follow these steps:
        }
    });
    ```
-3. Ensure the `eulersidentity.web.client` folder is included in the project and contains the React app files.
-4. Navigate to the `eulersidentity.web.client` folder in the terminal and run:
+4. Ensure the `eulersidentity.web.client` folder is included in the project and contains the React app files.
+5. Navigate to the `eulersidentity.web.client` folder in the terminal and run:
    ```
    npm install
    ```
    This will install the required dependencies for the React application.
+6. Add scripts to `package.json` for starting the development server and for building a production version of the client:
+  ```json
+  "build:prod": "npm run build",
+  "start": "npm run dev"
+  ```
+7. If the EulersIdentity.Web.Server folder doesn't already contain a wwwroot folder, create it
 
 ### Potential Issues:
 - **SPA Middleware Configuration**: The `UseSpa` middleware assumes the `eulersidentity.web.client` folder is correctly set up. If the folder is missing or misconfigured, the application won't serve the React app.
 - **Production Build**: The instructions don't specify how to handle production builds of the React app. Without a proper build process, the app may not work as expected in production.
-
-### Recommendations:
-- Test the integration between the React app and ASP.NET Core backend in both development and production environments.
-- Add a production build step to the `package.json` file:
-  ```json
-  "build:prod": "npm run build"
-  ```
 
 ## 3. Start the Development Server
 1. Navigate to the `eulersidentity.web.client` folder in the terminal.
@@ -142,7 +145,7 @@ To integrate a React-based UI into your existing solution, follow these steps:
    ```
    npm start
    ```
-3. Access the application at `https://localhost:<backend-port>`.
+3. Access the application at `https://localhost:<backend-port>`. This will result in a warning in the browser because the React development server uses a self-signed certificate. In this case it's safe to proceed.
 
 ### Potential Issues:
 - **Development Server Proxy**: The `spa.UseReactDevelopmentServer(npmScript: "start")` command relies on the React development server. If Node.js or npm is not installed, or if there are issues with the `npm start` script, the development server won't run.
@@ -154,21 +157,26 @@ To integrate a React-based UI into your existing solution, follow these steps:
 1. Navigate to the `eulersidentity.web.client` folder in the terminal.
 2. Install Jest and related dependencies:
    ```
-   npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+   npm install --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom identity-obj-proxy
    ```
-3. Update the `scripts` section in `ClientApp/package.json` to include:
+3. Update the `scripts` section in `eulersidentity.web.client/package.json` to include:
    ```json
-   "test": "react-scripts test"
+   "test": "jest"
    ```
-4. Create a `jest.config.js` file in the `ClientApp` directory:
+4. Create a `jest.config.js` file in the `eulersidentity.web.client` directory. Note that `<rootDir>` is intended as a literal string, Jest will resolve this to the root directory of the React client:
    ```javascript
    module.exports = {
-     testEnvironment: 'jsdom',
-     setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
-     moduleNameMapper: {
-       '\\.(css|scss)$': 'identity-obj-proxy',
-     },
+      testEnvironment: 'jsdom',
+      setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+      moduleNameMapper: {
+        '\\.(css|scss)$': 'identity-obj-proxy',
+      },
+      transform: {
+        '^.+\\.[jt]sx?$': 'babel-jest',
+      },
    };
+   collectCoverage: true,
+   collectCoverageFrom: ["src/**/*.{js,jsx}"],
    ```
 5. Add a `src/setupTests.js` file to configure Jest:
    ```javascript
@@ -179,21 +187,13 @@ To integrate a React-based UI into your existing solution, follow these steps:
 - **Jest Configuration**: Jest may require additional configuration for React projects.
 - **Test Coverage**: If you don't configure Jest to include all files, some files may be excluded from test coverage reports.
 
-### Recommendations:
-- Test the Jest setup with a simple test case to ensure it works as expected.
-- Add a `collectCoverage` field in the Jest configuration to enforce test coverage:
-  ```javascript
-  collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.{js,jsx}"],
-  ```
-
 ## 5. Set Up ESLint for Code Quality
 1. Navigate to the `eulersidentity.web.client` folder in the terminal.
 2. Install ESLint and relevant plugins:
    ```
    npm install --save-dev eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-plugin-import
    ```
-3. Create an `.eslintrc.json` file in the `ClientApp` directory:
+3. Create an `.eslintrc.json` file in the `eulersidentity.web.client` directory:
    ```json
    {
      "env": {
@@ -232,20 +232,20 @@ To integrate a React-based UI into your existing solution, follow these steps:
    ```
 4. Add a linting script to `eulersidentity.web.client/package.json`:
    ```json
-   "lint": "eslint 'src/**/*.{js,jsx}'"
+   "lint": "eslint \"src/**/*.{js,jsx}\""
    ```
 
 ### Potential Issues:
 - **Plugin Compatibility**: Some ESLint plugins may require additional configuration or dependencies.
 
 ### Recommendations:
-- Test the ESLint configuration with a sample file to ensure it works as expected.
+- Test the ESLint configuration with a sample file to ensure it works as expected. A simple way to do this is to add a line to one of the .js files which declares an unused variable, e.g. `var foo = 'foo';` and then run `npm run lint` to see if it is reported.
 
 ## 6. Install and Configure Babel to Transpile to ES6
 1. Navigate to the `eulersidentity.web.client` folder in the terminal.
 2. Install Babel and the necessary presets:
    ```
-   npm install --save-dev @babel/core @babel/cli @babel/preset-env
+   npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-react babel-jest
    ```
 3. Create a `.babelrc` file in the `eulersidentity.web.client` directory:
    ```json
@@ -259,6 +259,7 @@ To integrate a React-based UI into your existing solution, follow these steps:
            }
          }
        ]
+       "@babel/preset-react"
      ]
    }
    ```
@@ -276,12 +277,20 @@ To integrate a React-based UI into your existing solution, follow these steps:
 
 ### Recommendations:
 - Test the Babel build process to ensure all features are correctly transpiled.
+- Test the Jest setup with a simple test case to ensure it works as expected.
 
-## 7. Build and Run the Solution
+## 7. Add references to React
+Ensure React is imported into any .jsx files and unit test files that use React components:
+```javascript
+import React from 'react';
+```
+
+## 8. Build and Run the Solution
 1. Start the ASP.NET Core backend:
-   ```
+   ```sh
    dotnet run
    ```
+   This will start the backend server. Ensure it is running before proceeding to test the integration.
 2. Start the React development server:
    ```
    npm start
@@ -289,3 +298,6 @@ To integrate a React-based UI into your existing solution, follow these steps:
 3. Access the application at `https://localhost:<backend-port>`.
 
 By following these steps, you will have a React-based UI integrated with your ASP.NET Core backend, configured to target ES6 and transpile newer features using Babel.
+
+### Recommendations:
+- Test the integration between the React app and ASP.NET Core backend in both development and production environments.

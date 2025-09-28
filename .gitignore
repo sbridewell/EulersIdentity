@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /EulersIdentity.Test/TestResults/
 /EulersIdentity.WPF.Test/CodeCoverage/
 /EulersIdentity.WPF.Test/TestResults/
+/EulersIdentity.Web/eulersidentity.web.client/coverage/
