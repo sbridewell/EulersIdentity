@@ -73,6 +73,12 @@ Add a subsection to this section for each step in the investigation. In each sub
 - **Outcome:** The browser console shows a GET request to `http://localhost:52943/api/weatherforecast` with a 200 OK response, but the response body is empty. This causes a deserialization error in the client.
 - **Learned:** The API endpoint is being reached and responds successfully, but no data is returned in the response body.
 
+### 2025-09-28
+- **Action taken:** Added a minimal `TestController` with `[ApiController]` and `[Route("api/[controller]")]` to verify API routing. Browsed to `http://localhost:5098/api/test`.
+- **Reason:** To rule out issues with the `WeatherForecastController` and confirm whether any API controller is reachable.
+- **Outcome:** Browsing to both `http://localhost:5098/api/test` and `http://localhost:5098/api/weatherforecast` returns the SPA UI (HTML), not the expected API response. Similarly, browsing to `http://localhost:5098/swagger` also returns the SPA UI.
+- **Learned:** API controllers are not being discovered or routed correctly. All requests, including those to API endpoints and Swagger, are being handled by the SPA fallback.
+
 ## Current state
 
 <!--
@@ -84,11 +90,10 @@ After each step, update this section with
 - **What is working:**
   - Server and client projects build and run independently.
   - Vite dev server starts and serves the client app on port 52943.
-  - API requests to `/api/weatherforecast` return 200 OK.
 
 - **What is not working:**
-  - The `/api/weatherforecast` endpoint returns an empty response body, causing a deserialization error in the client.
-  - The client cannot display weather forecast data.
+  - All API endpoints (`/api/test`, `/api/weatherforecast`) and Swagger (`/swagger`) return the SPA UI instead of the expected API or documentation response.
+  - API controllers are not being discovered or routed correctly.
 
 ## Next steps / hypotheses
 
@@ -102,11 +107,16 @@ After each step, update this section with
 - Test the `/api/weatherforecast` endpoint directly (e.g., using a browser or Postman) to inspect the raw response.
 - Check for issues with model binding, serialization, or controller logic that could result in an empty response.
 - Review server logs for any warnings or errors during API request handling.
+- Double-check the order of middleware in `Program.cs` to ensure `app.MapControllers()` is registered before `app.UseSpa()` and `app.MapFallbackToFile("/index.html")`.
+- Confirm that the server project is being run (not the client) and is listening on port 5098.
+- Temporarily comment out or remove the `app.UseSpa()` and `app.MapFallbackToFile("/index.html")` lines in `Program.cs` to see if API endpoints and Swagger become accessible.
+- Check for any global route constraints, custom middleware, or configuration in `Program.cs` that could be affecting routing.
+- Review the output of `dotnet build` for any warnings or errors related to controller discovery or routing.
+- If the issue persists, create a minimal new ASP.NET Core Web API project and compare its `Program.cs` and configuration to identify any differences.
 
 **Open questions:**
-- Is the `WeatherForecastController.Get()` method returning a non-empty collection?
-- Is the `WeatherForecast` model correctly defined and serializable?
-- Are there any middleware or configuration settings affecting response serialization?
+- Is there any custom middleware or configuration that could be intercepting all requests before they reach the controllers?
+- Is the correct server project being run, and is it building and launching as expected?
 
 ## References
 
@@ -125,6 +135,7 @@ Update this section with
 - `launchSettings.json`
 - `Program.cs`
 - `WeatherForecastController.cs`
+- `TestController.cs`
 - `WeatherForecast.cs`
 - `launch-dev.cmd`
 - `spa.proxy.json`
