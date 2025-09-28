@@ -61,6 +61,18 @@ Add a subsection to this section for each step in the investigation. In each sub
 - **Outcome:** The server output window displayed hundreds of `Request: GET /weatherforecast` messages, followed by repeated `Response500` errors. The error log shows `System.Net.Http.HttpRequestException: Failed to proxy the request to http://localhost:52943/weatherforecast, because the request to the proxy target failed. No connection could be made because the target machine actively refused it. (localhost:52943)`.
 - **Learned:** The ASP.NET Core server is attempting to proxy API requests (e.g., `/weatherforecast`) to the Vite dev server, but the Vite dev server does not handle these API routes, resulting in connection failures and repeated 500 errors.
 
+### 2025-09-28
+- **Action taken:** Updated routing in `Program.cs` to map API controllers before SPA middleware, as suggested.
+- **Reason:** To ensure only SPA routes are proxied to the Vite dev server, and API routes are handled by ASP.NET Core.
+- **Outcome:** The server output window still displays hundreds of `Request: GET /weatherforecast` messages followed by hundreds of `Response: 500` messages. No error message is shown between them.
+- **Learned:** Mapping controllers before SPA middleware does not resolve the issue. API requests to `/weatherforecast` are still not being handled correctly, possibly due to route configuration.
+
+### 2025-09-28
+- **Action taken:** Updated client code to request data from `/api/weatherforecast`. Observed network activity in the browser.
+- **Reason:** To verify that API requests are routed correctly and handled by ASP.NET Core.
+- **Outcome:** The browser console shows a GET request to `http://localhost:52943/api/weatherforecast` with a 200 OK response, but the response body is empty. This causes a deserialization error in the client.
+- **Learned:** The API endpoint is being reached and responds successfully, but no data is returned in the response body.
+
 ## Current state
 
 <!--
@@ -72,12 +84,11 @@ After each step, update this section with
 - **What is working:**
   - Server and client projects build and run independently.
   - Vite dev server starts and serves the client app on port 52943.
-  - Server app starts and serves Swagger UI on port 5098.
-  - Manual requests to both ports succeed.
+  - API requests to `/api/weatherforecast` return 200 OK.
 
 - **What is not working:**
-  - SpaProxy middleware proxies API requests (such as `/weatherforecast`) to the Vite dev server, which does not handle them, causing repeated 500 errors.
-  - Integration between server and client via SpaProxy is not functioning as expected.
+  - The `/api/weatherforecast` endpoint returns an empty response body, causing a deserialization error in the client.
+  - The client cannot display weather forecast data.
 
 ## Next steps / hypotheses
 
@@ -87,16 +98,15 @@ After each step, update this section with
 - Open questions or uncertainties
 -->
 
-- Update the server routing so that API requests (e.g., `/weatherforecast`) are handled by ASP.NET Core controllers, not proxied to the Vite dev server. Only non-API (SPA) routes should be proxied.
-- Confirm that the Vite dev server is running and accessible at `http://localhost:52943/` for front-end assets.
-- Review the order of middleware in `Program.cs` to ensure `app.MapControllers()` is registered before `app.UseSpa()`.
-- Test accessing the SPA route (e.g., `/`) to confirm that front-end requests are correctly proxied, while API requests are handled by the server.
-- Investigate if any configuration in Vite or ASP.NET Core is causing all requests to be proxied, rather than only SPA routes.
+- Investigate the implementation of the `WeatherForecastController` and the `WeatherForecast` model to ensure the API returns data as expected.
+- Test the `/api/weatherforecast` endpoint directly (e.g., using a browser or Postman) to inspect the raw response.
+- Check for issues with model binding, serialization, or controller logic that could result in an empty response.
+- Review server logs for any warnings or errors during API request handling.
 
 **Open questions:**
-- Is the middleware order in `Program.cs` correct for separating API and SPA routes?
-- Does Vite need any configuration to support proxying only front-end requests?
-- Are there recommended patterns for distinguishing API and SPA routes in ASP.NET Core with Vite?
+- Is the `WeatherForecastController.Get()` method returning a non-empty collection?
+- Is the `WeatherForecast` model correctly defined and serializable?
+- Are there any middleware or configuration settings affecting response serialization?
 
 ## References
 
@@ -109,8 +119,12 @@ Update this section with
 - [SpaProxy source code](https://github.com/dotnet/aspnetcore/tree/main/src/Middleware/Spa/SpaProxy)
 - [Vite documentation](https://vitejs.dev/guide/)
 - [ASP.NET Core SPA documentation](https://learn.microsoft.com/en-us/aspnet/core/spa/?view=aspnetcore-8.0)
+- [ASP.NET Core Routing](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0)
+- [ASP.NET Core Model Binding and Serialization](https://learn.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-8.0)
 - `EulersIdentity.Web.Server.csproj`
 - `launchSettings.json`
 - `Program.cs`
+- `WeatherForecastController.cs`
+- `WeatherForecast.cs`
 - `launch-dev.cmd`
 - `spa.proxy.json`

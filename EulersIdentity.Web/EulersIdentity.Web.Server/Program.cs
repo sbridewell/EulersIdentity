@@ -43,17 +43,15 @@ namespace EulersIdentity.Web.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            // app.UseSpa must come after app.UseStaticFiles but before any call to app.MapFallbackToFile
+            // Map API controllers first
+            app.MapControllers();
+
+            // Only proxy non-API routes to the SPA dev server
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=2099682
-                //spa.Options.SourcePath = "eulersidentity.web.client";
                 spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "eulersidentity.web.client");
                 if (app.Environment.IsDevelopment())
                 {
-                    //spa.UseReactDevelopmentServer("http://localhost:52943");
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:52943");
                 }
             });
@@ -67,11 +65,10 @@ namespace EulersIdentity.Web.Server
 
             app.UseAuthorization();
 
-            app.MapControllers();
-
+            // Fallback for SPA routes (after API and static files)
             app.MapFallbackToFile("/index.html");
-            Console.WriteLine($"Current PATH: {Environment.GetEnvironmentVariable("PATH")}");
 
+            Console.WriteLine($"Current PATH: {Environment.GetEnvironmentVariable("PATH")}");
             app.Run();
         }
     }
