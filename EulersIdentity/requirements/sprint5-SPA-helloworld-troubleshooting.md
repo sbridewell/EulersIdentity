@@ -79,44 +79,59 @@ Add a subsection to this section for each step in the investigation. In each sub
 - **Outcome:** Browsing to both `http://localhost:5098/api/test` and `http://localhost:5098/api/weatherforecast` returns the SPA UI (HTML), not the expected API response. Similarly, browsing to `http://localhost:5098/swagger` also returns the SPA UI.
 - **Learned:** API controllers are not being discovered or routed correctly. All requests, including those to API endpoints and Swagger, are being handled by the SPA fallback.
 
-## Current state
+### 2025-10-05
+- **Action taken:** Commented out the calls to `app.UseSpa` and `app.MapFallbackToFile` in `Program.cs`.
+- **Reason:** To determine if SPA middleware or fallback routing was intercepting API and Swagger requests.
+- **Outcome:** With these lines commented out, `http://localhost:5098/swagger/index.html` correctly displays the Swagger UI, and `http://localhost:5098/api/test` returns "Hello from API" as expected.
+- **Learned:** The SPA middleware and fallback routing were intercepting all requests, including those intended for API controllers and Swagger, causing them to return the SPA UI instead of the expected API responses.
 
-<!--
-After each step, update this section with
-- What is working
-- What is not working
--->
+### 2025-10-05
+- **Action taken:** Updated fallback routing to exclude `/api` and `/swagger` paths from SPA proxying, as suggested.
+- **Reason:** To ensure only true SPA routes are proxied to the Vite dev server, while API and Swagger routes are handled by ASP.NET Core.
+- **Outcome:** Browsing to `http://localhost:5098/swagger` now displays a runtime error:  
+  `SocketException: No connection could be made because the target machine actively refused it.`  
+  `HttpRequestException: Failed to proxy the request to http://localhost:52943/swagger, because the request to the proxy target failed.`
+- **Learned:** The fallback routing is still proxying `/swagger` requests to the Vite dev server, which does not serve Swagger, resulting in a connection error.
 
-- **What is working:**
-  - Server and client projects build and run independently.
-  - Vite dev server starts and serves the client app on port 52943.
+### 2025-10-05
+- **Action taken:** Updated the fallback routing in `Program.cs` to further exclude `/api`, `/swagger`, `/swagger-ui`, `/v3`, and `/favicon.ico` from SPA proxying.
+- **Reason:** To prevent SPA middleware from intercepting requests to API and Swagger endpoints.
+- **Outcome:** Despite these changes, browsing to `http://localhost:5098/swagger` still results in a runtime error:  
+  `SocketException: No connection could be made because the target machine actively refused it.`  
+  `HttpRequestException: Failed to proxy the request to http://localhost:52943/swagger, because the request to the proxy target failed.`
+- **Learned:** The fallback routing is still incorrectly proxying `/swagger` requests to the Vite dev server, which does not serve Swagger, resulting in a connection error. The exclusion logic in the predicate may not be functioning as intended.
 
-- **What is not working:**
-  - All API endpoints (`/api/test`, `/api/weatherforecast`) and Swagger (`/swagger`) return the SPA UI instead of the expected API or documentation response.
-  - API controllers are not being discovered or routed correctly.
+### 2025-10-05
+- **Action taken:** Browsed to `http://localhost:5098/` and observed the message: "Launching the SPA proxy... This page will automatically redirect to http://localhost:52943 when the SPA proxy is ready." Waited, but the page never redirected.
+- **Reason:** To verify that the SPA proxy and Vite dev server integration is working as expected.
+- **Outcome:** Browsing to `http://localhost:52943/` in Firefox displays the error: "Firefox can’t establish a connection to the server at localhost:52943." This suggests that the Vite dev server is not running or not accessible.
+- **Learned:** The SPA proxy is waiting for the Vite dev server to become available, but since the Vite server is not running, it cannot redirect or serve the SPA. The client-side application is unavailable.
 
-## Next steps / hypotheses
+### 2025-10-05
+- **Action taken:** Ran `npm run dev` in the `eulersidentity.web.client` directory. The client application started successfully. Debugged the `EulersIdentity.Web.Server.csproj` project in Visual Studio and browsed to `http://localhost:52943/`.
+- **Reason:** To verify that the Vite dev server and React client are running and accessible.
+- **Outcome:** The browser displays the default weather forecast UI with the message:  
+  "Loading... Please refresh once the ASP.NET backend has started. See https://aka.ms/jspsintegrationreact for more details."  
+  Refreshing the page does not change its content.
+- **Learned:** The React client is running, but it cannot fetch data from the ASP.NET backend. The loading message persists, indicating that the API call to `/api/weatherforecast` is not succeeding.
 
-<!--
-After each step, update this section with
-- A list of possible next actions, with their rationale
-- Open questions or uncertainties
--->
+### 2025-10-05
+- **Action taken:** Inspected the browser's developer tools while running the Vite dev server and browsing to `http://localhost:52943/`. Observed network requests to `http://localhost:52943/api/weatherforecast`.
+- **Reason:** To verify whether the React client is able to fetch data from the ASP.NET backend API.
+- **Outcome:** The request to `/api/weatherforecast` returns a `200 OK` status, but the response body is an HTML page (the Vite index.html), not the expected JSON data. The `Content-Type` is `text/html` instead of `application/json`.
+- **Learned:** The Vite dev server is handling `/api/weatherforecast` requests itself and serving the SPA HTML, rather than proxying them to the ASP.NET backend. This means the client cannot access backend API data when running on port 52943.
 
-- Investigate the implementation of the `WeatherForecastController` and the `WeatherForecast` model to ensure the API returns data as expected.
-- Test the `/api/weatherforecast` endpoint directly (e.g., using a browser or Postman) to inspect the raw response.
-- Check for issues with model binding, serialization, or controller logic that could result in an empty response.
-- Review server logs for any warnings or errors during API request handling.
-- Double-check the order of middleware in `Program.cs` to ensure `app.MapControllers()` is registered before `app.UseSpa()` and `app.MapFallbackToFile("/index.html")`.
-- Confirm that the server project is being run (not the client) and is listening on port 5098.
-- Temporarily comment out or remove the `app.UseSpa()` and `app.MapFallbackToFile("/index.html")` lines in `Program.cs` to see if API endpoints and Swagger become accessible.
-- Check for any global route constraints, custom middleware, or configuration in `Program.cs` that could be affecting routing.
-- Review the output of `dotnet build` for any warnings or errors related to controller discovery or routing.
-- If the issue persists, create a minimal new ASP.NET Core Web API project and compare its `Program.cs` and configuration to identify any differences.
+### 2025-10-05
+- **Action taken:** Updated `vite.config.js` to proxy all `/api` requests to the ASP.NET Core backend at `http://localhost:5098`.
+- **Reason:** The React client was unable to fetch data from the backend API because the Vite dev server was serving HTML for `/api/weatherforecast` instead of proxying the request.
+- **Outcome:** After updating the proxy configuration and restarting the Vite dev server, the React client successfully fetched data from the backend API. The weather forecast table populated as expected, and both the client and server applications now work as intended.
+- **Learned:** Correct proxy configuration in `vite.config.js` is essential for development scenarios where the client and server run on different ports. This enables seamless API communication and resolves issues where the client receives HTML instead of JSON.
 
-**Open questions:**
-- Is there any custom middleware or configuration that could be intercepting all requests before they reach the controllers?
-- Is the correct server project being run, and is it building and launching as expected?
+- Restarted the Vite dev server to apply the new proxy settings.
+- Confirmed that the React client could successfully fetch data from the backend API and display it in the UI.
+
+**Open questions:**  
+- None; the integration is now working as expected.
 
 ## References
 
@@ -126,16 +141,9 @@ Update this section with
 - Any relevant files or code or configuration snippets
 -->
 
-- [SpaProxy source code](https://github.com/dotnet/aspnetcore/tree/main/src/Middleware/Spa/SpaProxy)
-- [Vite documentation](https://vitejs.dev/guide/)
+- [Vite Proxy Configuration](https://vitejs.dev/config/server-options.html#server-proxy)
 - [ASP.NET Core SPA documentation](https://learn.microsoft.com/en-us/aspnet/core/spa/?view=aspnetcore-8.0)
-- [ASP.NET Core Routing](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/routing?view=aspnetcore-8.0)
-- [ASP.NET Core Model Binding and Serialization](https://learn.microsoft.com/en-us/aspnet/core/web-api/?view=aspnetcore-8.0)
+- `vite.config.js`
 - `EulersIdentity.Web.Server.csproj`
-- `launchSettings.json`
 - `Program.cs`
 - `WeatherForecastController.cs`
-- `TestController.cs`
-- `WeatherForecast.cs`
-- `launch-dev.cmd`
-- `spa.proxy.json`

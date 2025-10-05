@@ -47,14 +47,32 @@ namespace EulersIdentity.Web.Server
             app.MapControllers();
 
             // Only proxy non-API routes to the SPA dev server
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "eulersidentity.web.client");
-                if (app.Environment.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:52943");
-                }
-            });
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "eulersidentity.web.client");
+            //    if (app.Environment.IsDevelopment())
+            //    {
+            //        spa.UseProxyToSpaDevelopmentServer("http://localhost:52943");
+            //    }
+            //});
+
+            //// Custom fallback for SPA routes only
+            //app.MapWhen(
+            //    context =>
+            //        !context.Request.Path.StartsWithSegments("/api") &&
+            //        !context.Request.Path.StartsWithSegments("/swagger") &&
+            //        !context.Request.Path.StartsWithSegments("/favicon.ico") &&
+            //        !context.Request.Path.StartsWithSegments("/swagger-ui") &&
+            //        !context.Request.Path.StartsWithSegments("/v3"),
+            //    spaApp => spaApp.UseSpa(spa =>
+            //    {
+            //        spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "eulersidentity.web.client");
+            //        if (app.Environment.IsDevelopment())
+            //        {
+            //            spa.UseProxyToSpaDevelopmentServer("http://localhost:52943");
+            //        }
+            //    })
+            //);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
