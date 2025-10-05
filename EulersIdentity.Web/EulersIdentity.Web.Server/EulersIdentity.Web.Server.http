@@ -1,0 +1,6 @@
+@EulersIdentity.Web.Server_HostAddress = http://localhost:5098
+
+GET {{EulersIdentity.Web.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
